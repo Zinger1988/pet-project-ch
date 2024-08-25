@@ -4,8 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { RootState } from "./store/index";
 
 import AppLayout from "./layout/AppLayout";
-import NewPage from "../src/pages/NewPage/NewPage";
-import Header from "../src/pages/Header/Header";
+import { Search, Login, Profile, Home } from "../src/pages";
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
@@ -25,15 +24,16 @@ function App() {
   if (error) return <p>Error: {error}</p>;
   console.log(data, "data");
   return (
-    <div className="App">
+    <div className="App min-h-[100dvh] flex flex-col">
       {/* Define routes */}
-      <main>
-        <Routes>
-          <Route path="/" element={<AppLayout />}>
-            <Route element={<NewPage />} />
-          </Route>
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<Home />} />
+          <Route path="search" element={<Search />} />
+          <Route path="login" element={<Login />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

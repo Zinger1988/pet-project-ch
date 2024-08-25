@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
-import Header from "../pages/Header/Header";
+
+import { Header } from "../components";
 
 const AppLayout: React.FC = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className="flex-grow">
         <Outlet />
       </main>
     </>
