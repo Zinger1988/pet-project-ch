@@ -1,20 +1,20 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
 import { RootState } from "./store/index";
+
+import AppLayout from "./layout/AppLayout";
 import NewPage from "../src/pages/NewPage/NewPage";
 import Header from "../src/pages/Header/Header";
 
-import { Route, Routes } from "react-router-dom";
+import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   const data = useSelector((state: RootState) => state.yourStateSlice.data);
-  const loading = useSelector(
-    (state: RootState) => state.yourStateSlice.loading
-  );
+  const loading = useSelector((state: RootState) => state.yourStateSlice.loading);
   const error = useSelector((state: RootState) => state.yourStateSlice.error);
 
   useEffect(() => {
@@ -29,8 +29,9 @@ function App() {
       {/* Define routes */}
       <main>
         <Routes>
-          <Route path="/new" element={<NewPage />} />
-          <Route path="/" element={<Header />} />
+          <Route path="/" element={<AppLayout />}>
+            <Route element={<NewPage />} />
+          </Route>
         </Routes>
       </main>
     </div>

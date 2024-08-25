@@ -1,28 +1,35 @@
 import { Link } from "react-router-dom";
 
+import { Container } from "../../components";
+import { capitalizeFirstLetter } from "../../helpers/stringUtils";
+
 function Header() {
+  const menu = [
+    { label: "home", url: "/" },
+    { label: "search", url: "/search" },
+    { label: "login", url: "/login" },
+    { label: "user profile", url: "/profile" },
+  ];
+
   return (
-    <header className="shadow-md p-6 bg-lime-300">
-      
-      <div className="branding text-4xl font-extrabold text-center mb-6 text-indigo-500">
-        My App
-      </div>
+    <header className="py-6 border-b-[1px]">
+      <Container className="flex items-center justify-between gap-6">
+        <Link to="/">
+          <img src="/logo.svg" alt="talktube logo" className="w-36" />
+        </Link>
 
-      <div className="text-center text-lg font-light mb-4 text-gray-600">
-        Become better !!!
-      </div>
-
-      <nav>
-        <ul className="flex justify-center space-x-6">
-          <li className="transform hover:scale-110 transition duration-200">
-            <Link className="text-lg font-semibold text-green-500 hover:text-orange-500" to="/">Home</Link>
-          </li>
-          <li className="transform hover:scale-110 transition duration-200">
-            <Link className="text-lg font-semibold text-green-500 hover:text-orange-500" to="/new">Discover</Link>
-          </li>
-        </ul>
-      </nav>
-      
+        <nav>
+          <ul className="flex justify-center gap-12">
+            {menu.map((item) => (
+              <li key={item.label}>
+                <Link to={item.url} className="font-bold">
+                  {capitalizeFirstLetter(item.label)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </Container>
     </header>
   );
 }
