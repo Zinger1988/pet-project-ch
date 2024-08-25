@@ -26,7 +26,7 @@ function Header() {
     <header className="md:py-0 border-b-[1px] border-black">
       <Container className="flex items-center justify-between gap-6">
         <Link to="/">
-          <img src="/logo.svg" alt="talktube logo" className="w-28 md:w-32 lg:w-36" />
+          <img src="/logo.svg" alt="Talktube logo" className="w-28 md:w-32 lg:w-36" />
         </Link>
         <MenuBtn
           isActive={isMobileMenuOpen}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface MenuBtnProps {
   onClick?: () => void;
@@ -33,8 +33,8 @@ const MenuBtn: React.FC<MenuBtnProps> = ({
   return (
     <button
       className={`${btnStyles} ${className}`}
-      aria-label="Menu button"
       onClick={onClick}
+      aria-label={isActive ? "Close menu" : "Open menu"}
     >
       <span className={`${btnInnerStyles}`}></span>
     </button>

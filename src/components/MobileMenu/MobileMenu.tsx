@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../helpers/stringUtils";
 import { MenuItems } from "../../types/global";
+import { NavLink } from "react-router-dom";
 
 interface MobileMenuProps {
   className?: string;
@@ -10,20 +10,26 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ className = "", items, onClick }) => {
+  const navStyles = `fixed left-0 top-16 bottom-0 w-full bg-black transition-all duration-300 ${className}`;
+  const listStyles = "flex flex-col justify-center h-full gap-6";
+  const linkStyles =
+    "font-black text-2xl uppercase text-white transition-colors hover:text-yellow-400";
+
   return (
-    <nav
-      className={`fixed left-0 top-16 bottom-0 w-full bg-black transition-all duration-300 ${className}`}
-    >
-      <ul className="flex flex-col justify-center h-full gap-6 ">
+    <nav className={navStyles} aria-label="Main navigation">
+      <ul className={listStyles}>
         {items.map((item) => (
           <li key={item.label}>
-            <Link
+            <NavLink
               onClick={onClick}
               to={item.url}
-              className="font-black text-2xl uppercase text-white transition-colors hover:text-yellow-400"
+              className={({ isActive }) => {
+                const activeClass = isActive ? "text-yellow-400" : "";
+                return `${linkStyles} ${activeClass}`;
+              }}
             >
               {capitalizeFirstLetter(item.label)}
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>
