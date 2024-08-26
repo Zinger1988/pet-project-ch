@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { RootState } from "./store/index";
 
 import AppLayout from "./layout/AppLayout";
-import { Search, Login, Profile, Home } from "../src/pages";
+import { Search, Login, Profile, Home, About, Support, Contact, FAQ } from "../src/pages";
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
@@ -32,6 +32,10 @@ function App() {
           <Route path="search" element={<Search />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="about" element={<About />} />
+          <Route path="support" element={<Support />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="faq" element={<FAQ />} />
         </Route>
       </Routes>
     </div>

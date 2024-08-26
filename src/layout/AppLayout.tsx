@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import { Header } from "../components";
+import { Footer, Header } from "../components";
 
 const AppLayout: React.FC = () => {
   return (
@@ -9,6 +9,7 @@ const AppLayout: React.FC = () => {
       <main className="flex-grow">
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 };
