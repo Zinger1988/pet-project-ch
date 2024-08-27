@@ -7,4 +7,6 @@ export enum UserRole {
 export enum IconId {
   Call = "CALL",
   Message = "MESSAGE",
+  Twitter = "TWITTER",
+  Instagram = "INSTAGRAM",
 }
