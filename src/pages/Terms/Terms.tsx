@@ -18,7 +18,7 @@ const Terms = () => {
         </p>
         <p>
           We’re glad you’re here. These Terms of Service ("Terms") govern our relationship
-          with you as a user of Clubhouse’s products and services, including our iOS and
+          with you as a user of Talktube’s products and services, including our iOS and
           Android apps and our website (together, we refer to these as our "Products"). By
           using our Products, you agree to be bound by these Terms and acknowledge that
           you have read our <Link to="/policy">Privacy Policy</Link>. You also confirm
@@ -30,11 +30,11 @@ const Terms = () => {
         </p>
         <h2>
           <strong>
-            <strong>1. Using Clubhouse</strong>
+            <strong>1. Using Talktube</strong>
           </strong>
         </h2>
         <p>
-          Clubhouse is a social network based on voice. Our products include our iOS and
+          Talktube is a social network based on voice. Our products include our iOS and
           Android apps and our website (our "Products”).
         </p>
         <p>
@@ -45,14 +45,14 @@ const Terms = () => {
           to enjoy (or participate in) later.
         </p>
         <p>
-          You may use our Products only if you can form a binding contract with Clubhouse,
+          You may use our Products only if you can form a binding contract with Talktube,
           and only in compliance with these Terms and all applicable laws. You must be at
           least 13 years old to use our Products, or if the age of lawful consent under
           the laws of your country of residence is older than 13, you must be at least the
           age of lawful consent to use our Products.
         </p>
         <p>
-          <strong>Creating an account: </strong>If you open a Clubhouse account, you must
+          <strong>Creating an account: </strong>If you open a Talktube account, you must
           provide us with accurate and complete information to allow us to create, verify,
           and maintain your account.
         </p>
@@ -90,7 +90,7 @@ const Terms = () => {
           may communicate with you via text messages or other electronic means to your
           mobile device, provided that we obtain your consent where we are legally
           required to do so. In the event you change or deactivate your mobile telephone
-          number or email address, you agree to promptly update your Clubhouse account
+          number or email address, you agree to promptly update your Talktube account
           information to ensure that your messages are not sent to the wrong person. You
           can opt out of certain types of communications via your account settings.
         </p>
@@ -132,7 +132,7 @@ const Terms = () => {
           our Products or generate using the Products is referred to as “User Content.”
           User Content may include personal information you provide us (such as Account
           Information and Biographical Information) and personal information we get when
-          you use Clubhouse (such as Usage and Activity Information and Conversations), as
+          you use Talktube (such as Usage and Activity Information and Conversations), as
           described in our Privacy Policy. Our <Link to="/policy">Privacy Policy</Link>
           describes how we handle the information you provide to us when you use our
           Products.
@@ -150,7 +150,7 @@ const Terms = () => {
           meaning members must be invited or approved before they can join and interact in
           the House.  More details about each type of Conversation and other type of User
           Content you can create, the applicable privacy settings you can set for each
-          Conversation, and how to manage your content on Clubhouse can be found in our
+          Conversation, and how to manage your content on Talktube can be found in our
           <Link to="/policy">Privacy Policy</Link> and <a href="#">Knowledge Center</a>.
         </p>
         <h3>
@@ -159,7 +159,7 @@ const Terms = () => {
           </strong>
         </h3>
         <p>
-          Clubhouse is a place for people to talk, tell stories, develop ideas, deepen
+          Talktube is a place for people to talk, tell stories, develop ideas, deepen
           friendships, and meet interesting new people around the world. As part of this
           community, you must follow our <a href="#">Community Guidelines</a> when you use
           our Products. You are responsible for any activity that occurs in your account,
@@ -169,19 +169,19 @@ const Terms = () => {
           to your account, please advise us immediately.
         </p>
         <p>
-          You retain all ownership rights in the User Content you contribute to Clubhouse.
+          You retain all ownership rights in the User Content you contribute to Talktube.
           But you also give us legal permission to use that content, as explained in the
           next section.
         </p>
-        <h3>B. How Clubhouse and others can use your content</h3>
+        <h3>B. How Talktube and others can use your content</h3>
         <p>
-          When you share User Content on Clubhouse, you grant us a license to use that
+          When you share User Content on Talktube, you grant us a license to use that
           content. The license we are granted depends on the features you use, the type of
           User Content you share, and the settings and preferences you have selected.
         </p>
         <p>
           For all User Content you submit to our Products (including Public Content), you
-          grant Clubhouse and our affiliates a worldwide, royalty-free, sublicensable, and
+          grant Talktube and our affiliates a worldwide, royalty-free, sublicensable, and
           transferable license to host, store, cache, use, display, reproduce, modify,
           create derivative works, publicly perform, adapt, edit, publish, analyze,
           transmit, and distribute that content for the purpose of operating, developing,
@@ -190,32 +190,32 @@ const Terms = () => {
           to, and pass these rights along to, service providers with whom we have
           contractual relationships related to the provision of our Products, solely for
           the purpose of providing such Products. Nothing in these Terms restricts other
-          legal rights Clubhouse or its users may have to User Content, for example under
+          legal rights Talktube or its users may have to User Content, for example under
           other licenses, express or implied. We reserve the right to remove or modify
           User Content for any reason, including User Content that we believe violates
           these Terms, our <a href="#">Community Guidelines</a>, or other policies.
         </p>
         <p>
-          We call User Content that is made available to any user of Clubhouse (e.g.,
+          We call User Content that is made available to any user of Talktube (e.g.,
           within an open community, called an “Open House,” or on a public user profile)
-          or outside of Clubhouse “Public Content.” Among other things, this includes all
+          or outside of Talktube “Public Content.” Among other things, this includes all
           User Content displayed on public profile pages and Conversations that take place
           in “Open” Houses. Because Public Content is inherently public, you grant
-          Clubhouse, our affiliates, other users of the Products, and our business
-          partners an unrestricted, worldwide, royalty-free, irrevocable, and perpetual
-          right and license to create derivative works from, promote, exhibit, broadcast,
-          syndicate, reproduce, distribute, synchronize, overlay graphics and auditory
-          effects on, publicly perform, and publicly display all or any portion of your
-          Public Content in any form and in any and all media or distribution methods, now
-          known or later developed, including use of your name, likeness, and voice, for
-          commercial and non-commercial purposes.
+          Talktube, our affiliates, other users of the Products, and our business partners
+          an unrestricted, worldwide, royalty-free, irrevocable, and perpetual right and
+          license to create derivative works from, promote, exhibit, broadcast, syndicate,
+          reproduce, distribute, synchronize, overlay graphics and auditory effects on,
+          publicly perform, and publicly display all or any portion of your Public Content
+          in any form and in any and all media or distribution methods, now known or later
+          developed, including use of your name, likeness, and voice, for commercial and
+          non-commercial purposes.
         </p>
         <p>
-          You represent and warrant to us that the User Content you contribute to
-          Clubhouse is either not subject to copyright or any other proprietary rights or
-          that you have all necessary permissions, clearances, and authorizations to
-          contribute the User Content to Clubhouse and to grant us all of the rights that
-          you grant to us under these Terms.
+          You represent and warrant to us that the User Content you contribute to Talktube
+          is either not subject to copyright or any other proprietary rights or that you
+          have all necessary permissions, clearances, and authorizations to contribute the
+          User Content to Talktube and to grant us all of the rights that you grant to us
+          under these Terms.
         </p>
         <p>
           We have no obligation to edit or control User Content that is contributed to our
@@ -226,12 +226,12 @@ const Terms = () => {
         </p>
         <h3>
           <strong>
-            <strong>C. Recordings on Clubhouse</strong>
+            <strong>C. Recordings on Talktube</strong>
           </strong>
         </h3>
         <p>
           <strong>Trust and Safety.</strong> As explained in our
-          <Link to="/policy">Privacy Policy</Link>, Clubhouse records audio conversations
+          <Link to="/policy">Privacy Policy</Link>, Talktube records audio conversations
           in Live Rooms temporarily so we can investigate any complaints regarding
           violations of our Community Guidelines or our Terms of Service, or otherwise
           illegal or illicit activity. This is part of our commitment to you under these
@@ -245,7 +245,7 @@ const Terms = () => {
         </p>
         <p>
           By speaking in a Conversation, including Conversations within Houses, you
-          acknowledge that Clubhouse and its users may record your voice and other User
+          acknowledge that Talktube and its users may record your voice and other User
           Content, and are permitted to use the recording in any manner consistent with
           our <Link to="/policy">Privacy Policy</Link>.
         </p>
@@ -282,11 +282,11 @@ const Terms = () => {
           <strong>Replays. </strong>We record Conversations in Live Rooms and make them
           available to other users where the room creator instructs us to do so by
           enabling the “Replay” feature. When Replays are enabled, the recording will be
-          stored by Clubhouse and may be made available to other users on Clubhouse or
-          other people outside of Clubhouse. Replays are created and saved at the
-          direction of Live Room creators, and remain available unless the Live Room
-          creator instructs us to remove the Replay. If you don’t want to be recorded, you
-          can leave the Live Room at any time.
+          stored by Talktube and may be made available to other users on Talktube or other
+          people outside of Talktube. Replays are created and saved at the direction of
+          Live Room creators, and remain available unless the Live Room creator instructs
+          us to remove the Replay. If you don’t want to be recorded, you can leave the
+          Live Room at any time.
         </p>
         <p>
           <strong>Disabling optional recording features. </strong>Creators of a Live Room
@@ -317,7 +317,7 @@ const Terms = () => {
           </strong>
         </h2>
         <p>
-          Clubhouse respects the intellectual property rights of others and we expect our
+          Talktube respects the intellectual property rights of others and we expect our
           users to do the same. You may not use our Products in a way that violates or
           infringes someone else’s rights of publicity, privacy, copyright, trademark, or
           other intellectual property rights.
@@ -332,8 +332,8 @@ const Terms = () => {
           or terminate the accounts of people who repeatedly infringe or are repeatedly
           charged with infringing copyrights or other intellectual property rights. In
           keeping with the <a href="#">Digital Millennium Copyright Act</a>, we’ll respond
-          quickly to claims of copyright infringement on Clubhouse that are reported to
-          our designated copyright agent, identified below.
+          quickly to claims of copyright infringement on Talktube that are reported to our
+          designated copyright agent, identified below.
         </p>
         <h3>
           <strong>
@@ -380,14 +380,14 @@ const Terms = () => {
           example, by typing your full name).
         </p>
         <p>Send your completed DMCA notice to:</p>
-        <p>Alpha Exploration Co. dba Clubhouse</p>
+        <p>Alpha Exploration Co. dba Talktube</p>
         <p>548 Market Street PMB 72878</p>
         <p>San Francisco, CA 94104</p>
-        <p>Email Address: copyright (at) clubhouse.com</p>
+        <p>Email Address: copyright (at) Talktube.com</p>
         <p>Note:</p>
         <p>
           Make sure to put this email in the “To” field. Emails to the “CC” field may not
-          reach the appropriate Clubhouse member.
+          reach the appropriate Talktube member.
         </p>
         <p>
           This email address should only be used for copyright complaints. If you need to
@@ -398,7 +398,7 @@ const Terms = () => {
           When we get your DMCA notice, we’ll take whatever action we determine is
           appropriate, which may include removing the reported content from our Products.
           If we remove content in response to a DMCA notice, we may notify the person who
-          contributed it to Clubhouse so they have the opportunity to submit a
+          contributed it to Talktube so they have the opportunity to submit a
           counter-notice. We may also send a complete copy of the notice to others, as
           appropriate.
         </p>
@@ -421,10 +421,10 @@ const Terms = () => {
           violations of our terms.
         </p>
         <p>
-          We try hard to make sure Clubhouse is a safe place for all users, and we expect
+          We try hard to make sure Talktube is a safe place for all users, and we expect
           you to do the same. By using our Products, you agree that you will comply with
           these Terms, including our <a href="#">Community Guidelines</a> and any other
-          policies Clubhouse makes available in order to maintain the safety of our
+          policies Talktube makes available in order to maintain the safety of our
           Products. We reserve the right to remove any content from our Products for any
           reason, or to limit its availability. We likewise reserve the right to terminate
           or suspend your account, or limit its availability, for any reason.
@@ -437,12 +437,12 @@ const Terms = () => {
         <p>
           Our Products may contain links to third-party websites, services, special
           offers, content, or other events or activities that are not owned or controlled
-          by Clubhouse. We do not endorse or assume any responsibility for any third-party
+          by Talktube. We do not endorse or assume any responsibility for any third-party
           sites, information, materials, products or services. If you access any
           third-party website, service or content from our Products, you do so at your own
-          risk and you agree that Clubhouse will have no liability arising from your use
-          of or access to any third-party website, service or content or the accuracy of
-          any outputs generated by these services. You understand that any third party AI
+          risk and you agree that Talktube will have no liability arising from your use of
+          or access to any third-party website, service or content or the accuracy of any
+          outputs generated by these services. You understand that any third party AI
           tools may return inaccurate, offensive, or wrong information that does not
           accurately reflect the inputs you provide.
         </p>
@@ -453,7 +453,7 @@ const Terms = () => {
           AI integrations, which may be used to help make suggestions or make our Products
           easier to use. If you share your content to third party services, then that
           content may stay on those third party services even if you subsequently delete
-          your content on our Products or delete your Clubhouse account.
+          your content on our Products or delete your Talktube account.
         </p>
         <h2>
           <strong>
@@ -471,8 +471,8 @@ const Terms = () => {
           beforehand.
         </p>
         <p>
-          Clubhouse may terminate or suspend this license and your access to our Products
-          at any time, with or without cause or notice to you. Clubhouse may also limit
+          Talktube may terminate or suspend this license and your access to our Products
+          at any time, with or without cause or notice to you. Talktube may also limit
           your use of specific features in our Products with or without cause or notice to
           you. While we’ll try to give you reasonable notice beforehand, we can’t
           guarantee that will be possible in all circumstances. For example:
@@ -496,11 +496,11 @@ const Terms = () => {
         </ul>
         <p>
           You can terminate these Terms at any time and for any reason by deleting your
-          Clubhouse account. If you violate any provision of these Terms or our Community
+          Talktube account. If you violate any provision of these Terms or our Community
           Guidelines, your authorization to access our Products terminates automatically.
         </p>
         <p>
-          Regardless of who terminates these Terms, both you and Clubhouse continue to be
+          Regardless of who terminates these Terms, both you and Talktube continue to be
           bound by Sections 3, and 9-13 of the Terms notwithstanding termination.
         </p>
         <h2>
@@ -513,15 +513,15 @@ const Terms = () => {
         </h2>
         <p>
           You agree, to the maximum extent permitted by law, to indemnify, defend, and
-          hold harmless Clubhouse and its respective officers, directors, employees and
+          hold harmless Talktube and its respective officers, directors, employees and
           agents, from and against any claims, suits, proceedings, disputes, demands,
           liabilities, damages, losses, costs and expenses, including, without limitation,
           reasonable legal and accounting fees (including costs of defense of claims,
           suits or proceedings brought by third parties), relating to (a) your access to
           or use of our Products, (b) your User Content, (c) any dispute between you and
-          any third party, or (d) your breach of any of these Terms. Clubhouse may assume
+          any third party, or (d) your breach of any of these Terms. Talktube may assume
           the exclusive control and defense of any matter for which you have a duty to
-          indemnify Clubhouse and, if we do, you agree to cooperate with our defense of
+          indemnify Talktube and, if we do, you agree to cooperate with our defense of
           those claims.
         </p>
         <h2>
@@ -537,13 +537,13 @@ const Terms = () => {
           warranty of any kind, whether express or implied.
         </p>
         <p>
-          CLUBHOUSE SPECIFICALLY DISCLAIMS ANY AND ALL WARRANTIES OF ANY KIND, WHETHER
+          Talktube SPECIFICALLY DISCLAIMS ANY AND ALL WARRANTIES OF ANY KIND, WHETHER
           EXPRESS OR IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS
           FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT, AND ANY WARRANTIES ARISING OUT
           OF COURSE OF DEALING OR USAGE OF TRADE.
         </p>
         <p>
-          Clubhouse takes no responsibility and assumes no liability for any User Content
+          Talktube takes no responsibility and assumes no liability for any User Content
           that you or any other user or third party posts or transmits using our Products.
           You understand and agree that you may be exposed to User Content that is
           inaccurate, objectionable, inappropriate for children or otherwise unsuited to
@@ -551,7 +551,7 @@ const Terms = () => {
         </p>
         <p>
           THE LIMITATIONS, EXCLUSIONS, AND DISCLAIMERS IN THIS SECTION APPLY TO THE
-          MAXIMUM EXTENT PERMITTED BY LAW. Clubhouse does not disclaim any warranty or
+          MAXIMUM EXTENT PERMITTED BY LAW. Talktube does not disclaim any warranty or
           other right that we are prohibited from disclaiming under applicable law.
         </p>
         <h2>
@@ -560,7 +560,7 @@ const Terms = () => {
           </strong>
         </h2>
         <p>
-          TO THE MAXIMUM EXTENT PERMITTED BY LAW, CLUBHOUSE WILL NOT BE LIABLE FOR ANY
+          TO THE MAXIMUM EXTENT PERMITTED BY LAW, Talktube WILL NOT BE LIABLE FOR ANY
           INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS OF
           PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF
           DATA, USE, GOODWILL OR OTHER INTANGIBLE LOSSES, RESULTING FROM (A) YOUR ACCESS
@@ -571,7 +571,7 @@ const Terms = () => {
         </p>
         <p>
           EXCEPT AS PROVIDED IN SECTION 11, TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO
-          EVENT WILL CLUBHOUSE’S AGGREGATE LIABILITY TO YOU FOR ALL CLAIMS RELATING TO THE
+          EVENT WILL Talktube’S AGGREGATE LIABILITY TO YOU FOR ALL CLAIMS RELATING TO THE
           PRODUCTS EXCEED ONE HUNDRED U.S. DOLLARS (U.S. $100.00).
         </p>
         <h2>
@@ -580,19 +580,19 @@ const Terms = () => {
           </strong>
         </h2>
         <p>
-          If you have a concern or dispute with Clubhouse, we would appreciate the
+          If you have a concern or dispute with Talktube, we would appreciate the
           opportunity to resolve it without having to resort to formal legal proceedings.
-          You agree to notify Clubhouse in writing at legalrequest@clubhouse.com before
+          You agree to notify Talktube in writing at legalrequest@Talktube.com before
           filing any claims with a court or arbitration body so that we can attempt to
           resolve the issue with you. Your notice should include an explanation of your
-          concern or dispute, how it arose, and what (if anything) you want Clubhouse to
-          do to resolve it. If you and Clubhouse cannot resolve the dispute within 60 days
-          of your notice, either you or we may file a formal proceeding in accordance with
+          concern or dispute, how it arose, and what (if anything) you want Talktube to do
+          to resolve it. If you and Talktube cannot resolve the dispute within 60 days of
+          your notice, either you or we may file a formal proceeding in accordance with
           this Section 11.
         </p>
         <p>
           Please read the following terms carefully because they require U.S. residents
-          and Clubhouse to resolve all disputes through binding arbitration.
+          and Talktube to resolve all disputes through binding arbitration.
         </p>
         <h3>
           <strong>
@@ -600,11 +600,11 @@ const Terms = () => {
           </strong>
         </h3>
         <p>
-          If you are a resident of the United States, you and Clubhouse agree that all
+          If you are a resident of the United States, you and Talktube agree that all
           claims between us, including any disputes arising out of or relating to these
           Terms or use of the Products will be resolved through binding arbitration on an
           individual basis. There are two exceptions. First, for claims that qualify, you
-          or Clubhouse can elect to have those claims heard in small claims court. Second,
+          or Talktube can elect to have those claims heard in small claims court. Second,
           any dispute in which either party seeks equitable relief for the alleged
           unlawful use of copyrights, trademarks, trade names, logos, trade secrets, or
           patents will be resolved in court. Any disputes concerning the arbitrability of
@@ -613,10 +613,10 @@ const Terms = () => {
           arbitrator, except as expressly provided below.
         </p>
         <p>
-          You can opt-out of this agreement to arbitrate by sending a letter to Clubhouse
-          at legalrequest@clubhouse.com stating that you wish to opt-out of the
-          arbitration agreement. You must send us your opt-out notice within 30 days of
-          first registering your Clubhouse account or agreeing to these Terms, but if you
+          You can opt-out of this agreement to arbitrate by sending a letter to Talktube
+          at legalrequest@Talktube.com stating that you wish to opt-out of the arbitration
+          agreement. You must send us your opt-out notice within 30 days of first
+          registering your Talktube account or agreeing to these Terms, but if you
           previously agreed to a prior version of these Terms that provided for an
           arbitration opt-out, you do not have the opportunity to opt-out under this
           version of the Terms.
@@ -625,10 +625,10 @@ const Terms = () => {
           Any arbitration will be administered by JAMS pursuant to its employment
           arbitration rules &amp; procedures (the “JAMS rules”), which are available
           <a href="#">here</a>. If these rules cannot be enforced for any reason, then you
-          and Clubhouse will arbitrate the dispute utilizing JAMS comprehensive
-          arbitration rules and procedures, or other rules the arbitrator deems
-          appropriate for the dispute. The arbitration will be before a single arbitrator
-          and conducted in English.
+          and Talktube will arbitrate the dispute utilizing JAMS comprehensive arbitration
+          rules and procedures, or other rules the arbitrator deems appropriate for the
+          dispute. The arbitration will be before a single arbitrator and conducted in
+          English.
         </p>
         <p>
           The arbitrator will have the power to decide any motions brought by any party to
@@ -657,22 +657,22 @@ const Terms = () => {
         <p>
           The arbitrator can award any relief that a court of competent jurisdiction could
           award. If the arbitrator awards you an amount higher than the last written
-          settlement amount offered by Clubhouse before an arbitrator was selected,
-          Clubhouse will pay you the higher of (i) the amount awarded by the arbitrator,
+          settlement amount offered by Talktube before an arbitrator was selected,
+          Talktube will pay you the higher of (i) the amount awarded by the arbitrator,
           and (ii) $10,000 (ten thousand U.S. dollars).
         </p>
         <p>
           ALL CLAIMS MUST BE BROUGHT IN THE PARTIES' INDIVIDUAL CAPACITY AND NOT AS A
           PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING,
           AND, UNLESS WE AGREE OTHERWISE, THE ARBITRATOR MAY NOT CONSOLIDATE MORE THAN ONE
-          PERSON'S CLAIMS. YOU AGREE THAT, BY ENTERING INTO THESE TERMS, YOU AND CLUBHOUSE
+          PERSON'S CLAIMS. YOU AGREE THAT, BY ENTERING INTO THESE TERMS, YOU AND Talktube
           ARE EACH WAIVING THE RIGHT TO A TRIAL BY JURY OR TO PARTICIPATE IN A CLASS
           ACTION.
         </p>
         <p>
-          To the extent any claim, dispute or controversy regarding Clubhouse or our
-          Products isn’t arbitrable under applicable laws or otherwise: you and Clubhouse
-          both agree that any claim or dispute with Clubhouse will be resolved exclusively
+          To the extent any claim, dispute or controversy regarding Talktube or our
+          Products isn’t arbitrable under applicable laws or otherwise: you and Talktube
+          both agree that any claim or dispute with Talktube will be resolved exclusively
           in accordance with Section 11.B. of these Terms.
         </p>
         <h3>
@@ -683,7 +683,7 @@ const Terms = () => {
         <p>
           For any claims or disputes arising out of or relating to these Terms or use of
           the Products that are not resolved through binding arbitration under Section
-          11.A. of these Terms, you and Clubhouse agree to submit to the personal and
+          11.A. of these Terms, you and Talktube agree to submit to the personal and
           exclusive jurisdiction of the state courts and federal courts located within San
           Francisco, California, USA.
         </p>
@@ -727,7 +727,7 @@ const Terms = () => {
         </h3>
         <p>
           These Terms, and any rights and licenses granted under these Terms, may not be
-          transferred or assigned by you, but may be assigned by Clubhouse without
+          transferred or assigned by you, but may be assigned by Talktube without
           restriction. Any attempted transfer or assignment in violation of the above will
           be null and void.
         </p>
@@ -739,8 +739,8 @@ const Terms = () => {
         <p>
           These Terms, together with the <a href="#">Privacy Policy</a>,
           <a href="#">Community Guidelines</a>, and any amendments and additional
-          agreements you may enter into with Clubhouse in connection with our Products,
-          constitute the entire agreement between you and Clubhouse concerning our
+          agreements you may enter into with Talktube in connection with our Products,
+          constitute the entire agreement between you and Talktube concerning our
           Products. If any provision of these Terms is deemed invalid, that provision will
           be limited or eliminated to the minimum extent necessary, and the remaining
           provisions of these Terms will remain in full force and effect
@@ -752,7 +752,7 @@ const Terms = () => {
         </h3>
         <p>
           No waiver of any term of these Terms will be deemed a further or continuing
-          waiver of such term or any other term, and Clubhouse’s failure to assert any
+          waiver of such term or any other term, and Talktube’s failure to assert any
           right or provision under these Terms will not constitute a waiver of such right
           or provision
         </p>
@@ -763,8 +763,8 @@ const Terms = () => {
         </h3>
         <p>
           This is a contract between you and Alpha Exploration Co. (doing business as
-          “Clubhouse”), with offices located at 578 Market Street, PMB 72878, San
-          Francisco, California 94104. Any reference to Clubhouse includes all worldwide
+          “Talktube”), with offices located at 578 Market Street, PMB 72878, San
+          Francisco, California 94104. Any reference to Talktube includes all worldwide
           subsidiaries.
         </p>
 
