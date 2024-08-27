@@ -1,0 +1,9 @@
+export { default as About } from "./About/About";
+export { default as Contact } from "./Contact/Contact";
+export { default as FAQ } from "./FAQ/FAQ";
+export { default as Home } from "./Home/Home";
+export { default as Login } from "./Login/Login";
+export { default as NewPage } from "./NewPage/NewPage";
+export { default as Profile } from "./Profile/Profile";
+export { default as Search } from "./Search/Search";
+export { default as Support } from "./Support/Support";
