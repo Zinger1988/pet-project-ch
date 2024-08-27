@@ -3,24 +3,26 @@ import { IconId } from "../../types/enums";
 import { Container, Icon } from "..";
 
 const Footer = () => {
-  const headingStyles = "uppercase font-black mb-7 pb-5 relative";
+  const headingStyles = "uppercase text-body mb-7 pb-5 relative";
   const headingAfterStyles =
     "after:absolute after:left-0 after:bottom-0 after:w-7 after:h-1 after:bg-yellow-400 after:rounded-lg";
 
-  const conactsListItemStyles = "flex items-center gap-4 mb-3 text-sm";
-  const listItemStyles = "mb-3 text-sm";
-  const linkStyles = "transition-colors hover:text-yellow-400 duration-300 font-semibold";
+  const listStyles = "m-0 p-0";
+  const conactsListItemStyles = "flex items-center gap-4 mb-3 pl-0 text-sm before:hidden";
+  const listItemStyles = "mb-3 pl-0 text-sm before:hidden";
+  const linkStyles =
+    "transition-colors hover:text-yellow-400 duration-300 font-semibold no-underline text-inherit";
 
   return (
     <footer className="bg-black text-gray-300 py-12 lg:py-20">
-      <Container className="grid grid-cols-[min-content] justify-center sm:grid-cols-2 md:grid-cols-3 gap-12  max-w-[1400px]">
+      <Container className="grid grid-cols-[min-content] justify-center sm:grid-cols-2 md:grid-cols-3 gap-12  max-w-screen-xl">
         <Link to="/" className="sm:col-span-2 md:col-span-1">
           <img src="/logo_text_white.svg" alt="Talktube logo" className="w-36 lg:w-40" />
         </Link>
 
         <section>
           <h3 className={`${headingStyles} ${headingAfterStyles}`}>Contact Us</h3>
-          <ul>
+          <ul className={listStyles}>
             <li className={conactsListItemStyles}>
               <Icon id={IconId.Call} width="20" className="fill-yellow-400" />
               <a href="tel:+1987654321" className={linkStyles}>
@@ -38,7 +40,7 @@ const Footer = () => {
 
         <section>
           <h3 className={`${headingStyles} ${headingAfterStyles}`}>Talktube.com</h3>
-          <ul>
+          <ul className={listStyles}>
             <li className={listItemStyles}>
               <Link to="/about" className={linkStyles}>
                 About Us

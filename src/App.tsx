@@ -24,7 +24,7 @@ function App() {
   if (error) return <p>Error: {error}</p>;
   console.log(data, "data");
   return (
-    <div className="App min-h-[100dvh] flex flex-col">
+    <div className="App min-h-[100dvh] flex flex-col gap-12">
       {/* Define routes */}
       <Routes>
         <Route path="/" element={<AppLayout />}>
