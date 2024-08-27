@@ -14,6 +14,7 @@ import {
   Contact,
   FAQ,
   Terms,
+  Policy,
 } from "../src/pages";
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
@@ -47,6 +48,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="faq" element={<FAQ />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="policy" element={<Policy />} />
         </Route>
       </Routes>
     </div>
