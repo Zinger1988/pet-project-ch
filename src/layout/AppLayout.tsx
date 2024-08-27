@@ -6,7 +6,7 @@ const AppLayout: React.FC = () => {
   return (
     <>
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow pt-16 lg:pt-20">
         <Outlet />
       </main>
       <Footer />

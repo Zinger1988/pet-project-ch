@@ -23,7 +23,7 @@ function Header() {
     : "-translate-x-full opacity-0";
 
   return (
-    <header className="md:py-0 border-b-[1px] border-black">
+    <header className="md:py-0 border-b-[1px] border-black fixed w-full bg-white z-50">
       <Container className="flex items-center justify-between gap-6">
         <Link to="/">
           <img src="/logo.svg" alt="Talktube logo" className="w-40 lg:w-52" />
