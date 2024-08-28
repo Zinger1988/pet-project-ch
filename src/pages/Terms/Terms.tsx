@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Terms = () => {
   return (
-    <Container className="max-w-screen-md">
+    <Container className="max-w-screen-md mt-12">
       <article>
         <img
           src="/logo_balloon.svg"
