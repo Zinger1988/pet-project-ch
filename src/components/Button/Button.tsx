@@ -1,32 +1,110 @@
-import React from 'react';
+import React from "react";
+import { Link, LinkProps } from "react-router-dom";
+import { IconId } from "../../types/enums";
+import { Icon } from "..";
 
-interface ButtonProps {
-    label: string;
-    onClick?: () => void;
-    variant?: 'primary' | 'secondary';
-    type?: 'button' | 'submit' | 'reset';
-}
+type BaseProps = {
+  children: React.ReactNode;
+  className?: string;
+  variant?: "primary" | "secondary";
+  appearance?: "solid" | "outline";
+  size?: "sm" | "md" | "lg";
+  icon?: IconId;
+  iconPosition?: "left" | "right";
+};
 
-const Button: React.FC<ButtonProps> = ({ 
-    label, 
-    onClick, 
-    variant = 'primary',
-    type = 'button'
-}) => {
-    const buttonStyles = {
-        primary: 'bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded',
-        secondary: 'bg-gray-300 hover:bg-gray-400 text-black py-2 px-4 rounded'
-    };
+type ActionProps = BaseProps &
+  (
+    | (React.ButtonHTMLAttributes<HTMLButtonElement> & {
+        as?: "button";
+      })
+    | (LinkProps & {
+        as: "link";
+      })
+  );
 
+const Button = ({
+  className = "",
+  variant = "primary",
+  appearance = "solid",
+  size = "md",
+  icon,
+  iconPosition = "left",
+  ...props
+}: ActionProps) => {
+  const isSolid = appearance === "solid";
+  const buttonStylesMap = {
+    base: "rounded-full inline-flex gap-3 items-center justify-center uppercase tracking-widest  font-heading font-semibold transition-all text-black no-underline",
+    size: {
+      sm: "py-2.5 px-4 min-w-[6rem] text-body-xs",
+      md: "py-4 px-6 min-w-[8rem] text-body-sm",
+      lg: "py-5 px-8 min-w-[10rem] text-body",
+    },
+    variant: {
+      primary: `hover:shadow-[inset_0_0_0_2px_theme(colors.primary.400),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.gray.900)] ${
+        isSolid
+          ? "bg-primary-400"
+          : "bg-white shadow-[inset_0_0_0_2px_theme(colors.primary.400)]"
+      }`,
+      secondary: `hover:shadow-[inset_0_0_0_2px_theme(colors.gray.900),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.primary.400)] ${
+        isSolid
+          ? "bg-gray-900 text-white hover:text-white"
+          : "bg-white shadow-[inset_0_0_0_2px_theme(colors.gray.900)]"
+      }`,
+    },
+  };
+
+  const iconStylesMap = {
+    size: {
+      sm: "",
+      md: "w-5 h-5",
+      lg: "py-5 px-8 min-w-[10rem] text-body",
+    },
+    variant: {
+      primary: "fill-black",
+      secondary: "fill-white",
+    },
+  };
+
+  if (props.as === "link") {
+    const { as, children, ...rest } = props;
+    const linkStyles = `${buttonStylesMap.base} ${buttonStylesMap.size[size]} ${buttonStylesMap.variant[variant]} ${className}`;
     return (
-        <button
-            type={type}
-            className={buttonStyles[variant]}
-            onClick={onClick}
-        >
-            {label}
-        </button>
+      <Link className={linkStyles} {...rest}>
+        {icon && (
+          <Icon
+            id={icon}
+            className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${
+              iconPosition === "left" ? "order-first" : "order-last"
+            }`}
+          />
+        )}
+        {children}
+      </Link>
     );
+  }
+
+  const { as, children, disabled, ...rest } = props;
+  const diasbledButtonStyles = `text-gray-400 cursor-default ${
+    isSolid ? "bg-gray-200" : "shadow-[inset_0_0_0_2px_theme(colors.gray.200)]"
+  }`;
+  const buttonStyles = `${buttonStylesMap.base} ${buttonStylesMap.size[size]} ${
+    disabled ? diasbledButtonStyles : buttonStylesMap.variant[variant]
+  } ${className}`;
+
+  return (
+    <button className={buttonStyles} {...rest}>
+      {icon && (
+        <Icon
+          id={icon}
+          className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${
+            iconPosition === "left" ? "order-first" : "order-last"
+          }`}
+        />
+      )}
+      {children}
+    </button>
+  );
 };
 
 export default Button;

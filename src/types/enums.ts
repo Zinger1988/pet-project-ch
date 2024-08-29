@@ -6,7 +6,13 @@ export enum UserRole {
 
 export enum IconId {
   Call = "CALL",
+  CallSolid = "CALL_SOLID",
   Message = "MESSAGE",
+  MessageSolid = "MESSAGE_SOLID",
   Twitter = "TWITTER",
   Instagram = "INSTAGRAM",
+  InfoSquareSm = "INFO_SQUARE_SM",
+  DangerSquareSm = "DANGER_SQUARE_SM",
+  WarningSquareSm = "WARNING_SQUARE_SM",
+  SuccessSquareSm = "SUCCESS_SQUARE_SM",
 }

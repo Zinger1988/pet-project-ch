@@ -49,6 +49,14 @@ module.exports = {
             fontSize: ".875rem",
           },
         },
+        ".text-body-xs": {
+          [`@media (max-width: ${breakpoints.lg})`]: {
+            fontSize: ".6875rem",
+          },
+          [`@media (min-width: ${breakpoints.lg})`]: {
+            fontSize: ".75rem",
+          },
+        },
         ".text-h1": {
           [`@media (max-width: ${breakpoints.lg})`]: {
             fontSize: "2.078rem",
