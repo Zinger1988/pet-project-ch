@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { RootState } from "./store/index";
 
 import AppLayout from "./layout/AppLayout";
@@ -15,6 +15,7 @@ import {
   FAQ,
   Terms,
   Policy,
+  Error,
 } from "../src/pages";
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
@@ -49,6 +50,11 @@ function App() {
           <Route path="faq" element={<FAQ />} />
           <Route path="terms" element={<Terms />} />
           <Route path="policy" element={<Policy />} />
+          <Route path="error" element={<Error />} />
+          <Route
+            path="*"
+            element={<Error statusCode="404" title="This page doesn't exists (404)" />}
+          />
         </Route>
       </Routes>
     </div>
