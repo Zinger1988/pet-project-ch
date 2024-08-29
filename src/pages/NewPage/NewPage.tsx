@@ -29,7 +29,7 @@ const NewPage: React.FC = () => {
           Welcome to the New Page
         </h1>
 
-        <Button label={isTextVisible ? "Hide Text" : "Show Text"} onClick={toggleText} />
+        <Button onClick={toggleText}>{isTextVisible ? "Hide Text" : "Show Text"}</Button>
 
         {isTextVisible && (
           <p className="text-lg mt-6 text-gray-700">
@@ -83,7 +83,7 @@ const NewPage: React.FC = () => {
           </div>
 
           <div className="mt-4">
-            <Button label="Submit" type="submit" />
+            <Button type="submit">Submit</Button>
           </div>
         </form>
       </div>

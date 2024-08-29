@@ -7,3 +7,6 @@ export { default as Header } from "./Header/Header";
 export { default as Icon } from "./Icon/Icon";
 export { default as MenuBtn } from "./MenuBtn/MenuBtn";
 export { default as MobileMenu } from "./MobileMenu/MobileMenu";
+export { default as TextInput } from "./TextInput/TextInput";
+export { default as Textarea } from "./Textarea/Textarea";
+export { default as InfoTooltip } from "./InfoTooltip/InfoTooltip";

@@ -5,12 +5,12 @@ import Button from "./Button";
 
 describe("<Button />", () => {
   test("renders correctly with label", () => {
-    render(<Button label="Click Me" />);
+    render(<Button>Click Me</Button>);
     const buttonElement = screen.getByText("Click Me");
     expect(buttonElement).toBeInTheDocument();
   });
   test("applies primary style by default", async () => {
-    render(<Button label="Click Me" />);
+    render(<Button>Click Me</Button>);
 
     await waitFor(() => {
       expect(screen.getByText("Click Me")).toHaveClass("bg-blue-500");
@@ -18,7 +18,7 @@ describe("<Button />", () => {
   });
 
   test("applies secondary style when variant is secondary", () => {
-    render(<Button label="Click Me" variant="secondary" />);
+    render(<Button variant="secondary">Click Me</Button>);
     expect(screen.getByText("Click Me")).toHaveClass("bg-gray-300");
   });
 });
