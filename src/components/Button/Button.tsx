@@ -34,19 +34,19 @@ const Button = ({
 }: ActionProps) => {
   const isSolid = appearance === "solid";
   const buttonStylesMap = {
-    base: "rounded-full inline-flex gap-3 items-center justify-center uppercase tracking-widest  font-heading font-semibold transition-all text-black no-underline",
+    base: "rounded-full inline-flex gap-3 items-center justify-center font-heading font-semibold transition-all text-black no-underline",
     size: {
       sm: "py-2.5 px-4 min-w-[6rem] text-body-xs",
       md: "py-4 px-6 min-w-[8rem] text-body-sm",
       lg: "py-5 px-8 min-w-[10rem] text-body",
     },
     variant: {
-      primary: `hover:shadow-[inset_0_0_0_2px_theme(colors.primary.400),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.gray.900)] ${
+      primary: `hover:shadow-[inset_0_0_0_2px_theme(colors.primary.400),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.primary.400)] ${
         isSolid
           ? "bg-primary-400"
           : "bg-white shadow-[inset_0_0_0_2px_theme(colors.primary.400)]"
       }`,
-      secondary: `hover:shadow-[inset_0_0_0_2px_theme(colors.gray.900),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.primary.400)] ${
+      secondary: `hover:shadow-[inset_0_0_0_2px_theme(colors.gray.900),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.gray.900)] ${
         isSolid
           ? "bg-gray-900 text-white hover:text-white"
           : "bg-white shadow-[inset_0_0_0_2px_theme(colors.gray.900)]"
@@ -56,9 +56,9 @@ const Button = ({
 
   const iconStylesMap = {
     size: {
-      sm: "",
+      sm: "w-4 h-4",
       md: "w-5 h-5",
-      lg: "py-5 px-8 min-w-[10rem] text-body",
+      lg: "w-6 h-6",
     },
     variant: {
       primary: "fill-black",
