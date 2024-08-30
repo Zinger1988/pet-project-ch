@@ -2,7 +2,7 @@ import { Formik, Form, Field } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 
-import { Button, TextInput } from "../../components";
+import { Button, FormControl } from "../../components";
 import { IconId } from "../../types/enums";
 
 import coworkingImg from "../../assets/images/coworking_space.svg";
@@ -17,7 +17,7 @@ const Login = () => {
     email: Yup.string().email("Invalid e-mail").required("This field is required"),
     password: Yup.string()
       .matches(
-        /^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$/,
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
         "Minimum 8 characters, at least 1 letter and 1 number"
       )
       .required("This field is required"),
@@ -38,7 +38,7 @@ const Login = () => {
         >
           <Form>
             <Field
-              component={TextInput}
+              component={FormControl}
               type="email"
               name="email"
               label="E-mail"
@@ -46,7 +46,7 @@ const Login = () => {
               className="mb-3"
             />
             <Field
-              component={TextInput}
+              component={FormControl}
               type="password"
               name="password"
               label="Your password"

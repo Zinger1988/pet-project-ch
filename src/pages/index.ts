@@ -7,6 +7,7 @@ export { default as Login } from "./Login/Login";
 export { default as NewPage } from "./NewPage/NewPage";
 export { default as Policy } from "./Policy/Policy";
 export { default as Profile } from "./Profile/Profile";
+export { default as Registration } from "./Registration/Registration";
 export { default as Search } from "./Search/Search";
 export { default as Support } from "./Support/Support";
 export { default as Terms } from "./Terms/Terms";
