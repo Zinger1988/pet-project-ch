@@ -20,7 +20,7 @@ const About = () => {
             alt="We are small but amazing team"
           />
           <p className="max-w-3xl">
-            Clubhouse is a place where you can hang out with friends, meet new ones, and
+            talktube is a place where you can hang out with friends, meet new ones, and
             talk about anything. It's like an always-on dinner party.
           </p>
           <p className="max-w-3xl">
@@ -39,7 +39,7 @@ const About = () => {
               <h3 className="mt-0 mb-2">huge, positive mission</h3>
               <p className="my-0">
                 Our mission is to increase friendship in the world. We believe that good
-                friendships are the foundation of everything, and we built Clubhouse to
+                friendships are the foundation of everything, and we built talktube to
                 make it easier to fill your life with them. We believe nothing does more
                 for our happiness than having good friends.
               </p>
@@ -103,37 +103,37 @@ const About = () => {
             <img
               className="col-span-4 object-cover w-full h-auto md:h-80 rounded-3xl transition-[all] duration-500 hover:shadow-xl cursor-pointer hover:scale-[1.03] hover:rotate-[2deg]"
               src={talktubeTeam1}
-              alt="the clubhouse team"
+              alt="the talktube team"
             />
             <img
               className="col-span-4 object-cover w-full h-auto md:h-80 rounded-3xl transition-[all] duration-500 hover:shadow-xl cursor-pointer hover:scale-[1.03] hover:rotate-[-2deg]"
               src={talktubeTeam2}
-              alt="the clubhouse team"
+              alt="the talktube team"
             />
             <img
               className="col-span-4 object-cover w-full h-auto md:h-80 rounded-3xl transition-[all] duration-500 hover:shadow-xl cursor-pointer hover:scale-[1.03] hover:rotate-[2deg]"
               src={talktubeTeam3}
-              alt="the clubhouse team"
+              alt="the talktube team"
             />
             <img
               className="col-span-12 object-cover w-full h-auto md:h-80 rounded-3xl hidden md:block transition-[all] duration-500 hover:shadow-xl cursor-pointer hover:scale-[1.03] hover:rotate-[-2deg]"
               src={talktubeTeam4}
-              alt="the clubhouse team"
+              alt="the talktube team"
             />
             <img
               className="col-span-4 object-cover w-full h-auto md:h-96 rounded-3xl transition-[all] duration-500 hover:shadow-xl cursor-pointer hover:scale-[1.03] hover:rotate-[2deg]"
               src={talktubeTeam5}
-              alt="the clubhouse team"
+              alt="the talktube team"
             />
             <img
               className="col-span-4 object-cover w-full h-auto md:h-96 rounded-3xl transition-[all] duration-500 hover:shadow-xl cursor-pointer hover:scale-[1.03] hover:rotate-[-2deg]"
               src={talktubeTeam6}
-              alt="the clubhouse team"
+              alt="the talktube team"
             />
             <img
               className="col-span-4 object-cover w-full h-auto md:h-96 rounded-3xl transition-[all] duration-500 hover:shadow-xl cursor-pointer hover:scale-[1.03] hover:rotate-[2deg]"
               src={talktubeTeam7}
-              alt="the clubhouse team"
+              alt="the talktube team"
             />
           </div>
         </Container>
