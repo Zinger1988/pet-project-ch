@@ -1,8 +1,10 @@
-import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Button, Container, Icon, Textarea, TextInput } from "../../components";
-import serviceTeamImg from "../../assets/images/сustomer_service_support.svg";
+import { Formik, Form, Field } from "formik";
+
+import { Button, Container, FormControl } from "../../components";
+
 import { IconId } from "../../types/enums";
+import serviceTeamImg from "../../assets/images/сustomer_service_support.svg";
 
 const Contact = () => {
   const initialValues = {
@@ -67,7 +69,7 @@ const Contact = () => {
         >
           <Form>
             <Field
-              component={TextInput}
+              component={FormControl}
               type="text"
               name="name"
               label="Your name"
@@ -76,7 +78,7 @@ const Contact = () => {
               className="mb-3"
             />
             <Field
-              component={TextInput}
+              component={FormControl}
               type="email"
               name="email"
               label="E-mail"
@@ -85,7 +87,8 @@ const Contact = () => {
               className="mb-3"
             />
             <Field
-              component={Textarea}
+              component={FormControl}
+              type="textarea"
               name="message"
               label="Message"
               placeholder="What exactly do you want to tell us?"

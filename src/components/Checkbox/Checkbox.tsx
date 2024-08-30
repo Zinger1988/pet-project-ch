@@ -1,0 +1,35 @@
+import { InputHTMLAttributes, ReactNode } from "react";
+
+import Icon from "../Icon/Icon";
+
+import { IconId } from "../../types/enums";
+
+interface TextInputProps {
+  label?: string | ReactNode;
+  className?: string;
+}
+
+const TextInput: React.FC<TextInputProps & InputHTMLAttributes<HTMLInputElement>> = ({
+  label,
+  className = "",
+  ...props
+}) => {
+  const labelStyles = "flex gap-4 items-center";
+  const InputStyles = "peer hidden";
+  const fakeInputStyles =
+    "block w-5 h-5 border-[1px] border-gray-500 rounded-md peer-checked:bg-black peer-checked:border-black peer-checked:[&>svg]:-translate-y-1/2 cursor-pointer relative transition-colors duration-300 overflow-hidden";
+  const IconStyles =
+    "absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-[100%] transition-transform delay-100";
+
+  return (
+    <label className={`${labelStyles} ${className}`}>
+      <input {...props} type="checkbox" className={InputStyles} />
+      <span className={fakeInputStyles}>
+        <Icon id={IconId.Check} fill="white" width="20" className={IconStyles} />
+      </span>
+      {label && <span className="labelStyles">{label}</span>}
+    </label>
+  );
+};
+
+export default TextInput;

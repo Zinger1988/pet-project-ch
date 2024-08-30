@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { RootState } from "./store/index";
 
 import AppLayout from "./layout/AppLayout";
@@ -16,6 +16,7 @@ import {
   Terms,
   Policy,
   Error,
+  Registration,
 } from "../src/pages";
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
@@ -43,6 +44,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="login" element={<Login />} />
+          <Route path="registration" element={<Registration />} />
           <Route path="profile" element={<Profile />} />
           <Route path="about" element={<About />} />
           <Route path="support" element={<Support />} />

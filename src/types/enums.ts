@@ -16,4 +16,5 @@ export enum IconId {
   WarningSquareSm = "WARNING_SQUARE_SM",
   SuccessSquareSm = "SUCCESS_SQUARE_SM",
   ArrowRight = "ARROW_RIGHT",
+  Check = "CHECK",
 }
