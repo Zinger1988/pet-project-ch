@@ -2,7 +2,7 @@ import { Formik, Form, Field } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 
-import { Button, FormControl, TextInput } from "../../components";
+import { Button, FormControl } from "../../components";
 import { IconId } from "../../types/enums";
 
 import workingImg from "../../assets/images/working_in_airport.svg";
@@ -78,7 +78,7 @@ const Registration = () => {
               type="password"
               name="passwordRepeat"
               label="Repeat your password"
-              id="password"
+              id="passwordRepeat"
               className="mb-5"
             />
             <Field
