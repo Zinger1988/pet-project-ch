@@ -33,6 +33,14 @@ module.exports = {
       const breakpoints = theme("screens");
 
       const components = {
+        ".text-body-lg": {
+          [`@media (max-width: ${breakpoints.lg})`]: {
+            fontSize: "1rem",
+          },
+          [`@media (min-width: ${breakpoints.lg})`]: {
+            fontSize: "1.25rem",
+          },
+        },
         ".text-body": {
           [`@media (max-width: ${breakpoints.lg})`]: {
             fontSize: ".875rem",
