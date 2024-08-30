@@ -64,7 +64,7 @@ const Login = () => {
                 to="/registration"
                 className="decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black col-span-1 col-start-1"
               >
-                Already have an account?
+                Don't have an account yet?
               </Link>
               <Button
                 type="submit"
