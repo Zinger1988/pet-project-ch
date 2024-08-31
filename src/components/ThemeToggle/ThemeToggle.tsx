@@ -9,7 +9,7 @@ const ThemeToggle = () => {
     <button
       className="flex bg-gray-400 dark:bg-gray-700 rounded-full relative"
       aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
-      onClick={() => handleDarkTheme()}
+      onClick={handleDarkTheme}
     >
       <span className="absolute z-20 w-1/2 h-full bg-primary-400 rounded-full left-0 top-0 transition-transform dark:translate-x-full"></span>
       <span className="p-2 relative z-20">
