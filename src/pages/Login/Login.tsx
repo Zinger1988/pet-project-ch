@@ -56,13 +56,13 @@ const Login = () => {
             <div className="grid grid-cols-[1fr,_auto] grid-rows-2 gap-x-4 items-center">
               <Link
                 to="/password-recovery"
-                className="decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black col-span-1 col-start-1"
+                className="decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black dark:hover:decoration-white col-span-1 col-start-1"
               >
                 Forgot password?
               </Link>
               <Link
                 to="/registration"
-                className="decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black col-span-1 col-start-1"
+                className="decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black dark:hover:decoration-white col-span-1 col-start-1"
               >
                 Don't have an account yet?
               </Link>

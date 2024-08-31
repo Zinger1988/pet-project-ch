@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 
-import { Container, DesktopMenu, MenuBtn, MobileMenu } from "..";
+import { Container, DesktopMenu, Logo, MenuBtn, MobileMenu } from "..";
 import { useState } from "react";
 import { MenuItems } from "../../types/global";
+import { useDarkThemeContext } from "../../context/DarkThemeContext";
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isDark } = useDarkThemeContext();
 
   const menu: MenuItems = [
     { label: "home", url: "/" },
@@ -23,10 +25,10 @@ function Header() {
     : "-translate-x-full opacity-0";
 
   return (
-    <header className="md:py-0 border-b-[1px] border-black fixed w-full bg-white z-50">
+    <header className="md:py-0 border-b-[1px] border-black dark:border-gray-700 fixed w-full bg-white dark:bg-black z-50">
       <Container className="flex items-center justify-between gap-6">
         <Link to="/">
-          <img src="/logo.svg" alt="Talktube logo" className="w-40 lg:w-52" />
+          <Logo className="w-40 lg:w-52" textColor={isDark ? "white" : "black"} />
         </Link>
         <MenuBtn
           isActive={isMobileMenuOpen}

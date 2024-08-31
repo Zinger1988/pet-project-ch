@@ -4,7 +4,11 @@
 
 @layer base {
   body {
-    @apply text-body font-body font-normal leading-default min-w-[320px] text-gray-900;
+    @apply text-body font-body font-normal leading-default min-w-[320px] text-gray-900 bg-white;
+  }
+
+  body.dark {
+    @apply text-gray-100 bg-black;
   }
 
   h1 {
@@ -107,6 +111,10 @@
     @apply text-gray-400 underline underline-offset-2 transition-colors hover:text-gray-900;
   }
 
+  .dark a {
+    @apply hover:text-white;
+  }
+
   i,
   em {
     @apply italic font-normal;
@@ -121,6 +129,10 @@
     @apply border-collapse bg-gray-100 text-body-sm;
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
+  }
+
+  .dark table {
+    @apply border-collapse bg-gray-900;
   }
 
   td {

@@ -21,6 +21,7 @@ import {
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
+import DarkThemeContextProvider from "./context/DarkThemeContext";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,26 +40,28 @@ function App() {
   return (
     <div className="App min-h-[100dvh] flex flex-col">
       {/* Define routes */}
-      <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<Home />} />
-          <Route path="search" element={<Search />} />
-          <Route path="login" element={<Login />} />
-          <Route path="registration" element={<Registration />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="about" element={<About />} />
-          <Route path="support" element={<Support />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="faq" element={<FAQ />} />
-          <Route path="terms" element={<Terms />} />
-          <Route path="policy" element={<Policy />} />
-          <Route path="error" element={<Error />} />
-          <Route
-            path="*"
-            element={<Error statusCode="404" title="This page doesn't exists (404)" />}
-          />
-        </Route>
-      </Routes>
+      <DarkThemeContextProvider>
+        <Routes>
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<Home />} />
+            <Route path="search" element={<Search />} />
+            <Route path="login" element={<Login />} />
+            <Route path="registration" element={<Registration />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="about" element={<About />} />
+            <Route path="support" element={<Support />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="faq" element={<FAQ />} />
+            <Route path="terms" element={<Terms />} />
+            <Route path="policy" element={<Policy />} />
+            <Route path="error" element={<Error />} />
+            <Route
+              path="*"
+              element={<Error statusCode="404" title="This page doesn't exists (404)" />}
+            />
+          </Route>
+        </Routes>
+      </DarkThemeContextProvider>
     </div>
   );
 }

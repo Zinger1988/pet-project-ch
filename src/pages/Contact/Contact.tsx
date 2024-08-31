@@ -28,7 +28,7 @@ const Contact = () => {
   };
 
   return (
-    <Container className="max-w-screen-md">
+    <Container className="max-w-screen-md mb-24">
       <section className="mt-12">
         <h1 className="text-center mt-0">Our contacts</h1>
         <div className="mb-8">
@@ -59,7 +59,7 @@ const Contact = () => {
           </Button>
         </div>
         <p className="text-center my-4 relative before:absolute before:w-full before:h-px before:left-0 before:top-1/2 before:border-b-[1px] before:border-gray-600">
-          <span className="bg-white font-bold relative z-10 px-4">or</span>
+          <span className="bg-white dark:bg-black font-bold relative z-10 px-4">or</span>
         </p>
         <h2 className="text-center mt-0">Leave a message</h2>
         <Formik

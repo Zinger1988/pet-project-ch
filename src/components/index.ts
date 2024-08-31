@@ -12,3 +12,5 @@ export { default as MenuBtn } from "./MenuBtn/MenuBtn";
 export { default as MobileMenu } from "./MobileMenu/MobileMenu";
 export { default as Textarea } from "./Textarea/Textarea";
 export { default as TextInput } from "./TextInput/TextInput";
+export { default as ThemeToggle } from "./ThemeToggle/ThemeToggle";
+export { default as Logo } from "./Logo/Logo";

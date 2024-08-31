@@ -17,7 +17,7 @@ const TextInput: React.FC<TextInputProps & InputHTMLAttributes<HTMLInputElement>
   const labelStyles = "flex gap-4 items-center";
   const InputStyles = "peer hidden";
   const fakeInputStyles =
-    "block w-5 h-5 border-[1px] border-gray-500 rounded-md peer-checked:bg-black peer-checked:border-black peer-checked:[&>svg]:-translate-y-1/2 cursor-pointer relative transition-colors duration-300 overflow-hidden";
+    "block w-5 h-5 border-[1px] border-gray-500 rounded-md peer-checked:bg-black  dark:peer-checked:bg-gray-600 peer-checked:border-black dark:peer-checked:border-gray-600 peer-checked:[&>svg]:-translate-y-1/2 cursor-pointer relative transition-colors duration-300 overflow-hidden";
   const IconStyles =
     "absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-[100%] transition-transform delay-100";
 
