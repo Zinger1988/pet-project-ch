@@ -64,7 +64,7 @@ const Footer = () => {
   ));
 
   return (
-    <footer className="bg-black text-gray-300 py-12 lg:py-20">
+    <footer className="bg-black border-t-[1px] border-black dark:border-gray-700 text-gray-300 py-12 lg:py-20">
       <Container className="grid grid-cols-[min-content] justify-center sm:grid-cols-2 md:grid-cols-3 gap-12  max-w-screen-xl">
         <section className="sm:col-span-2 md:col-span-1">
           <Link to="/">

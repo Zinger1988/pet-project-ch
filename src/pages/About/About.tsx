@@ -30,7 +30,7 @@ const About = () => {
           </p>
         </Container>
       </section>
-      <section className="bg-primary-400 py-12 sm:py-20">
+      <section className="bg-primary-400 dark:bg-primary-900/30 py-12 sm:py-20">
         <Container className="max-w-screen-lg mx-auto">
           <h2 className="text-h1 mt-0">Talktube is:</h2>
           <div className="grid gap-12 md:grid-cols-3  text-body-lg">

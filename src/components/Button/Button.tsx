@@ -41,15 +41,15 @@ const Button = ({
       lg: "py-5 px-8 min-w-[10rem] text-body",
     },
     variant: {
-      primary: `hover:shadow-[inset_0_0_0_2px_theme(colors.primary.400),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.primary.400)] ${
+      primary: `dark:hover:shadow-[inset_0_0_0_2px_theme(colors.primary.400),0_0_0_6px_theme(colors.black),0_0_0_8px_theme(colors.primary.400)] hover:shadow-[inset_0_0_0_2px_theme(colors.primary.400),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.primary.400)] ${
         isSolid
           ? "bg-primary-400"
-          : "bg-white shadow-[inset_0_0_0_2px_theme(colors.primary.400)]"
+          : "bg-transparent shadow-[inset_0_0_0_2px_theme(colors.primary.400)]"
       }`,
-      secondary: `hover:shadow-[inset_0_0_0_2px_theme(colors.gray.900),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.gray.900)] ${
+      secondary: `dark:hover:shadow-[inset_0_0_0_2px_theme(colors.white),0_0_0_6px_theme(colors.black),0_0_0_8px_theme(colors.white)] hover:shadow-[inset_0_0_0_2px_theme(colors.gray.900),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.gray.900)] ${
         isSolid
-          ? "bg-gray-900 text-white hover:text-white"
-          : "bg-white shadow-[inset_0_0_0_2px_theme(colors.gray.900)]"
+          ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:text-white dark:hover:text-gray-900 dark:bg-gray-700"
+          : "bg-transparent shadow-[inset_0_0_0_2px_theme(colors.gray.900)] dark:shadow-[inset_0_0_0_2px_theme(colors.gray.700)]"
       }`,
     },
   };
@@ -62,7 +62,7 @@ const Button = ({
     },
     variant: {
       primary: "fill-black",
-      secondary: "fill-white",
+      secondary: "fill-white dark:fill-gray-900",
     },
   };
 

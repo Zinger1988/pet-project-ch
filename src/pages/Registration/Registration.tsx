@@ -97,7 +97,7 @@ const Registration = () => {
             <div className="grid grid-cols-[1fr,_auto] gap-x-4 items-center">
               <Link
                 to="/login"
-                className="decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black"
+                className="decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black dark:hover:decoration-white"
               >
                 Already have an account?
               </Link>

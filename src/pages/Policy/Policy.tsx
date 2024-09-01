@@ -3,7 +3,7 @@ import React from "react";
 
 const Policy = () => {
   return (
-    <Container className="max-w-screen-md mt-12">
+    <Container className="max-w-screen-md mt-12 mb-24">
       <article>
         <img
           src="/logo_balloon.svg"

@@ -9,7 +9,11 @@ interface ErrorProps {
 }
 
 const Error: React.FC<ErrorProps> = (props) => {
-  return <ErrorSection {...props} />;
+  return (
+    <div className="mt-12 mb-24">
+      <ErrorSection {...props} />
+    </div>
+  );
 };
 
 export default Error;
