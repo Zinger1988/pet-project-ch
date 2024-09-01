@@ -6,8 +6,11 @@ import { Button, FormControl } from "../../components";
 import { IconId } from "../../types/enums";
 
 import coworkingImg from "../../assets/images/coworking_space.svg";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const { t } = useTranslation();
+
   const initialValues = {
     email: "",
     password: "",
@@ -18,7 +21,7 @@ const Login = () => {
     password: Yup.string()
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-        "Minimum 8 characters, at least 1 letter and 1 number"
+        t("password", { ns: "validations" })
       )
       .required("This field is required"),
   });
@@ -58,7 +61,7 @@ const Login = () => {
                 to="/password-recovery"
                 className="decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black dark:hover:decoration-white col-span-1 col-start-1"
               >
-                Forgot password?
+                {t("forgot password", { ns: "validations" })}
               </Link>
               <Link
                 to="/registration"
@@ -72,7 +75,7 @@ const Login = () => {
                 icon={IconId.ArrowRight}
                 iconPosition="right"
               >
-                Continue
+                {t("continue")}
               </Button>
             </div>
           </Form>

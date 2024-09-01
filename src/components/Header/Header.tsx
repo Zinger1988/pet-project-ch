@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Container, DesktopMenu, Logo, MenuBtn, MobileMenu } from "..";
+import { Container, DesktopMenu, LangToggle, Logo, MenuBtn, MobileMenu } from "..";
 import { useState } from "react";
 import { MenuItems } from "../../types/global";
 import { useDarkThemeContext } from "../../context/DarkThemeContext";
@@ -41,6 +41,7 @@ function Header() {
           items={menu}
           onClick={handleMobileMenu}
         />
+        <LangToggle />
       </Container>
     </header>
   );
