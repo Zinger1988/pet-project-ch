@@ -4,16 +4,18 @@ import { Container, DesktopMenu, LangToggle, Logo, MenuBtn, MobileMenu } from ".
 import { useState } from "react";
 import { MenuItems } from "../../types/global";
 import { useDarkThemeContext } from "../../context/DarkThemeContext";
+import { useTranslation } from "react-i18next";
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
   const { isDark } = useDarkThemeContext();
 
   const menu: MenuItems = [
-    { label: "home", url: "/" },
-    { label: "search", url: "/search" },
-    { label: "login", url: "/login" },
-    { label: "user profile", url: "/profile" },
+    { label: t("header.home"), url: "/" },
+    { label: t("header.search"), url: "/search" },
+    { label: t("header.login"), url: "/login" },
+    { label: t("header.userProfile"), url: "/profile" },
   ];
 
   const handleMobileMenu = () => {

@@ -1,3 +1,22 @@
 {
-  "continue": "Continuar"
+  "continue": "Continuar",
+  "header": {
+    "home": "Inicio",
+    "search": "Buscar",
+    "login": "Iniciar sesión",
+    "userProfile": "Perfil de usuario"
+  },
+  "footer": {
+    "contactUs": "Contáctenos",
+    "aboutUs": "Sobre nosotros",
+    "contact": "Contacto",
+    "support": "Soporte",
+    "faq": "Preguntas frecuentes"
+  },
+  "buttons": {
+    "continue": "Continuar",
+    "submit": "Enviar",
+    "ok": "Aceptar",
+    "cancel": "Cancelar"
+  }
 }

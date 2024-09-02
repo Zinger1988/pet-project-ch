@@ -1,3 +1,22 @@
 {
-  "continue": "Continue"
+  "continue": "Continue",
+  "header": {
+    "home": "Home",
+    "search": "Search",
+    "login": "Login",
+    "userProfile": "User profile"
+  },
+  "footer": {
+    "contactUs": "Contact Us",
+    "aboutUs": "About us",
+    "contact": "Contact",
+    "support": "Support",
+    "faq": "FAQ"
+  },
+  "buttons": {
+    "continue": "Continue",
+    "submit": "Submit",
+    "ok": "ok",
+    "cancel": "cancel"
+  }
 }

@@ -1,5 +1,6 @@
-import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
+import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
 
 import { Button, Container, FormControl } from "../../components";
 
@@ -7,20 +8,25 @@ import { IconId } from "../../types/enums";
 import serviceTeamImg from "../../assets/images/сustomer_service_support.svg";
 
 const Contact = () => {
+  const { t } = useTranslation();
+
   const initialValues = {
     email: "",
     name: "",
     message: "",
   };
 
+  // prettier-ignore
   const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid e-mail").required("This field is required"),
+    email: Yup.string()
+      .required(t("required", { ns: "validations" }))
+      .email(t("email", { ns: "validations" })),
     name: Yup.string()
-      .min(3, "Must be 3 characters or more")
-      .required("This field is required"),
+      .required(t("required", { ns: "validations" }))
+      .min(3, t("validations:minLength", { count: 3 })),
     message: Yup.string()
-      .min(20, "Must be 20 characters or more")
-      .required("This field is required"),
+      .required(t("required", { ns: "validations" }))
+      .min(20, t("validations:minLength", { count: 20 })),
   });
 
   const handleSubmit = (values: typeof initialValues) => {
@@ -30,7 +36,7 @@ const Contact = () => {
   return (
     <Container className="max-w-screen-md mb-24">
       <section className="mt-12">
-        <h1 className="text-center mt-0">Our contacts</h1>
+        <h1 className="text-center mt-0">{t("Our contacts", { ns: "pageContacts" })}</h1>
         <div className="mb-8">
           <img
             className="w-9/12 max-w-[360px] mx-auto"
@@ -46,7 +52,7 @@ const Contact = () => {
             to="tel:+1987654321"
             icon={IconId.CallSolid}
           >
-            Call us
+            {t("Call us", { ns: "pageContacts" })}
           </Button>
           <Button
             variant="secondary"
@@ -55,13 +61,17 @@ const Contact = () => {
             to="mailto:support@talktube.com"
             icon={IconId.MessageSolid}
           >
-            Write us
+            {t("Write us", { ns: "pageContacts" })}
           </Button>
         </div>
         <p className="text-center my-4 relative before:absolute before:w-full before:h-px before:left-0 before:top-1/2 before:border-b-[1px] before:border-gray-600">
-          <span className="bg-white dark:bg-black font-bold relative z-10 px-4">or</span>
+          <span className="bg-white dark:bg-black font-bold relative z-10 px-4">
+            {t("or", { ns: "pageContacts" })}
+          </span>
         </p>
-        <h2 className="text-center mt-0">Leave a message</h2>
+        <h2 className="text-center mt-0">
+          {t("Leave a message", { ns: "pageContacts" })}
+        </h2>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -72,8 +82,8 @@ const Contact = () => {
               component={FormControl}
               type="text"
               name="name"
-              label="Your name"
-              placeholder="How we can call you?"
+              label={t("name.label", { ns: "forms" })}
+              placeholder={t("How we can call you?", { ns: "pageContacts" })}
               id="name"
               className="mb-3"
             />
@@ -81,8 +91,8 @@ const Contact = () => {
               component={FormControl}
               type="email"
               name="email"
-              label="E-mail"
-              placeholder="We will send the response to it"
+              label={t("email.label", { ns: "forms" })}
+              placeholder={t("We will send the response to it", { ns: "pageContacts" })}
               id="email"
               className="mb-3"
             />
@@ -90,14 +100,16 @@ const Contact = () => {
               component={FormControl}
               type="textarea"
               name="message"
-              label="Message"
-              placeholder="What exactly do you want to tell us?"
+              label={t("message.label", { ns: "forms" })}
+              placeholder={t("What exactly do you want to tell us?", {
+                ns: "pageContacts",
+              })}
               id="message"
               className="mb-6"
             />
             <div className="flex justify-center">
               <Button type="submit" className="w-full sm:w-auto">
-                Submit
+                {t("buttons.submit")}
               </Button>
             </div>
           </Form>

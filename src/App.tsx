@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { RootState } from "./store/index";
+import { useTranslation } from "react-i18next";
 
 import AppLayout from "./layout/AppLayout";
 import {
@@ -25,6 +26,7 @@ import DarkThemeContextProvider from "./context/DarkThemeContext";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
+  const { t } = useTranslation();
 
   const data = useSelector((state: RootState) => state.yourStateSlice.data);
   const loading = useSelector((state: RootState) => state.yourStateSlice.loading);
@@ -37,6 +39,7 @@ function App() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   console.log(data, "data");
+
   return (
     <div className="App min-h-[100dvh] flex flex-col">
       {/* Define routes */}
@@ -57,7 +60,12 @@ function App() {
             <Route path="error" element={<Error />} />
             <Route
               path="*"
-              element={<Error statusCode="404" title="This page doesn't exists (404)" />}
+              element={
+                <Error
+                  statusCode="404"
+                  title={t("This page doesn't exists (404)", { ns: "errors" })}
+                />
+              }
             />
           </Route>
         </Routes>
