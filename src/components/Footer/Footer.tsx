@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { Container, Icon } from "..";
 
 import { IconId } from "../../types/enums";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const headingStyles = "uppercase text-body mb-7 pb-5 relative";
   const headingAfterStyles =
     "after:absolute after:left-0 after:bottom-0 after:w-7 after:h-1 after:bg-yellow-400 after:rounded-lg";
-
   const listStyles = "m-0 p-0";
   const conactsListItemStyles = "flex items-center gap-4 mb-3 pl-0 text-sm before:hidden";
   const listItemStyles = "mb-3 pl-0 text-sm before:hidden";
@@ -30,10 +31,10 @@ const Footer = () => {
   ];
 
   const menuItems = [
-    { url: "/about", label: "About Us" },
-    { url: "/contact", label: "Contact" },
-    { url: "/support", label: "Support" },
-    { url: "/faq", label: "FAQ" },
+    { url: "/about", label: t("footer.about us") },
+    { url: "/contact", label: t("footer.contact") },
+    { url: "/support", label: t("footer.support") },
+    { url: "/faq", label: t("footer.faq") },
   ];
 
   const socialsItemsNodes = socialsItems.map((item) => (
@@ -78,7 +79,9 @@ const Footer = () => {
         </section>
 
         <section>
-          <h3 className={`${headingStyles} ${headingAfterStyles}`}>Contact Us</h3>
+          <h3 className={`${headingStyles} ${headingAfterStyles}`}>
+            {t("footer.contact us")}
+          </h3>
           <ul className={listStyles}>{contactItemsNodes}</ul>
         </section>
 

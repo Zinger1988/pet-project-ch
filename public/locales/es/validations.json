@@ -1,0 +1,11 @@
+{
+  "required": "Este campo es obligatorio",
+  "minLength": "Debe tener {{count}} caracteres o más",
+  "minLength_one": "Debe tener {{count}} carácter o más",
+  "minLength_few": "Debe tener {{count}} caracteres o más",
+  "minLength_many": "Debe tener {{count}} caracteres o más",
+  "email": "Correo electrónico no válido",
+  "password": "Mínimo 8 caracteres, al menos 1 letra y 1 número",
+  "passwordRepeat": "Las contraseñas deben coincidir",
+  "agreement": "Se requiere su consentimiento"
+}

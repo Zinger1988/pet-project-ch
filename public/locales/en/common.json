@@ -1,0 +1,33 @@
+{
+  "continue": "Continue",
+  "header": {
+    "home": "Home",
+    "search": "Search",
+    "login": "Login",
+    "user profile": "User profile"
+  },
+  "footer": {
+    "contact us": "Contact Us",
+    "about us": "About us",
+    "contact": "Contact",
+    "support": "Support",
+    "faq": "FAQ"
+  },
+  "buttons": {
+    "continue": "Continue",
+    "submit": "Submit",
+    "ok": "ok",
+    "cancel": "cancel"
+  },
+  "languages": {
+    "en": {
+      "label": "Switch to English"
+    },
+    "es": {
+      "label": "Switch to Spanish"
+    },
+    "fr": {
+      "label": "Switch to French "
+    }
+  }
+}

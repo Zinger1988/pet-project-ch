@@ -1,0 +1,17 @@
+{
+  "email": {
+    "label": "Correo electrónico"
+  },
+  "password": {
+    "label": "Tu contraseña"
+  },
+  "name": {
+    "label": "Tu nombre"
+  },
+  "passwordRepeat": {
+    "label": "Repite tu contraseña"
+  },
+  "message": {
+    "label": "Mensaje"
+  }
+}

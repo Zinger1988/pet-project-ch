@@ -5,6 +5,7 @@ import "./tailwind.output.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store/index";
+import "./i18n";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 

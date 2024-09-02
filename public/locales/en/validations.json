@@ -1,0 +1,11 @@
+{
+  "required": "This field is required",
+  "minLength": "Must be {{count}} characters or more",
+  "minLength_one": "Must be {{count}} character or more",
+  "minLength_few": "Must be {{count}} characters or more",
+  "minLength_many": "Must be {{count}} characters or more",
+  "email": "Invalid e-mail",
+  "password": "Minimum 8 characters, at least 1 letter and 1 number",
+  "passwordRepeat": "Passwords should match",
+  "agreement": "Your consent is required"
+}
