@@ -15,7 +15,7 @@ function Header() {
     { label: t("header.home"), url: "/" },
     { label: t("header.search"), url: "/search" },
     { label: t("header.login"), url: "/login" },
-    { label: t("header.userProfile"), url: "/profile" },
+    { label: t("header.user profile"), url: "/profile" },
   ];
 
   const handleMobileMenu = () => {
@@ -43,7 +43,6 @@ function Header() {
           items={menu}
           onClick={handleMobileMenu}
         />
-        <LangToggle />
       </Container>
     </header>
   );

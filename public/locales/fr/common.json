@@ -1,0 +1,33 @@
+{
+  "continue": "Continuer",
+  "header": {
+    "home": "Accueil",
+    "search": "Rechercher",
+    "login": "Se connecter",
+    "user profile": "Profil de l'utilisateur"
+  },
+  "footer": {
+    "contact us": "Contactez-nous",
+    "about us": "À propos de nous",
+    "contact": "Contact",
+    "support": "Assistance",
+    "faq": "FAQ"
+  },
+  "buttons": {
+    "continue": "Continuer",
+    "submit": "Soumettre",
+    "ok": "D'accord",
+    "cancel": "Annuler"
+  },
+  "languages": {
+    "en": {
+      "label": "Passer à l'anglais"
+    },
+    "es": {
+      "label": "Passer à l'espagnol"
+    },
+    "fr": {
+      "label": "Passer au français"
+    }
+  }
+}

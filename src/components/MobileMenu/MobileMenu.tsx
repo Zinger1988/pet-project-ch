@@ -3,6 +3,7 @@ import { capitalizeFirstLetter } from "../../helpers/stringUtils";
 import { MenuItems } from "../../types/global";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import LangToggle from "../LangToggle/LangToggle";
 
 interface MobileMenuProps {
   className?: string;
@@ -20,6 +21,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ className = "", items, onClick 
   return (
     <nav className={navStyles} aria-label="Main navigation">
       <div className="flex flex-col justify-center items-center h-full gap-6">
+        <LangToggle />
         <ThemeToggle />
         <ul className={listStyles}>
           {items.map((item) => (

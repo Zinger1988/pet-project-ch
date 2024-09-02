@@ -4,11 +4,11 @@
     "home": "Home",
     "search": "Search",
     "login": "Login",
-    "userProfile": "User profile"
+    "user profile": "User profile"
   },
   "footer": {
-    "contactUs": "Contact Us",
-    "aboutUs": "About us",
+    "contact us": "Contact Us",
+    "about us": "About us",
     "contact": "Contact",
     "support": "Support",
     "faq": "FAQ"
@@ -18,5 +18,16 @@
     "submit": "Submit",
     "ok": "ok",
     "cancel": "cancel"
+  },
+  "languages": {
+    "en": {
+      "label": "Switch to English"
+    },
+    "es": {
+      "label": "Switch to Spanish"
+    },
+    "fr": {
+      "label": "Switch to French "
+    }
   }
 }

@@ -31,8 +31,8 @@ const Footer = () => {
   ];
 
   const menuItems = [
-    { url: "/about", label: t("footer.aboutUs") },
-    { url: "/contact", label: t("footer.contactUs") },
+    { url: "/about", label: t("footer.about us") },
+    { url: "/contact", label: t("footer.contact") },
     { url: "/support", label: t("footer.support") },
     { url: "/faq", label: t("footer.faq") },
   ];
@@ -79,7 +79,9 @@ const Footer = () => {
         </section>
 
         <section>
-          <h3 className={`${headingStyles} ${headingAfterStyles}`}>Contact Us</h3>
+          <h3 className={`${headingStyles} ${headingAfterStyles}`}>
+            {t("footer.contact us")}
+          </h3>
           <ul className={listStyles}>{contactItemsNodes}</ul>
         </section>
 

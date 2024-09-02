@@ -1,3 +1,4 @@
+import { Trans, useTranslation } from "react-i18next";
 import { Container } from "../../components";
 
 import bannerImg from "../../assets/images/about_us_banner.svg";
@@ -10,6 +11,41 @@ import talktubeTeam6 from "../../assets/images/jobs/office_work.jpg";
 import talktubeTeam7 from "../../assets/images/jobs/playing_guitar.jpg";
 
 const About = () => {
+  const { t } = useTranslation();
+
+  const companyFeatures = [
+    {
+      emojis: "🗣 💛‍ 🌍",
+      title: t("mission.title", { ns: "pageAbout" }),
+      description: t("mission.description", { ns: "pageAbout" }),
+    },
+    {
+      emojis: "👩🏾‍ 💻 👨🏽 ‍👩🏻 🎨 👨🏿",
+      title: t("people.title", { ns: "pageAbout" }),
+      description: t("people.description", { ns: "pageAbout" }),
+    },
+    {
+      emojis: "🔎 🛠️ 💻",
+      title: t("culture.title", { ns: "pageAbout" }),
+      description: t("culture.description", { ns: "pageAbout" }),
+    },
+    {
+      emojis: "🏖 ⚕ ️️👶🏾 🖥",
+      title: t("benefits.title", { ns: "pageAbout" }),
+      description: t("benefits.description", { ns: "pageAbout" }),
+    },
+    {
+      emojis: "🌲 🏡 🌴 ✈️",
+      title: t("work from anywhere.title", { ns: "pageAbout" }),
+      description: t("work from anywhere.description", { ns: "pageAbout" }),
+    },
+    {
+      emojis: "💎 🙌",
+      title: t("just getting started.title", { ns: "pageAbout" }),
+      description: t("just getting started.description", { ns: "pageAbout" }),
+    },
+  ];
+
   return (
     <div className="mb-15">
       <section className="bg-black py-12 sm:py-20 text-gray-400 text-body-lg">
@@ -19,86 +55,31 @@ const About = () => {
             src={bannerImg}
             alt="We are small but amazing team"
           />
-          <p className="max-w-3xl">
-            talktube is a place where you can hang out with friends, meet new ones, and
-            talk about anything. It's like an always-on dinner party.
-          </p>
-          <p className="max-w-3xl">
-            Built by a small, scrappy team of experienced builders with a strong
-            background in consumer products with a relentless focus on our product and the
-            community.
-          </p>
+          <Trans i18nKey="about description" ns="pageAbout" />
         </Container>
       </section>
       <section className="bg-primary-400 dark:bg-primary-900/30 py-12 sm:py-20">
         <Container className="max-w-screen-lg mx-auto">
-          <h2 className="text-h1 mt-0">Talktube is:</h2>
+          <h2 className="text-h1 mt-0">{t("Talktube is", { ns: "pageAbout" })}</h2>
           <div className="grid gap-12 md:grid-cols-3  text-body-lg">
-            <article className="md:col-span-1 hover:scale-105 transition-transform duration-300">
-              <div className="mb-2">🗣 💛‍ 🌍</div>
-              <h3 className="mt-0 mb-2">huge, positive mission</h3>
-              <p className="my-0">
-                Our mission is to increase friendship in the world. We believe that good
-                friendships are the foundation of everything, and we built talktube to
-                make it easier to fill your life with them. We believe nothing does more
-                for our happiness than having good friends.
-              </p>
-            </article>
-            <article className="md:col-span-1 hover:scale-105 transition-transform duration-300">
-              <div className="mb-2">👩🏾‍ 💻 👨🏽 ‍👩🏻 🎨 👨🏿</div>
-              <h3 className="mt-0 mb-2">the people</h3>
-              <p className="my-0">
-                You’ll be surrounded each day with scrappy, brilliant and ambitious
-                teammates who are excited to roll up their sleeves and learn from each
-                other. Best teammates ever!
-              </p>
-            </article>
-            <article className="md:col-span-1 hover:scale-105 transition-transform duration-300">
-              <div className="mb-2">🔎 🛠️ 💻</div>
-              <h3 className="mt-0 mb-2">the culture</h3>
-              <p className="my-0">
-                As a team we move quickly, we ship fast and get a lot done. We do this not
-                by taking on everything, but by hiring an incredible team, focusing on the
-                things that matter, and ignoring things that don’t. We are efficient,
-                meeting-light, and relentlessly focused on building.
-              </p>
-            </article>
-            <article className="md:col-span-1 hover:scale-105 transition-transform duration-300">
-              <div className="mb-2">🏖 ⚕ ️️👶🏾 🖥</div>
-              <h3 className="mt-0 mb-2">benefits and perks</h3>
-              <p className="my-0">
-                From flexible vacation, great healthcare and family leave benefits,
-                amazing team events and a generous work from home stipend to help you do
-                your best work.
-              </p>
-            </article>
-            <article className="md:col-span-1 hover:scale-105 transition-transform duration-300">
-              <div className="mb-2">🌲 🏡 🌴 ✈️</div>
-              <h3 className="mt-0 mb-2">work from anywhere</h3>
-              <p className="my-0">
-                We work as a distributed team and hire people from all over the U.S. but
-                we value in-person time too! Every quarter, we fly the whole company to
-                our office in San Francisco so we can whiteboard, catch up, meet all the
-                new faces, and enjoy quality time together.
-              </p>
-            </article>
-            <article className="md:col-span-1 hover:scale-105 transition-transform duration-300">
-              <div className="mb-2">💎 🙌</div>
-              <h3 className="mt-0 mb-2">just getting started</h3>
-              <p className="my-0">
-                Since launching in 2020 we’ve gone from Seed to Series A, B and C – backed
-                by an amazing and diverse group, including Andreessen Horowitz, Tiger
-                Global, DST Global and many of the top angel investors in the world. We
-                are well resourced and aim to build something that touches the whole
-                world. Big dreams over here!
-              </p>
-            </article>
+            {companyFeatures.map((item) => (
+              <article
+                key={item.title}
+                className="md:col-span-1 hover:scale-105 transition-transform duration-300"
+              >
+                <div className="mb-2">{item.emojis}</div>
+                <h3 className="mt-0 mb-2">{item.title}</h3>
+                <p className="my-0">{item.description}</p>
+              </article>
+            ))}
           </div>
         </Container>
       </section>
       <section className="py-12 sm:py-20">
         <Container className="max-w-screen-lg mx-auto">
-          <h2 className="text-h1 mt-0">Aaand, here we are!</h2>
+          <h2 className="text-h1 mt-0">
+            {t("Aaand, here we are!", { ns: "pageAbout" })}
+          </h2>
           <div className="w-full mt-12 grid grid-cols-1 md:grid-cols-12 gap-6 place-items-center">
             <img
               className="col-span-4 object-cover w-full h-auto md:h-80 rounded-3xl transition-[all] duration-500 hover:shadow-xl cursor-pointer hover:scale-[1.03] hover:rotate-[2deg]"
