@@ -15,6 +15,7 @@ i18n
       "pageLogin",
       "pagePolicy",
       "pageRegistration",
+      "pageInvestors",
       "validations",
     ],
     defaultNS: "common",

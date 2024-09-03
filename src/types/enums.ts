@@ -19,4 +19,5 @@ export enum IconId {
   Check = "CHECK",
   Sun = "SUN",
   Moon = "MOON",
+  Document = "DOCUMENT",
 }

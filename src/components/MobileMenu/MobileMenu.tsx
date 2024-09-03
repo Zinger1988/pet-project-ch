@@ -21,7 +21,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ className = "", items, onClick 
   return (
     <nav className={navStyles} aria-label="Main navigation">
       <div className="flex flex-col justify-center items-center h-full gap-6">
-        <LangToggle />
+        <LangToggle className="text-gray-300" />
         <ThemeToggle />
         <ul className={listStyles}>
           {items.map((item) => (
