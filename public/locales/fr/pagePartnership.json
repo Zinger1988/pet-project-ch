@@ -1,0 +1,26 @@
+{
+  "welcome screen": "<h1>Devenez partenaire de Talktube</h1> <p>Chez Talktube, nous sommes bien plus qu'un simple réseau social : nous sommes une communauté qui s'épanouit grâce à des conversations authentiques en temps réel. Nous recherchons des partenaires innovants qui partagent notre passion pour connecter les gens à travers le pouvoir de la voix. Que vous soyez une marque, un créateur de contenu ou un fournisseur de technologie, nous vous invitons à explorer des opportunités de partenariat qui peuvent nous aider à façonner ensemble l'avenir de la communication.</p>",
+  "partnership advantages": {
+    "title": "Pourquoi devenir partenaire de Talktube?",
+    "items": {
+      "technology": {
+        "title": "Technologie Pionnière :",
+        "description": "Talktube est à la pointe de la messagerie audio en streaming, offrant une plateforme engageante, conviviale et en constante évolution. En vous associant avec nous, vous vous alignez avec une marque qui repousse les limites de l'interaction sociale."
+      },
+      "audience": {
+        "title": "Audience Mondiale :",
+        "description": "Notre base d'utilisateurs s'étend à travers le monde, donnant à votre marque accès à une communauté diversifiée et engagée. Devenir partenaire de Talktube signifie que votre message peut atteindre des millions d'utilisateurs qui apprécient la communication vocale significative."
+      },
+      "growth": {
+        "title": "Croissance Collaborative :",
+        "description": "Nous croyons en des partenariats qui stimulent le succès mutuel. Qu'il s'agisse de co-développer du contenu, de lancer des promotions conjointes ou d'intégrer de nouvelles technologies, notre objectif est de créer de la valeur pour toutes les parties impliquées."
+      },
+      "support": {
+        "title": "Support Complet :",
+        "description": "Notre équipe dédiée aux partenariats est là pour assurer une expérience fluide. Des discussions initiales à l'exécution, nous vous fournissons le support nécessaire pour faire de notre collaboration un succès."
+      }
+    }
+  },
+  "partnership types": "<h1>Types de Partenariats que Nous Recherchons</h1> <ul> <li> <p> <b>Collaborations de Marque :</b> <br />Travaillez avec nous pour créer des expériences uniques et co-marquées qui résonnent avec notre audience commune. Que ce soit pour lancer du contenu audio exclusif, co-organiser des événements ou créer des filtres vocaux personnalisés, nous sommes impatients de collaborer.</p> </li> <li> <p> <b>Intégrations Technologiques :</b> <br />Vous avez une solution technologique qui pourrait améliorer l'expérience Talktube? Discutons de la manière dont nous pouvons intégrer votre technologie pour offrir encore plus de valeur à nos utilisateurs.</p> </li> <li> <p> <b>Programmes d'Affiliation :</b> <br />Rejoignez notre programme d'affiliation pour gagner des commissions en promouvant Talktube auprès de votre audience. C'est un moyen simple et efficace de monétiser votre influence tout en nous aidant à grandir.</p> </li> </ul>",
+  "offers": "<h1>Offres Spéciales pour Projets Collaboratifs</h1> <ul> <li> <p> <b>Accès Exclusif :</b> <br />En tant que partenaire, vous bénéficierez d'un accès exclusif aux nouvelles fonctionnalités et services de Talktube avant leur sortie publique, vous permettant de rester à la pointe de l'innovation.</p> </li> <li> <p> <b>Opportunités de Co-Marketing :</b> <br />Profitez des campagnes de co-marketing incluant des promotions conjointes, du contenu partagé et une visibilité croisée sur les plateformes pour amplifier notre portée collective.</p> </li> <li> <p> <b>Services à Tarif Réduit :</b> <br />Les partenaires bénéficient de réductions spéciales sur nos services premium, vous permettant de tirer le meilleur parti de Talktube pour votre marque ou projet.</p> </li> </ul>"
+}

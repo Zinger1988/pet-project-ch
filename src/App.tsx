@@ -19,6 +19,7 @@ import {
   Error,
   Registration,
   InvestorRaltions,
+  Partnership,
 } from "../src/pages";
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
@@ -60,6 +61,7 @@ function App() {
             <Route path="policy" element={<Policy />} />
             <Route path="error" element={<Error />} />
             <Route path="investor-relations" element={<InvestorRaltions />} />
+            <Route path="partnership" element={<Partnership />} />
             <Route
               path="*"
               element={
