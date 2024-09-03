@@ -16,6 +16,7 @@ i18n
       "pagePolicy",
       "pageRegistration",
       "pageInvestors",
+      "pagePartnership",
       "validations",
     ],
     defaultNS: "common",
@@ -48,6 +49,7 @@ i18n
         "tr",
         "th",
         "td",
+        "br",
       ],
     },
   });

@@ -129,7 +129,7 @@ const InvestorRaltions = () => {
           </div>
         </Container>
       </section>
-      <section className="py-12 ">
+      <section className="py-12 border-b-[1px] border-white dark:border-gray-700">
         <Container className="md:grid md:grid-cols-2 md:gap-16 md:mx-auto md:max-w-screen-xl md:items-center max-w-screen-sm">
           <div className="col-span-1 mb-12 md:mb-0">
             <Trans
@@ -152,7 +152,7 @@ const InvestorRaltions = () => {
         </Container>
       </section>
       <section>
-        <Container className="md:grid md:grid-cols-2 md:mx-auto md:max-w-none md:min-h-[700px] md:items-center max-w-screen-sm md:pl-0 lg:pl-0 xl:pl-0 bg-gray-100">
+        <Container className="md:grid md:grid-cols-2 md:mx-auto md:max-w-none md:min-h-[700px] md:items-center max-w-screen-sm md:pl-0 lg:pl-0 xl:pl-0 bg-gray-100 dark:bg-black">
           <div className="col-span-1 py-12 md:max-w-[calc(theme(screens.xl)/2)] md:pl-12 lg:pl-24">
             <Trans
               i18nKey={"contact"}

@@ -1,0 +1,26 @@
+{
+  "welcome screen": "<h1>Asóciate con Talktube</h1> <p>En Talktube, somos más que solo una red social: somos una comunidad que prospera gracias a conversaciones auténticas en tiempo real. Estamos buscando socios innovadores que compartan nuestra pasión por conectar personas a través del poder de la voz. Ya sea que seas una marca, un creador de contenido o un proveedor de tecnología, te invitamos a explorar oportunidades de asociación que nos ayuden a dar forma al futuro de la comunicación juntos.</p>",
+  "partnership advantages": {
+    "title": "¿Por qué asociarse con Talktube?",
+    "items": {
+      "technology": {
+        "title": "Tecnología Pionera:",
+        "description": "Talktube está liderando el camino en la mensajería de audio en streaming, ofreciendo una plataforma atractiva, fácil de usar y en constante evolución. Al asociarte con nosotros, te alineas con una marca que está expandiendo los límites de la interacción social."
+      },
+      "audience": {
+        "title": "Audiencia Global:",
+        "description": "Nuestra base de usuarios se extiende por todo el mundo, brindando a tu marca acceso a una comunidad diversa y comprometida. Asociarse con Talktube significa que tu mensaje puede llegar a millones de usuarios que valoran la comunicación de voz significativa."
+      },
+      "growth": {
+        "title": "Crecimiento Colaborativo:",
+        "description": "Creemos en asociaciones que impulsen el éxito mutuo. Ya sea co-desarrollando contenido, lanzando promociones conjuntas o integrando nuevas tecnologías, nuestro objetivo es crear valor para todos los involucrados."
+      },
+      "support": {
+        "title": "Soporte Integral:",
+        "description": "Nuestro equipo de asociaciones dedicado está aquí para garantizar una experiencia fluida. Desde las discusiones iniciales hasta la ejecución, te proporcionamos el soporte que necesitas para hacer que nuestra colaboración sea un éxito."
+      }
+    }
+  },
+  "partnership types": "<h1>Tipos de Asociaciones que Buscamos</h1> <ul> <li> <p> <b>Colaboraciones de Marca:</b> <br />Trabaja con nosotros para crear experiencias únicas y co-marcadas que resuenen con nuestra audiencia compartida. Ya sea lanzando contenido de audio exclusivo, co-organizando eventos o diseñando filtros de voz personalizados, estamos emocionados de colaborar.</p> </li> <li> <p> <b>Integraciones Tecnológicas:</b> <br />¿Tienes una solución tecnológica que podría mejorar la experiencia de Talktube? Hablemos de cómo podemos integrar tu tecnología para ofrecer aún más valor a nuestros usuarios.</p> </li> <li> <p> <b>Programas de Afiliados:</b> <br />Únete a nuestro programa de afiliados para ganar comisiones promoviendo Talktube a tu audiencia. Es una manera simple y efectiva de monetizar tu influencia mientras nos ayudas a crecer.</p> </li> </ul>",
+  "offers": "<h1>Ofertas Especiales para Proyectos Colaborativos</h1> <ul> <li> <p> <b>Acceso Exclusivo:</b> <br />Como socio, obtendrás acceso exclusivo a nuevas funciones y servicios de Talktube antes de que se lancen al público, lo que te permitirá estar a la vanguardia.</p> </li> <li> <p> <b>Oportunidades de Co-Marketing:</b> <br />Aprovecha las campañas de co-marketing que incluyen promociones conjuntas, contenido compartido y visibilidad cruzada en plataformas para amplificar nuestro alcance colectivo.</p> </li> <li> <p> <b>Servicios con Descuento:</b> <br />Los socios reciben descuentos especiales en nuestros servicios premium, lo que te permite aprovechar al máximo Talktube para tu marca o proyecto.</p> </li> </ul>"
+}

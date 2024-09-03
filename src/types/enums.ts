@@ -20,4 +20,8 @@ export enum IconId {
   Sun = "SUN",
   Moon = "MOON",
   Document = "DOCUMENT",
+  Globe = "GLOBE",
+  HandGear = "HAND_GEAR",
+  LampGear = "LAMP_GEAR",
+  Chart = "CHART",
 }
