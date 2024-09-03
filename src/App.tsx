@@ -18,6 +18,7 @@ import {
   Policy,
   Error,
   Registration,
+  InvestorRaltions,
 } from "../src/pages";
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
@@ -58,6 +59,7 @@ function App() {
             <Route path="terms" element={<Terms />} />
             <Route path="policy" element={<Policy />} />
             <Route path="error" element={<Error />} />
+            <Route path="investor-relations" element={<InvestorRaltions />} />
             <Route
               path="*"
               element={

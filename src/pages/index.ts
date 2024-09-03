@@ -3,6 +3,7 @@ export { default as Contact } from "./Contact/Contact";
 export { default as Error } from "./Error/Error";
 export { default as FAQ } from "./FAQ/FAQ";
 export { default as Home } from "./Home/Home";
+export { default as InvestorRaltions } from "./InvestorRaltions/InvestorRaltions";
 export { default as Login } from "./Login/Login";
 export { default as NewPage } from "./NewPage/NewPage";
 export { default as Policy } from "./Policy/Policy";

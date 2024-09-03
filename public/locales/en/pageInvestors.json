@@ -1,0 +1,18 @@
+{
+  "welcome screen": "<heading>Welcome to Our Investor Relations Page!</heading><p> At Talktube, we are committed to transparency and regular communication with our investors. Our Investor Relations page provides comprehensive information on our financial performance, corporate governance, and strategic initiatives. Here, you will find the latest updates, reports, and resources that reflect our commitment to delivering long-term value to our shareholders. </p>",
+  "reports": {
+    "title": "Financial Reports",
+    "description": "Stay informed with our latest financial reports, including quarterly earnings, annual reports, and other key financial documents.",
+    "downloads": {
+      "2024Q2": "2024 Q2 Earnings Release",
+      "2023": "2023 Annual Report",
+      "2023Q4": "2023 Q4 Earnings Call Transcript",
+      "2022": "2022 Annual Report"
+    }
+  },
+  "governance": "<h2>Corporate Governance</h2> <p> Our commitment to strong corporate governance ensures that we maintain the highest standards of integrity and accountability. Review the compensation packages of our executive team and understand how they align with shareholder interests. </p> <ul> <li> <guidelines>Corporate Governance Guidelines</guidelines> </li> <li> <conduct>Code of Conduct</conduct> </li> <li> <audit>Audit Committee Charter</audit> </li> </ul>",
+  "stock": "<h2>Stock Information</h2> <p> Access real-time data on our stock performance, historical price trends, and dividend information. Estimate your investment returns based on our historical stock performance. Learn how you can reinvest your dividends to purchase more shares. </p> <ul> <li> <stock>Stock Price</stock> </li> <li> <historical>Historical Stock Data</historical> </li> <li> <dividend>Dividend Information</dividend> </li> </ul>",
+  "contact": "<h2>Contact Us</h2> <p> This Investor Relations page is designed to be a central hub for all the information our shareholders need. Whether you're looking for the latest financial data, upcoming event details, or downloadable reports, we aim to keep you informed and engaged with Talktube. </p>",
+  "Call us": "Call us",
+  "Write us": "Write us"
+}

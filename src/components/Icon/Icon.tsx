@@ -14,7 +14,7 @@ const Icon: React.FC<IconProps> = ({
   width = "18",
   height,
   className = "",
-  fill = "#000000",
+  fill = "",
 }) => {
   return (
     <svg className={className} width={width} height={height ? height : width} fill={fill}>

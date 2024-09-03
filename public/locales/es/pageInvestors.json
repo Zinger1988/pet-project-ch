@@ -1,0 +1,18 @@
+{
+  "welcome screen": "<heading>¡Bienvenido a nuestra página de relaciones con inversores!</heading><p> En Talktube, estamos comprometidos con la transparencia y la comunicación regular con nuestros inversores. Nuestra página de Relaciones con Inversores proporciona información completa sobre nuestro rendimiento financiero, gobierno corporativo e iniciativas estratégicas. Aquí encontrarás las últimas actualizaciones, informes y recursos que reflejan nuestro compromiso de ofrecer valor a largo plazo a nuestros accionistas. </p>",
+  "reports": {
+    "title": "Informes Financieros",
+    "description": "Mantente informado con nuestros últimos informes financieros, incluidos los resultados trimestrales, informes anuales y otros documentos financieros clave.",
+    "downloads": {
+      "2024Q2": "Resultados del segundo trimestre de 2024",
+      "2023": "Informe Anual 2023",
+      "2023Q4": "Transcripción de la llamada de resultados del cuarto trimestre de 2023",
+      "2022": "Informe Anual 2022"
+    }
+  },
+  "governance": "<h2>Gobierno Corporativo</h2> <p> Nuestro compromiso con un gobierno corporativo sólido asegura que mantenemos los más altos estándares de integridad y responsabilidad. Revisa los paquetes de compensación de nuestro equipo ejecutivo y comprende cómo se alinean con los intereses de los accionistas. </p> <ul> <li> <guidelines>Directrices de Gobierno Corporativo</guidelines> </li> <li> <conduct>Código de Conducta</conduct> </li> <li> <audit>Carta del Comité de Auditoría</audit> </li> </ul>",
+  "stock": "<h2>Información sobre las Acciones</h2> <p> Accede a datos en tiempo real sobre el rendimiento de nuestras acciones, tendencias de precios históricas e información sobre dividendos. Estima tus rendimientos de inversión basándote en nuestro rendimiento histórico. Aprende cómo puedes reinvertir tus dividendos para comprar más acciones. </p> <ul> <li> <stock>Precio de la Acción</stock> </li> <li> <historical>Datos Históricos de la Acción</historical> </li> <li> <dividend>Información sobre Dividendos</dividend> </li> </ul>",
+  "contact": "<h2>Contáctanos</h2> <p> Esta página de Relaciones con Inversores está diseñada para ser un centro de información para todos nuestros accionistas. Ya sea que estés buscando los últimos datos financieros, detalles sobre eventos próximos o informes descargables, nuestro objetivo es mantenerte informado y comprometido con Talktube. </p>",
+  "Call us": "Llámanos",
+  "Write us": "Escríbenos"
+}

@@ -41,23 +41,27 @@ const LangToggle: React.FC<LangToggleProps> = ({ className = "" }) => {
   const buttonBaseStyles =
     "w-8 h-8 leading-0 text-body-xs font-bold uppercase rounded-xl inline-flex items-center justify-center transition-shadow duration-300 dark:text-gray-300";
   const activeButtonStyles =
-    "shadow-[inset_0_0_0_2px_theme(colors.primary.400)] dark:text-gray-900 cursor-default";
+    "shadow-[inset_0_0_0_2px_theme(colors.primary.400)] dark:text-gray-300 cursor-default";
   const idleButtonStyles =
     "hover:shadow-[inset_0_0_0_2px_theme(colors.gray.200)] dark:hover:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]";
 
   return (
-    <div className="flex gap-1">
-      {languages.map((item) => (
-        <button
-          className={`${buttonBaseStyles} ${
-            item.short === i18n.language ? activeButtonStyles : idleButtonStyles
-          }`}
-          onClick={() => handleClick(item.short)}
-          aria-label={item.label}
-        >
-          {item.short}
-        </button>
-      ))}
+    <div className={`flex gap-1 ${className}`}>
+      {languages.map((item) => {
+        const btnStyles = `${buttonBaseStyles} ${
+          item.short === i18n.language ? activeButtonStyles : idleButtonStyles
+        }`;
+        return (
+          <button
+            key={item.short}
+            className={btnStyles}
+            onClick={() => handleClick(item.short)}
+            aria-label={item.label}
+          >
+            {item.short}
+          </button>
+        );
+      })}
     </div>
   );
 };
