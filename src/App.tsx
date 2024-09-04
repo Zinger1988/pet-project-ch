@@ -25,6 +25,7 @@ import {
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
 import DarkThemeContextProvider from "./context/DarkThemeContext";
+import { CookieBanner } from "./components";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -44,7 +45,6 @@ function App() {
 
   return (
     <div className="App min-h-[100dvh] flex flex-col">
-      {/* Define routes */}
       <DarkThemeContextProvider>
         <Routes>
           <Route path="/" element={<AppLayout />}>
@@ -74,6 +74,7 @@ function App() {
           </Route>
         </Routes>
       </DarkThemeContextProvider>
+      <CookieBanner />
     </div>
   );
 }

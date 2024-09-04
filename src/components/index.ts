@@ -1,6 +1,7 @@
 export { default as Button } from "./Button/Button";
 export { default as Checkbox } from "./Checkbox/Checkbox";
 export { default as Container } from "./Container/Container";
+export { default as CookieBanner } from "./CookieBanner/CookieBanner";
 export { default as DesktopMenu } from "./DesktopMenu/DesktopMenu";
 export { default as ErrorSection } from "./ErrorSection/ErrorSection";
 export { default as Footer } from "./Footer/Footer";

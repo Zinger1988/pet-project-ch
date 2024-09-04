@@ -7,7 +7,7 @@
     "user profile": "Perfil de usuario"
   },
   "footer": {
-    "contact us": "Contáctenos",
+    "contact us": "Contáctanos",
     "about us": "Sobre nosotros",
     "contact": "Contacto",
     "support": "Soporte",
@@ -17,7 +17,8 @@
     "continue": "Continuar",
     "submit": "Enviar",
     "ok": "Aceptar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "save": "Guardar"
   },
   "languages": {
     "en": {
@@ -29,5 +30,14 @@
     "fr": {
       "label": "Cambiar a francés"
     }
+  },
+  "cookie banner": {
+    "description": "Utilizamos cookies para mejorar su experiencia en nuestro sitio web. Al continuar navegando, acepta nuestro uso de cookies.",
+    "accept all": "Aceptar todas",
+    "reject non-essential": "Rechazar no esenciales",
+    "customize": "Personalizar",
+    "customize your preferences:": "Personalice sus preferencias:",
+    "allow analytics cookies": "Permitir cookies de análisis",
+    "allow marketing cookies": "Permitir cookies de marketing"
   }
 }
