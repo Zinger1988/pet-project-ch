@@ -3,21 +3,22 @@
   "header": {
     "home": "Accueil",
     "search": "Rechercher",
-    "login": "Se connecter",
-    "user profile": "Profil de l'utilisateur"
+    "login": "Connexion",
+    "user profile": "Profil utilisateur"
   },
   "footer": {
     "contact us": "Contactez-nous",
     "about us": "À propos de nous",
     "contact": "Contact",
-    "support": "Assistance",
+    "support": "Support",
     "faq": "FAQ"
   },
   "buttons": {
     "continue": "Continuer",
     "submit": "Soumettre",
-    "ok": "D'accord",
-    "cancel": "Annuler"
+    "ok": "Ok",
+    "cancel": "Annuler",
+    "save": "Enregistrer"
   },
   "languages": {
     "en": {
@@ -29,5 +30,14 @@
     "fr": {
       "label": "Passer au français"
     }
+  },
+  "cookie banner": {
+    "description": "Nous utilisons des cookies pour améliorer votre expérience sur notre site web. En continuant à naviguer, vous acceptez notre utilisation des cookies.",
+    "accept all": "Accepter tout",
+    "reject non-essential": "Rejeter les non-essentiels",
+    "customize": "Personnaliser",
+    "customize your preferences:": "Personnalisez vos préférences :",
+    "allow analytics cookies": "Autoriser les cookies analytiques",
+    "allow marketing cookies": "Autoriser les cookies de marketing"
   }
 }

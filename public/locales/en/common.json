@@ -16,8 +16,9 @@
   "buttons": {
     "continue": "Continue",
     "submit": "Submit",
-    "ok": "ok",
-    "cancel": "cancel"
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "languages": {
     "en": {
@@ -29,5 +30,14 @@
     "fr": {
       "label": "Switch to French "
     }
+  },
+  "cookie banner": {
+    "description": "We use cookies to enhance your experience on our website. By continuing to browse, you agree to our use of cookies.",
+    "accept all": "Accept All",
+    "reject non-essential": "Reject Non-Essential",
+    "customize": "Customize",
+    "customize your preferences:": "Customize your preferences:",
+    "allow analytics cookies": "Allow Analytics Cookies",
+    "allow marketing cookies": "Allow Marketing Cookies"
   }
 }
