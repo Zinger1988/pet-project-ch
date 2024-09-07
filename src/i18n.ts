@@ -18,6 +18,7 @@ i18n
       "pageInvestors",
       "pagePartnership",
       "validations",
+      "pageSystemStatus",
     ],
     defaultNS: "common",
     fallbackLng: "en",

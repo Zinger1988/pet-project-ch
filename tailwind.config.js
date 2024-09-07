@@ -23,6 +23,18 @@ module.exports = {
       lineHeight: {
         default: 1.5,
       },
+      animation: {
+        ecg: "ecg 4s linear infinite",
+      },
+      keyframes: {
+        ecg: {
+          "0%": { opacity: 1 },
+          "15%": { opacity: 1 },
+          "50%": { opacity: 1, strokeDashoffset: 8000 },
+          "99%": { opacity: 0, strokeDashoffset: 12000 },
+          "100%": { opacity: 0, strokeDashoffset: 4000 },
+        },
+      },
     },
   },
   variants: {
