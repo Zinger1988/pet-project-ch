@@ -13,3 +13,4 @@ export { default as Registration } from "./Registration/Registration";
 export { default as Search } from "./Search/Search";
 export { default as Support } from "./Support/Support";
 export { default as Terms } from "./Terms/Terms";
+export { default as PasswordRecovery } from "./PasswordRecovery/PasswordRecovery";
