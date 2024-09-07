@@ -21,6 +21,7 @@ import {
   InvestorRaltions,
   Partnership,
   SystemStatusPage,
+  PasswordRecovery,
 } from "../src/pages";
 
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
@@ -64,6 +65,7 @@ function App() {
             <Route path="investor-relations" element={<InvestorRaltions />} />
             <Route path="partnership" element={<Partnership />} />
             <Route path="system-status" element={<SystemStatusPage />} />
+            <Route path="password-recovery" element={<PasswordRecovery />} />
             <Route
               path="*"
               element={
