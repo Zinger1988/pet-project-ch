@@ -20,6 +20,7 @@ import {
   Registration,
   InvestorRaltions,
   Partnership,
+  SystemStatusPage,
   PasswordRecovery,
 } from "../src/pages";
 
@@ -63,6 +64,7 @@ function App() {
             <Route path="error" element={<Error />} />
             <Route path="investor-relations" element={<InvestorRaltions />} />
             <Route path="partnership" element={<Partnership />} />
+            <Route path="system-status" element={<SystemStatusPage />} />
             <Route path="password-recovery" element={<PasswordRecovery />} />
             <Route
               path="*"

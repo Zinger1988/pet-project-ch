@@ -19,6 +19,7 @@ i18n
       "pagePolicy",
       "pageRegistration",
       "validations",
+      "pageSystemStatus",
     ],
     defaultNS: "common",
     fallbackLng: "en",
