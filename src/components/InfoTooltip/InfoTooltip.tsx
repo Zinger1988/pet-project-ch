@@ -4,9 +4,10 @@ import Icon from "../Icon/Icon";
 interface InfoTooltipProps {
   type: "danger" | "info" | "success" | "warning";
   message: string;
+  className?: string;
 }
 
-const InfoTooltip: React.FC<InfoTooltipProps> = ({ type, message }) => {
+const InfoTooltip: React.FC<InfoTooltipProps> = ({ type, message, className = "" }) => {
   const typeMap = {
     info: {
       iconId: IconId.InfoSquareSm,
@@ -34,9 +35,13 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({ type, message }) => {
 
   return (
     <div
-      className={`inline-flex gap-2 items-center px-2 pr-3 py-1 rounded-lg ${containerStyles}`}
+      className={`inline-flex gap-2 items-start px-2 pr-3 py-1 rounded-lg ${containerStyles} ${className}`}
     >
-      <Icon id={iconId} width="14" className={iconStyles} />
+      <Icon
+        id={iconId}
+        width="14"
+        className={`shrink-0 relative top-[.15rem] ${iconStyles}`}
+      />
       <span className="text-body-sm font-semibold">{message}</span>
     </div>
   );

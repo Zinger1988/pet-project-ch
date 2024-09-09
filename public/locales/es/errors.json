@@ -1,4 +1,9 @@
 {
   "Something went wrong": "Algo salió mal",
-  "This page doesn't exists (404)": "Esta página no existe (404)"
+  "This page doesn't exists (404)": "Esta página no existe (404)",
+  "auth/invalid-credential": "Inicio de sesión o contraseña inválidos",
+  "auth/too-many-requests": "Demasiados intentos de inicio de sesión, por favor intenta de nuevo más tarde o utiliza la opción de recuperación de contraseña.",
+  "auth/invalid-custom-token": "Token de acceso inválido",
+  "auth/email-already-in-use": "El usuario con este correo ya está registrado",
+  "unknown": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde"
 }

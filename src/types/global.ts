@@ -28,3 +28,16 @@ export interface SystemIncidentItem {
   label: string;
   status: "investigating" | "resolved";
 }
+
+export interface RegistrationFormValues {
+  name: string;
+  email: string;
+  password: string;
+  passwordRepeat: string;
+  agreement: boolean;
+}
+
+export interface LoginFormValues {
+  email: string;
+  password: string;
+}

@@ -1,3 +1,9 @@
-export const FETCH_START = 'FETCH_START';
-export const FETCH_SUCCESS = 'FETCH_SUCCESS';
-export const FETCH_FAILURE = 'FETCH_FAILURE';
+export const FETCH_START = "FETCH_START";
+export const FETCH_SUCCESS = "FETCH_SUCCESS";
+export const FETCH_FAILURE = "FETCH_FAILURE";
+
+export const USER_AUTH_START = "USER_AUTH_START";
+export const USER_AUTH_SUCCESS = "USER_AUTH_SUCCESS";
+export const USER_AUTH_FAILURE = "USER_AUTH_FAILURE";
+export const USER_CLEAR_ERROR = "USER_CLEAR_ERROR";
+export const USER_LOGOUT = "USER_LOGOUT";

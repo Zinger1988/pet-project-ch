@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom"; // Step 1: Import
-import "./tailwind.output.css";
+import store from "./store/index";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import store from "./store/index";
+import "./tailwind.output.css";
 import "./i18n";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);

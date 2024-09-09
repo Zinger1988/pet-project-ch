@@ -1,4 +1,9 @@
 {
-  "Something went wrong": "Quelque chose a mal tourné",
-  "This page doesn't exists (404)": "Cette page n'existe pas (404)"
+  "Something went wrong": "Quelque chose s'est mal passé",
+  "This page doesn't exists (404)": "Cette page n'existe pas (404)",
+  "auth/invalid-credential": "Identifiant ou mot de passe invalide",
+  "auth/too-many-requests": "Trop de tentatives de connexion, veuillez réessayer plus tard ou utiliser l'option de récupération de mot de passe.",
+  "auth/invalid-custom-token": "Jeton d'accès invalide",
+  "auth/email-already-in-use": "L'utilisateur avec cet e-mail est déjà inscrit",
+  "unknown": "Une erreur inattendue s'est produite. Veuillez réessayer plus tard"
 }
