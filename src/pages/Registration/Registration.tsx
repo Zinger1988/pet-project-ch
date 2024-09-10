@@ -1,37 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 
 import { RegistrationForm } from "../../components";
 
-import { authUserAction, clearUserError } from "../../store/actions/userActions";
+import { userClearError, userLookup } from "../../store/actions/userActions";
 import { RootState } from "../../store";
-import { RegistrationFormValues } from "../../types/global";
 import { AppDispatch } from "../../store/types";
+import { RegistrationFormValues } from "../../types/global";
 import workingImg from "../../assets/images/working_in_airport.svg";
 
 const Registration = () => {
-  const navigate = useNavigate();
+  const [formLoading, setFormLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { loading, user, error } = useSelector((state: RootState) => state.authSlice);
   const { t } = useTranslation();
 
   useEffect(() => {
-    error && toast.error(t(error, { ns: "errors" }));
-    dispatch(clearUserError());
+    if (error) {
+      toast.error(t(error, { ns: "errors" }));
+      dispatch(userClearError());
+    }
   }, [error, dispatch, t]);
 
-  useEffect(() => {
-    if (user) {
-      navigate("/profile", { replace: true });
-    }
-  }, [user, navigate]);
+  if (loading && !formLoading) {
+    return <>Loading...</>;
+  }
 
-  const handleSubmit = (credentails: RegistrationFormValues) => {
-    const { email, password } = credentails;
-    dispatch(authUserAction({ email, password, mode: "register" }));
+  if (user) {
+    return <Navigate to="/profile" replace />;
+  }
+
+  const handleSubmit = async (credentials: RegistrationFormValues) => {
+    setFormLoading(true);
+    await dispatch(userLookup({ ...credentials, mode: "register" }));
+    setFormLoading(false);
   };
 
   const wrapperStyles =
@@ -49,7 +54,7 @@ const Registration = () => {
         <h1 className={headingStyles}>
           {t("Join the sound side!", { ns: "pageRegistration" })}
         </h1>
-        <RegistrationForm onSubmit={handleSubmit} loading={loading} />
+        <RegistrationForm onSubmit={handleSubmit} loading={formLoading} />
       </div>
       <div className={imgContainerStyles}>
         <img className={imgStyles} src={workingImg} alt="Communication space" />

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { signOutUserAction } from "../../store/actions/userActions";
+import { userSignOut } from "../../store/actions/userActions";
 import { Button } from "../../components";
 import { AppDispatch } from "../../store/types";
 
@@ -7,7 +7,7 @@ const Profile = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = () => {
-    dispatch(signOutUserAction());
+    dispatch(userSignOut());
   };
 
   return (

@@ -1,10 +1,10 @@
 import { User, UserCredential } from "firebase/auth";
 import {
-  USER_AUTH_FAILURE,
-  USER_AUTH_START,
-  USER_AUTH_SUCCESS,
   USER_LOGOUT,
   USER_CLEAR_ERROR,
+  USER_LOOKUP_START,
+  USER_LOOKUP_FINISH,
+  USER_LOOKUP_FAILURE,
 } from "../actions/actionTypes";
 
 type State = {
@@ -26,14 +26,13 @@ type Action = {
 
 const authReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case USER_AUTH_START: {
-      return { ...state, loading: true, error: null };
-    }
-    case USER_AUTH_SUCCESS: {
+    case USER_LOOKUP_START:
+      return { ...state, loading: true };
+    case USER_LOOKUP_FINISH:
       return { ...state, loading: false, user: action.payload };
+    case USER_LOOKUP_FAILURE: {
+      return { ...state, loading: false, error: action.payload };
     }
-    case USER_AUTH_FAILURE:
-      return { ...state, loading: false, error: action.payload.message };
     case USER_CLEAR_ERROR:
       return { ...state, error: null };
     case USER_LOGOUT:

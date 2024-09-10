@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { FirebaseError } from "firebase/app";
 import toast from "react-hot-toast";
 
 import { PasswordRecoveryForm } from "../../components";
@@ -9,35 +10,35 @@ import { PasswordRecoveryForm } from "../../components";
 import { resetPassword } from "../../services/userService";
 import { RootState } from "../../store";
 import coworkingImg from "../../assets/images/coworking_space.svg";
-import { FirebaseError } from "firebase/app";
 
 const PasswordRecovery = () => {
-  const navigate = useNavigate();
-  const { user } = useSelector((state: RootState) => state.authSlice);
-  const [loading, setLoading] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
+  const { user, loading } = useSelector((state: RootState) => state.authSlice);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (user) {
-      navigate("/profile", { replace: true });
-    }
-  }, [user, navigate]);
+  if (loading && !formLoading) {
+    return <>Loading...</>;
+  }
+
+  if (user) {
+    return <Navigate to="/profile" replace />;
+  }
 
   const handleSubmit = async (values: { email: string }) => {
     try {
-      setLoading(true);
+      setFormLoading(true);
       await resetPassword(values.email);
       toast.success(
         "A link to the password recovery page has been sent to the specified email"
       );
     } catch (error) {
+      let errorMessage = "An error occured during password reset";
       if (error instanceof FirebaseError) {
-        toast.error(t(error.code, { ns: "errors" }));
-      } else {
-        toast.error("An error occured during password reset");
+        errorMessage = error.code;
       }
+      toast.error(t(errorMessage, { ns: "errors" }));
     } finally {
-      setLoading(false);
+      setFormLoading(false);
     }
   };
 
@@ -60,7 +61,7 @@ const PasswordRecovery = () => {
         <p className={descriptionStyles}>
           {t("description", { ns: "pagePasswordRecovery" })}
         </p>
-        <PasswordRecoveryForm loading={loading} onSubmit={handleSubmit} />
+        <PasswordRecoveryForm loading={formLoading} onSubmit={handleSubmit} />
       </div>
       <div className={imgContainerStyles}>
         <img className={imgStyles} src={coworkingImg} alt="Communication space" />
