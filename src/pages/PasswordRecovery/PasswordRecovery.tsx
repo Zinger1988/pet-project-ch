@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { PasswordRecoveryForm } from "../../components";
@@ -12,13 +12,16 @@ import coworkingImg from "../../assets/images/coworking_space.svg";
 import { FirebaseError } from "firebase/app";
 
 const PasswordRecovery = () => {
+  const navigate = useNavigate();
   const { user } = useSelector((state: RootState) => state.authSlice);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
 
-  if (user) {
-    return <Navigate to="/" />;
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/profile", { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (values: { email: string }) => {
     try {

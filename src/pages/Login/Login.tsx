@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 
@@ -13,6 +13,7 @@ import { AppDispatch } from "../../store/types";
 import coworkingImg from "../../assets/images/coworking_space.svg";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { loading, user, error } = useSelector((state: RootState) => state.authSlice);
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
@@ -22,9 +23,11 @@ const Login = () => {
     dispatch(clearUserError());
   }, [error, dispatch, t]);
 
-  if (user) {
-    return <Navigate to="/profile" />;
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/profile", { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = (credentials: LoginFormValues) => {
     dispatch(authUserAction({ ...credentials, mode: "login" }));

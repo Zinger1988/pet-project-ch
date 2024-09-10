@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 
@@ -13,6 +13,7 @@ import { AppDispatch } from "../../store/types";
 import workingImg from "../../assets/images/working_in_airport.svg";
 
 const Registration = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, user, error } = useSelector((state: RootState) => state.authSlice);
   const { t } = useTranslation();
@@ -22,9 +23,11 @@ const Registration = () => {
     dispatch(clearUserError());
   }, [error, dispatch, t]);
 
-  if (user) {
-    return <Navigate to="/profile" />;
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/profile", { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = (credentails: RegistrationFormValues) => {
     const { email, password } = credentails;

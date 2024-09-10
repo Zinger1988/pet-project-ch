@@ -20,7 +20,7 @@ import {
   Partnership,
   PasswordRecovery,
 } from "../src/pages";
-import { CookieBanner, ProtectedRoute } from "./components";
+import { AuthStatus, CookieBanner, ProtectedRoute } from "./components";
 import DarkThemeContextProvider from "./context/DarkThemeContext";
 import "./App.css";
 
@@ -43,6 +43,7 @@ function App() {
           duration: 6000,
         }}
       />
+      <AuthStatus />
       <DarkThemeContextProvider>
         <Routes>
           <Route
