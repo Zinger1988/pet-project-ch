@@ -99,7 +99,7 @@ const Button = ({
           id={icon}
           className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${
             iconPosition === "left" ? "order-first" : "order-last"
-          }`}
+          } ${disabled ? "fill-gray-400" : ""}`}
         />
       )}
       {children}

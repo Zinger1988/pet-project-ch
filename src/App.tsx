@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { RootState } from "./store/index";
 import { useTranslation } from "react-i18next";
+import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./layout/AppLayout";
 import {
@@ -20,41 +18,49 @@ import {
   Registration,
   InvestorRaltions,
   Partnership,
-  SystemStatusPage,
   PasswordRecovery,
 } from "../src/pages";
-
-import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
-import "./App.css";
+import { AuthStatus, CookieBanner, ProtectedRoute } from "./components";
 import DarkThemeContextProvider from "./context/DarkThemeContext";
-import { CookieBanner } from "./components";
+import "./App.css";
 
 function App() {
-  const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
-
-  const data = useSelector((state: RootState) => state.yourStateSlice.data);
-  const loading = useSelector((state: RootState) => state.yourStateSlice.loading);
-  const error = useSelector((state: RootState) => state.yourStateSlice.error);
-
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-  console.log(data, "data");
 
   return (
     <div className="App min-h-[100dvh] flex flex-col">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          success: {
+            className: "bg-green-600 text-white",
+          },
+          error: {
+            className: "bg-red-600 text-white",
+          },
+          duration: 6000,
+        }}
+      />
+      <AuthStatus />
       <DarkThemeContextProvider>
         <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="profile" element={<Profile />} />
+          </Route>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
             <Route path="search" element={<Search />} />
             <Route path="login" element={<Login />} />
             <Route path="registration" element={<Registration />} />
-            <Route path="profile" element={<Profile />} />
             <Route path="about" element={<About />} />
             <Route path="support" element={<Support />} />
             <Route path="contact" element={<Contact />} />
@@ -64,7 +70,6 @@ function App() {
             <Route path="error" element={<Error />} />
             <Route path="investor-relations" element={<InvestorRaltions />} />
             <Route path="partnership" element={<Partnership />} />
-            <Route path="system-status" element={<SystemStatusPage />} />
             <Route path="password-recovery" element={<PasswordRecovery />} />
             <Route
               path="*"

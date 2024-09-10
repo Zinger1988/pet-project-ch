@@ -23,7 +23,7 @@ i18n
     ],
     defaultNS: "common",
     fallbackLng: "en",
-    debug: true,
+    debug: false,
     keySeparator: ".",
     interpolation: {
       escapeValue: false,
