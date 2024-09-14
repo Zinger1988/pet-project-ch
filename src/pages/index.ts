@@ -15,3 +15,4 @@ export { default as Search } from "./Search/Search";
 export { default as Support } from "./Support/Support";
 export { default as SystemStatusPage } from "./SystemStatusPage/SystemStatusPage";
 export { default as Terms } from "./Terms/Terms";
+export { default as Rooms } from "./Rooms/Rooms";

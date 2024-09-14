@@ -19,10 +19,13 @@ import {
   InvestorRaltions,
   Partnership,
   PasswordRecovery,
+  Rooms,
+  SystemStatusPage,
 } from "../src/pages";
 import { AuthStatus, CookieBanner, ProtectedRoute } from "./components";
 import DarkThemeContextProvider from "./context/DarkThemeContext";
 import "./App.css";
+import AuthLayout from "./layout/AuthLayout";
 
 function App() {
   const { t } = useTranslation();
@@ -50,11 +53,12 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <AppLayout />
+                <AuthLayout />
               </ProtectedRoute>
             }
           >
             <Route path="profile" element={<Profile />} />
+            <Route path="rooms" element={<Rooms />} />
           </Route>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
@@ -71,6 +75,7 @@ function App() {
             <Route path="investor-relations" element={<InvestorRaltions />} />
             <Route path="partnership" element={<Partnership />} />
             <Route path="password-recovery" element={<PasswordRecovery />} />
+            <Route path="system-status" element={<SystemStatusPage />} />
             <Route
               path="*"
               element={

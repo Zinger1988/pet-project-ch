@@ -25,3 +25,4 @@ export { default as TextInput } from "./TextInput/TextInput";
 export { default as ThemeToggle } from "./ThemeToggle/ThemeToggle";
 export { default as PasswordRecoveryForm } from "./PasswordRecoveryForm/PasswordRecoveryForm";
 export { default as AuthStatus } from "./AuthStatus/AuthStatus";
+export { default as Sidebar } from "./Sidebar/Sidebar";

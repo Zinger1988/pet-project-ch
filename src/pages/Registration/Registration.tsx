@@ -30,7 +30,7 @@ const Registration = () => {
   }
 
   if (user) {
-    return <Navigate to="/profile" replace />;
+    return <Navigate to="/rooms" replace />;
   }
 
   const handleSubmit = async (credentials: RegistrationFormValues) => {
