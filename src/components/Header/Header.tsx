@@ -1,22 +1,15 @@
 import { Link } from "react-router-dom";
 
-import { Container, DesktopMenu, LangToggle, Logo, MenuBtn, MobileMenu } from "..";
+import { Container, DesktopMenu, Logo, MenuBtn, MobileMenu } from "..";
 import { useState } from "react";
-import { MenuItems } from "../../types/global";
 import { useDarkThemeContext } from "../../context/DarkThemeContext";
-import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 function Header() {
+  const { user } = useSelector((state: RootState) => state.authSlice);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { t } = useTranslation();
   const { isDark } = useDarkThemeContext();
-
-  const menu: MenuItems = [
-    { label: t("header.home"), url: "/" },
-    { label: t("header.search"), url: "/search" },
-    { label: t("header.login"), url: "/login" },
-    { label: t("header.user profile"), url: "/profile" },
-  ];
 
   const handleMobileMenu = () => {
     setIsMobileMenuOpen((isOpen) => !isOpen);
@@ -37,11 +30,11 @@ function Header() {
           onClick={handleMobileMenu}
           className="md:hidden -mr-4"
         />
-        <DesktopMenu items={menu} />
+        <DesktopMenu user={user} />
         <MobileMenu
           className={`${mobileNavStyles} md:hidden`}
-          items={menu}
           onClick={handleMobileMenu}
+          user={user}
         />
       </Container>
     </header>
