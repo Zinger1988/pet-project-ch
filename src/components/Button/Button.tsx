@@ -11,6 +11,7 @@ type BaseProps = {
   size?: "sm" | "md" | "lg";
   icon?: IconId;
   iconPosition?: "left" | "right";
+  iconClassName?: string;
 };
 
 type ActionProps = BaseProps &
@@ -30,15 +31,16 @@ const Button = ({
   size = "md",
   icon,
   iconPosition = "left",
+  iconClassName = "",
   ...props
 }: ActionProps) => {
   const isSolid = appearance === "solid";
   const buttonStylesMap = {
-    base: "rounded-full inline-flex gap-3 items-center justify-center font-heading font-semibold transition-all text-black no-underline",
+    base: "rounded-full inline-flex items-center justify-center font-heading font-semibold transition-all text-black no-underline",
     size: {
-      sm: "py-2.5 px-4 min-w-[6rem] text-body-xs",
-      md: "py-4 px-6 min-w-[8rem] text-body-sm",
-      lg: "py-5 px-8 min-w-[10rem] text-body",
+      sm: "py-2.5 px-5 min-w-[6rem] gap-2 text-body-sm",
+      md: "py-4 px-6 min-w-[8rem] gap-3 text-body",
+      lg: "py-5 px-8 min-w-[10rem] gap-3 text-body",
     },
     variant: {
       primary: `dark:hover:shadow-[inset_0_0_0_2px_theme(colors.primary.400),0_0_0_6px_theme(colors.black),0_0_0_8px_theme(colors.primary.400)] hover:shadow-[inset_0_0_0_2px_theme(colors.primary.400),0_0_0_6px_theme(colors.white),0_0_0_8px_theme(colors.primary.400)] ${
@@ -56,9 +58,9 @@ const Button = ({
 
   const iconStylesMap = {
     size: {
-      sm: "w-4 h-4",
-      md: "w-5 h-5",
-      lg: "w-6 h-6",
+      sm: "w-5 h-5",
+      md: "w-6 h-6",
+      lg: "w-7 h-7",
     },
     variant: {
       primary: "fill-black",
@@ -76,7 +78,7 @@ const Button = ({
             id={icon}
             className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${
               iconPosition === "left" ? "order-first" : "order-last"
-            }`}
+            } ${iconClassName}`}
           />
         )}
         {children}
@@ -99,7 +101,7 @@ const Button = ({
           id={icon}
           className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${
             iconPosition === "left" ? "order-first" : "order-last"
-          } ${disabled ? "fill-gray-400" : ""}`}
+          } ${disabled ? "fill-gray-400" : ""} ${iconClassName}`}
         />
       )}
       {children}

@@ -27,4 +27,6 @@ export enum IconId {
   Twitter = "TWITTER",
   WarningSquareSm = "WARNING_SQUARE_SM",
   Search = "SEARCH",
+  Login = "LOGIN",
+  Logout = "LOGOUT",
 }

@@ -1,43 +1,65 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
-import { ThemeToggle, LangToggle } from "..";
+import { ThemeToggle, LangToggle, Button } from "..";
 
-import { MenuItems } from "../../types/global";
-import { capitalizeFirstLetter } from "../../helpers/stringUtils";
+import { MenuItems, User } from "../../types/global";
+import { useDispatch } from "react-redux";
+import { userSignOut } from "../../store/actions/userActions";
+import { AppDispatch } from "../../store/types";
+import { IconId } from "../../types/enums";
 
 interface DesktopMenuProps {
   className?: string;
-  items: MenuItems;
+  user: User | null;
 }
 
-const DesktopMenu: React.FC<DesktopMenuProps> = ({ className = "", items }) => {
-  const navStyles = `hidden md:flex md:items-center gap-8 lg:gap-12 ${className}`;
-  const listStyles = "flex justify-center gap-6 lg:gap-10 m-0 p-0";
-  const linkStyles =
-    "font-bold transition-colors md:py-5 md:block lg:py-7 relative text-inherit no-underline dark:hover:text-white";
-  const linkHoverAfterStyles = "after:hover:w-full";
-  const linkAfterStyles =
-    "after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-1 after:w-0 after:bg-yellow-400 after:transition-[width]";
+const DesktopMenu: React.FC<DesktopMenuProps> = ({ className = "", user }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleSignOut = () => {
+    dispatch(userSignOut());
+  };
+
+  const navStyles = `hidden md:flex md:items-center gap-8 ${className}`;
 
   return (
     <nav className={navStyles} aria-label="Main navigation">
-      <ul className={listStyles}>
-        {items.map((item) => (
-          <li key={item.label} className="pl-0 before:hidden m-0">
-            <NavLink
-              to={item.url}
-              className={({ isActive }) => {
-                const activeClass = isActive ? "after:w-full" : "";
-                return `${linkStyles} ${linkAfterStyles} ${linkHoverAfterStyles} ${activeClass}`;
-              }}
-            >
-              {capitalizeFirstLetter(item.label)}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
       <LangToggle />
+      <div className="flex gap-4 sm:min-h-[4rem] lg:min-h-[5rem] items-center">
+        {user && (
+          <Button
+            variant="secondary"
+            onClick={handleSignOut}
+            size="sm"
+            icon={IconId.Login}
+            iconPosition="right"
+          >
+            Logout
+          </Button>
+        )}
+        {!user && (
+          <>
+            <Button
+              to="/login"
+              as="link"
+              size="sm"
+              icon={IconId.Login}
+              iconPosition="right"
+            >
+              Login
+            </Button>
+            <Button
+              to="/registration"
+              as="link"
+              size="sm"
+              appearance="outline"
+              variant="secondary"
+            >
+              Register
+            </Button>
+          </>
+        )}
+      </div>
       <ThemeToggle />
     </nav>
   );
