@@ -14,13 +14,15 @@ import {
   FAQ,
   Terms,
   Policy,
-  Error,
   Registration,
   InvestorRaltions,
   Partnership,
   PasswordRecovery,
   Rooms,
   SystemStatusPage,
+  CreateRoom,
+  SingleRoom,
+  Error404,
 } from "../src/pages";
 import { AuthStatus, CookieBanner, ProtectedRoute } from "./components";
 import DarkThemeContextProvider from "./context/DarkThemeContext";
@@ -28,8 +30,6 @@ import "./App.css";
 import AuthLayout from "./layout/AuthLayout";
 
 function App() {
-  const { t } = useTranslation();
-
   return (
     <div className="App min-h-[100dvh] flex flex-col">
       <Toaster
@@ -58,7 +58,12 @@ function App() {
             }
           >
             <Route path="profile" element={<Profile />} />
-            <Route path="rooms" element={<Rooms />} />
+            <Route path="rooms">
+              <Route index element={<Rooms />} />
+              <Route path="explore" element={<Rooms />} />
+              <Route path="create" element={<CreateRoom />} />
+              <Route path=":id" element={<SingleRoom />} />
+            </Route>
           </Route>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
@@ -71,20 +76,12 @@ function App() {
             <Route path="faq" element={<FAQ />} />
             <Route path="terms" element={<Terms />} />
             <Route path="policy" element={<Policy />} />
-            <Route path="error" element={<Error />} />
             <Route path="investor-relations" element={<InvestorRaltions />} />
             <Route path="partnership" element={<Partnership />} />
             <Route path="password-recovery" element={<PasswordRecovery />} />
             <Route path="system-status" element={<SystemStatusPage />} />
-            <Route
-              path="*"
-              element={
-                <Error
-                  statusCode="404"
-                  title={t("This page doesn't exists (404)", { ns: "errors" })}
-                />
-              }
-            />
+            <Route path="404" element={<Error404 />} />
+            <Route path="*" element={<Error404 />} />
           </Route>
         </Routes>
       </DarkThemeContextProvider>

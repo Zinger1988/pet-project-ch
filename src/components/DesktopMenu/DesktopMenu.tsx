@@ -2,11 +2,11 @@ import React from "react";
 
 import { ThemeToggle, LangToggle, Button } from "..";
 
-import { MenuItems, User } from "../../types/global";
 import { useDispatch } from "react-redux";
-import { userSignOut } from "../../store/actions/userActions";
+import { signOut } from "../../store/actions/userActions";
 import { AppDispatch } from "../../store/types";
 import { IconId } from "../../types/enums";
+import { User } from "firebase/auth";
 
 interface DesktopMenuProps {
   className?: string;
@@ -17,7 +17,7 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({ className = "", user }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSignOut = () => {
-    dispatch(userSignOut());
+    dispatch(signOut());
   };
 
   const navStyles = `hidden md:flex md:items-center gap-8 ${className}`;

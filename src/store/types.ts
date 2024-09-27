@@ -9,3 +9,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   AnyAction
 >;
 export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;
+
+export type Action = {
+  type: string;
+  payload?: any;
+};

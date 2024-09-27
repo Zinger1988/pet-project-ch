@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 function Header() {
-  const { user } = useSelector((state: RootState) => state.authSlice);
+  const { user } = useSelector((state: RootState) => state.userSlice);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isDark } = useDarkThemeContext();
 

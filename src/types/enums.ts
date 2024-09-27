@@ -11,6 +11,7 @@ export enum IconId {
   Chart = "CHART",
   Check = "CHECK",
   CheckCircle = "CHECK_CIRCLE",
+  Compass = "COMPASS",
   DangerCircle = "DANGER_CIRCLE",
   DangerSquareSm = "DANGER_SQUARE_SM",
   Document = "DOCUMENT",
@@ -18,6 +19,7 @@ export enum IconId {
   HandGear = "HAND_GEAR",
   InfoSquareSm = "INFO_SQUARE_SM",
   Instagram = "INSTAGRAM",
+  Key = "KEY",
   LampGear = "LAMP_GEAR",
   Lock = "LOCK",
   Login = "LOGIN",
@@ -32,6 +34,7 @@ export enum IconId {
   SuccessSquareSm = "SUCCESS_SQUARE_SM",
   Sun = "SUN",
   Twitter = "TWITTER",
+  UserSolid = "USER_SOLID",
   Voice = "VOICE",
   WarningSquareSm = "WARNING_SQUARE_SM",
 }
