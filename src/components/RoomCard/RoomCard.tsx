@@ -18,7 +18,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, className = "" }) => {
     <Link to={`/rooms/${room.id}`} className={linkStyles} key={room.name}>
       <div className={headingStyles}>
         <Avatar name={room.moderator.name} size="xs" />
-        <p className="my-0 text-body-xs">{room.createdBy.name}</p>
+        <p className="my-0 text-body-xs">{room.moderator.name}</p>
       </div>
       <div className="flex gap-3 items-center mb-3">
         {room.isPrivate && <Icon id={IconId.Lock} width="20" className="fill-gray-400" />}
