@@ -7,6 +7,9 @@ module.exports = {
         body: "Nunito Sans, sans-serif",
         heading: "Poppins, sans-serif",
       },
+      borderRadius: {
+        "3xl": "2.2rem",
+      },
       colors: {
         primary: {
           100: "#FFF7D7",

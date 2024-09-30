@@ -1,5 +1,6 @@
 export { default as About } from "./About/About";
 export { default as Contact } from "./Contact/Contact";
+export { default as CreateRoom } from "./CreateRoom/CreateRoom";
 export { default as Error } from "./Error/Error";
 export { default as FAQ } from "./FAQ/FAQ";
 export { default as Home } from "./Home/Home";
@@ -11,7 +12,11 @@ export { default as PasswordRecovery } from "./PasswordRecovery/PasswordRecovery
 export { default as Policy } from "./Policy/Policy";
 export { default as Profile } from "./Profile/Profile";
 export { default as Registration } from "./Registration/Registration";
+export { default as SingleRoom } from "./SingleRoom/SingleRoom";
+export { default as Rooms } from "./Rooms/Rooms";
 export { default as Search } from "./Search/Search";
 export { default as Support } from "./Support/Support";
 export { default as SystemStatusPage } from "./SystemStatusPage/SystemStatusPage";
 export { default as Terms } from "./Terms/Terms";
+export { default as Error404 } from "./Error404/Error404";
+export { default as RoomsContainer } from "./RoomsContainer/RoomsContainer";

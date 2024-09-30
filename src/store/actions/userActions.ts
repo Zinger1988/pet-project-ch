@@ -1,3 +1,6 @@
+import { FirebaseError } from "firebase/app";
+import { User, UserCredential } from "firebase/auth";
+import { apiSignUp, apiSignIn, apiSignOut } from "../../services/apiUser";
 import {
   USER_LOOKUP_START,
   USER_LOOKUP_FINISH,
@@ -5,59 +8,65 @@ import {
   USER_LOGOUT,
   USER_CLEAR_ERROR,
 } from "./actionTypes";
-import { createUser, signInUser, signOutUser } from "../../services/userService";
 import { AppThunk } from "../types";
-import { User, UserCredential } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
 
-export const userSignOut = (): AppThunk => async (dispatch) => {
+export const userLookupStart = () => ({ type: USER_LOOKUP_START });
+export const userClearError = () => ({ type: USER_CLEAR_ERROR });
+export const userLookupFinish = (user: User | UserCredential | null) => ({
+  type: USER_LOOKUP_FINISH,
+  payload: user,
+});
+
+export const userLookupFailure = (error: unknown) => {
+  let errorMessage = "default";
+  if (error instanceof FirebaseError) {
+    errorMessage = error.code;
+  }
+
+  return { type: USER_LOOKUP_FAILURE, payload: errorMessage };
+};
+
+export const signOut = (): AppThunk => async (dispatch) => {
   try {
-    await signOutUser();
+    await apiSignOut();
     dispatch({ type: USER_LOGOUT });
   } catch (error) {
-    let errorMessage = "default";
-    if (error instanceof FirebaseError) {
-      errorMessage = error.code;
-    }
-    dispatch(userLookupFailure(errorMessage));
+    dispatch(userLookupFailure(error));
   }
 };
 
-export const userLookupStart = () => {
-  return { type: USER_LOOKUP_START };
-};
-
-export const userLookupFinish = (user: User | UserCredential | null) => {
-  return { type: USER_LOOKUP_FINISH, payload: user };
-};
-
-export const userLookupFailure = (error: string) => {
-  return { type: USER_LOOKUP_FAILURE, payload: error };
-};
-
-export const userClearError = () => {
-  return { type: USER_CLEAR_ERROR };
-};
-
-type AuthCredentials = {
+interface RegisterCredentials {
+  name: string;
   email: string;
   password: string;
-  mode: "login" | "register";
-};
+  mode: "register";
+}
+
+interface LoginCredentials {
+  email: string;
+  password: string;
+  mode: "login";
+}
 
 export const userLookup =
-  ({ email, password, mode }: AuthCredentials): AppThunk =>
+  (credentials: RegisterCredentials | LoginCredentials): AppThunk =>
   async (dispatch) => {
     dispatch(userLookupStart());
     try {
-      mode === "login"
-        ? await signInUser({ email, password })
-        : await createUser({ email, password });
-    } catch (error) {
-      let errorMessage = "An error occured during password reset";
-      if (error instanceof FirebaseError) {
-        errorMessage = error.code;
+      if (isLogin(credentials)) {
+        const { mode, ...restCredentials } = credentials;
+        await apiSignIn(restCredentials);
+      } else {
+        const { mode, ...restCredentials } = credentials;
+        await apiSignUp(restCredentials);
       }
-      dispatch(userLookupFailure(errorMessage));
+    } catch (error) {
+      dispatch(userLookupFailure(error));
+    }
+
+    function isLogin(
+      credentials: RegisterCredentials | LoginCredentials
+    ): credentials is LoginCredentials {
+      return credentials.mode === "login";
     }
   };

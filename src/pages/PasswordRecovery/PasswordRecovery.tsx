@@ -5,29 +5,34 @@ import { useState } from "react";
 import { FirebaseError } from "firebase/app";
 import toast from "react-hot-toast";
 
-import { PasswordRecoveryForm } from "../../components";
+import { PasswordRecoveryForm, Spinner } from "../../components";
 
-import { resetPassword } from "../../services/userService";
+import { apiResetPassword } from "../../services/apiUser";
 import { RootState } from "../../store";
 import coworkingImg from "../../assets/images/coworking_space.svg";
 
 const PasswordRecovery = () => {
   const [formLoading, setFormLoading] = useState(false);
-  const { user, loading } = useSelector((state: RootState) => state.authSlice);
+  const { user, loading } = useSelector((state: RootState) => state.userSlice);
   const { t } = useTranslation();
 
   if (loading && !formLoading) {
-    return <>Loading...</>;
+    return (
+      <Spinner
+        className="fixed left-0 top-0 w-full h-full bg-black/70 z-[10000]"
+        size="lg"
+      />
+    );
   }
 
   if (user) {
-    return <Navigate to="/profile" replace />;
+    return <Navigate to="/rooms" replace />;
   }
 
   const handleSubmit = async (values: { email: string }) => {
     try {
       setFormLoading(true);
-      await resetPassword(values.email);
+      await apiResetPassword(values.email);
       toast.success(
         "A link to the password recovery page has been sent to the specified email"
       );

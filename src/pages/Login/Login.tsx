@@ -11,10 +11,11 @@ import { RootState } from "../../store";
 import { AppDispatch } from "../../store/types";
 import { LoginFormValues } from "../../types/global";
 import coworkingImg from "../../assets/images/coworking_space.svg";
+import { Spinner } from "../../components";
 
 const Login = () => {
   const [formLoading, setFormLoading] = useState(false);
-  const { loading, user, error } = useSelector((state: RootState) => state.authSlice);
+  const { loading, user, error } = useSelector((state: RootState) => state.userSlice);
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
 
@@ -26,11 +27,16 @@ const Login = () => {
   }, [error, dispatch, t]);
 
   if (loading && !formLoading) {
-    return <>Loading...</>;
+    return (
+      <Spinner
+        className="fixed left-0 top-0 w-full h-full bg-black/70 z-[10000]"
+        size="lg"
+      />
+    );
   }
 
   if (user) {
-    return <Navigate to="/profile" replace />;
+    return <Navigate to="/rooms" replace />;
   }
 
   const handleSubmit = async (credentials: LoginFormValues) => {

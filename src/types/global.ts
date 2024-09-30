@@ -8,8 +8,6 @@ export interface User {
 
 export type Theme = "light" | "dark";
 
-export type MenuItems = Array<{ label: string; url: string }>;
-
 export interface StatusBannerItem {
   status?: "operational" | "issue";
   statusText?: string;
@@ -40,4 +38,38 @@ export interface RegistrationFormValues {
 export interface LoginFormValues {
   email: string;
   password: string;
+}
+
+export interface Member {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export interface Room {
+  id: string;
+  createdBy: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  description: string;
+  isPrivate: boolean;
+  moderator: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  name: string;
+  members: {
+    total: number;
+    collection: Member[];
+  };
+  isDetailed: boolean;
+}
+
+export interface CreateRoomValues {
+  name: string;
+  description: string;
+  isPrivate: boolean;
 }

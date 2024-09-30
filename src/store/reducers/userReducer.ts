@@ -6,25 +6,21 @@ import {
   USER_LOOKUP_FINISH,
   USER_LOOKUP_FAILURE,
 } from "../actions/actionTypes";
+import { Action } from "../types";
 
-type State = {
+export type UserState = {
   loading: boolean;
-  user: User | UserCredential | null;
+  user: User | null;
   error: null | string;
 };
 
-const initialState: State = {
+const initialState: UserState = {
   loading: true,
   user: null,
   error: null,
 };
 
-type Action = {
-  type: string;
-  payload?: any;
-};
-
-const authReducer = (state = initialState, action: Action) => {
+const userReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case USER_LOOKUP_START:
       return { ...state, loading: true };
@@ -42,4 +38,4 @@ const authReducer = (state = initialState, action: Action) => {
   }
 };
 
-export default authReducer;
+export default userReducer;

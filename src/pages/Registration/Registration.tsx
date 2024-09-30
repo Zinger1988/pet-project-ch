@@ -15,7 +15,7 @@ import workingImg from "../../assets/images/working_in_airport.svg";
 const Registration = () => {
   const [formLoading, setFormLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, user, error } = useSelector((state: RootState) => state.authSlice);
+  const { loading, user, error } = useSelector((state: RootState) => state.userSlice);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Registration = () => {
   }
 
   if (user) {
-    return <Navigate to="/profile" replace />;
+    return <Navigate to="/rooms" replace />;
   }
 
   const handleSubmit = async (credentials: RegistrationFormValues) => {
