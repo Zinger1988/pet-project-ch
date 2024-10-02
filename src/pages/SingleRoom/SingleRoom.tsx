@@ -1,31 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Avatar, Button, Spinner } from "../../components";
+import { Avatar, RoomControls, Spinner } from "../../components";
 
-import {
-  clearRoomErrors,
-  deleteRoom,
-  getRoom,
-  handleMembership,
-} from "../../store/actions/singleRoomActions";
+import { clearRoomErrors, getRoom } from "../../store/actions/singleRoomActions";
 import { AppDispatch } from "../../store/types";
 import { RootState } from "../../store";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../../firebase";
 
 const SingleRoom = () => {
-  const { loading: userLoading, user } = useSelector(
-    (state: RootState) => state.userSlice
-  );
+  const { user } = useSelector((state: RootState) => state.userSlice);
   const { loading, room, error } = useSelector(
     (state: RootState) => state.singleRoomSlice
   );
-  const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { id = "" } = useParams();
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    dispatch(getRoom(id as string));
+    dispatch(getRoom(id));
   }, [id, dispatch]);
 
   useEffect(() => {
@@ -35,69 +31,62 @@ const SingleRoom = () => {
     }
   }, [error, dispatch, navigate]);
 
-  if (loading || userLoading || !room) {
+  useEffect(() => {
+    const generateToken = async (roomId: string) => {
+      const generateTokenFunction = httpsCallable(functions, "generateToken");
+      try {
+        const result: any = await generateTokenFunction({
+          channelName: roomId,
+          uid: 12345,
+          expiryTime: 36000,
+        });
+        setToken(result.data);
+      } catch (err) {
+        console.error("Error generating token:", err);
+        //setError(err.message);
+      }
+    };
+
+    if (room) {
+      generateToken(room.id);
+    }
+  }, [room]);
+
+  if (loading || !token || !user || !room) {
     return <Spinner className="absolute left-0 top-0 w-full h-full" size="lg" />;
   }
 
-  const isModerator = user!.uid === room!.moderator.id;
-  const isMember = room.members.collection.some((member) => {
-    return member.id === user!.uid;
+  const { uid: userUid } = user;
+  const { id: roomId, members, moderator, name: roomName, description } = room;
+  const { id: moderatorId, name: moderatorName } = moderator;
+  const { collection: membersCollection } = members;
+  const isModerator = userUid === moderatorId;
+  const isMember = membersCollection.some((member) => {
+    return member.id === userUid;
   });
-
-  const handleDelete = async () => {
-    await dispatch(deleteRoom(id as string));
-    navigate("/rooms");
-  };
-
-  const handleJoin = async () => {
-    await dispatch(handleMembership({ userId: user!.uid, roomId: room.id, mode: "add" }));
-  };
-
-  const handleLeave = async () => {
-    await dispatch(
-      handleMembership({ userId: user!.uid, roomId: room.id, mode: "remove" })
-    );
-  };
-
-  let roomControls = null;
-
-  if (isModerator) {
-    roomControls = (
-      <Button variant="secondary" size="sm" onClick={handleDelete}>
-        Delete room
-      </Button>
-    );
-  } else if (isMember) {
-    roomControls = (
-      <Button appearance="outline" size="sm" onClick={handleLeave}>
-        Leave room
-      </Button>
-    );
-  } else {
-    roomControls = (
-      <Button size="sm" onClick={handleJoin}>
-        Join room
-      </Button>
-    );
-  }
 
   return (
     <article>
       <header className="grid grid-cols-[auto,1fr] gap-3 pb-4 mb-4 border-b border-gray-600">
-        <Avatar name={room.moderator.name} className="col-span-1" size="xs" />
-        <p className="my-0 font-medium">{room.moderator.name}</p>
-        <h2 className="col-span-2 m-0">{room.name}</h2>
+        <Avatar name={moderatorName} className="col-span-1" size="xs" />
+        <p className="my-0 font-medium">{moderatorName}</p>
+        <h2 className="col-span-2 m-0">{roomName}</h2>
       </header>
 
       <div className="mb-6">
-        <p>{room.description}</p>
-      </div>
-      <div className="flex gap-4 flex-wrap mb-6 p-5 py-4 rounded-3xl  bg-gray-800/50">
-        {roomControls}
+        <p>{description}</p>
       </div>
 
+      <RoomControls
+        isModerator={isModerator}
+        isMember={isMember}
+        roomId={roomId}
+        userId={userUid}
+        token={token}
+      />
+
       <div className="grid grid-cols-6 p-5 pt-7 border-2 border-gray-600 rounded-3xl">
-        {room.members.collection.map((user: any) => (
+        {membersCollection.map((user: any) => (
           <div key={user.email} className="flex flex-col gap-2 items-center">
             <Avatar name={user.name} className="col-span-1" size="xl" />
             <p className="text-center my-0 font-medium">{user.name}</p>

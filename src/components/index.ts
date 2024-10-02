@@ -30,3 +30,4 @@ export { default as Avatar } from "./Avatar/Avatar";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as RoomCard } from "./RoomCard/RoomCard";
 export { default as AvatarsList } from "./AvatarsList/AvatarsList";
+export { default as RoomControls } from "./RoomControls/RoomControls";
