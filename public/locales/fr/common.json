@@ -4,7 +4,9 @@
     "home": "Accueil",
     "search": "Rechercher",
     "login": "Connexion",
-    "user profile": "Profil utilisateur"
+    "user profile": "Profil utilisateur",
+    "logout": "Se déconnecter",
+    "register": "S'inscrire"
   },
   "footer": {
     "contact us": "Contactez-nous",
@@ -12,6 +14,14 @@
     "contact": "Contact",
     "support": "Support",
     "faq": "FAQ"
+  },
+  "mobile menu": {
+    "explore": "explorer",
+    "my rooms": "mes salles",
+    "profile": "profil",
+    "security": "sécurité",
+    "notifications": "notifications",
+    "create room": "créer une salle"
   },
   "buttons": {
     "continue": "Continuer",

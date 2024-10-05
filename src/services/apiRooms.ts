@@ -83,7 +83,7 @@ export const getRoomsWhereUserHasMembership = async (userId: string) => {
 
     if (docData.createdBy.id !== userRef.id) {
       rooms.push({
-        ...(doc.data() as RoomDTO),
+        ...(docData as RoomDTO),
         id: doc.id,
       });
     }

@@ -46,6 +46,12 @@ export interface Member {
   email: string;
 }
 
+export interface RemoteMember extends Member {
+  hasAudio: boolean;
+}
+
+export interface UserDTO extends Member {}
+
 export interface Room {
   id: string;
   createdBy: {

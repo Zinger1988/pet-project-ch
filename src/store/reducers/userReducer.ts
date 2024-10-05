@@ -1,4 +1,4 @@
-import { User, UserCredential } from "firebase/auth";
+import { User } from "firebase/auth";
 import {
   USER_LOGOUT,
   USER_CLEAR_ERROR,

@@ -31,3 +31,8 @@ export { default as Spinner } from "./Spinner/Spinner";
 export { default as RoomCard } from "./RoomCard/RoomCard";
 export { default as AvatarsList } from "./AvatarsList/AvatarsList";
 export { default as RoomControls } from "./RoomControls/RoomControls";
+export { default as RoomAudio } from "./RoomAudio/RoomAudio";
+export { default as RoomBanner } from "./RoomBanner/RoomBanner";
+export { default as RoomAudience } from "./RoomAudience/RoomAudience";
+export { default as RoomAudienceList } from "./RoomAudienceList/RoomAudienceList";
+export { default as AudienceAvatar } from "./AudienceAvatar/AudienceAvatar";

@@ -7,18 +7,14 @@ import reportWebVitals from "./reportWebVitals";
 import "./tailwind.output.css";
 import "./i18n";
 
-import AgoraRTC, { AgoraRTCProvider } from "agora-rtc-react";
-const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-  <AgoraRTCProvider client={client}>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  </AgoraRTCProvider>
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -7,6 +7,7 @@ import { signOut } from "../../store/actions/userActions";
 import { AppDispatch } from "../../store/types";
 import { IconId } from "../../types/enums";
 import { User } from "firebase/auth";
+import { useTranslation } from "react-i18next";
 
 interface DesktopMenuProps {
   className?: string;
@@ -14,6 +15,7 @@ interface DesktopMenuProps {
 }
 
 const DesktopMenu: React.FC<DesktopMenuProps> = ({ className = "", user }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSignOut = () => {
@@ -34,7 +36,7 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({ className = "", user }) => {
             icon={IconId.Login}
             iconPosition="right"
           >
-            Logout
+            {t("header.logout")}
           </Button>
         )}
         {!user && (
@@ -46,7 +48,7 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({ className = "", user }) => {
               icon={IconId.Login}
               iconPosition="right"
             >
-              Login
+              {t("header.login")}
             </Button>
             <Button
               to="/registration"
@@ -55,7 +57,7 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({ className = "", user }) => {
               appearance="outline"
               variant="secondary"
             >
-              Register
+              {t("header.register")}
             </Button>
           </>
         )}

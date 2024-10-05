@@ -4,7 +4,9 @@
     "home": "Home",
     "search": "Search",
     "login": "Login",
-    "user profile": "User profile"
+    "user profile": "User profile",
+    "logout": "Logout",
+    "register": "Register"
   },
   "footer": {
     "contact us": "Contact Us",
@@ -12,6 +14,14 @@
     "contact": "Contact",
     "support": "Support",
     "faq": "FAQ"
+  },
+  "mobile menu": {
+    "explore": "explore",
+    "my rooms": "my rooms",
+    "profile": "profile",
+    "security": "security",
+    "notifications": "notifications",
+    "create room": "create room"
   },
   "buttons": {
     "continue": "Continue",

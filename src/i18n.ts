@@ -20,6 +20,7 @@ i18n
       "pageRegistration",
       "validations",
       "pageSystemStatus",
+      "room",
     ],
     defaultNS: "common",
     fallbackLng: "en",

@@ -28,7 +28,7 @@ const AvatarsGrid: React.FC<AvatarsGridProps> = ({
 
   return (
     <div
-      className={`flex items-center ${className} border-2 border-gray-600 p-2 inline-flex rounded-[22px]`}
+      className={`flex items-center ${className} border-2 border-gray-200 dark:border-gray-600 p-2 inline-flex rounded-[22px]`}
     >
       {viewedAvatars}
       {restUsersQuantity > 0 && (
