@@ -1,14 +1,14 @@
-import { FirebaseError } from "firebase/app";
-import { User, UserCredential } from "firebase/auth";
-import { apiSignUp, apiSignIn, apiSignOut } from "../../services/apiUser";
+import { FirebaseError } from 'firebase/app';
+import { User, UserCredential } from 'firebase/auth';
+import { apiSignUp, apiSignIn, apiSignOut } from '../../services/apiUser';
 import {
   USER_LOOKUP_START,
   USER_LOOKUP_FINISH,
   USER_LOOKUP_FAILURE,
   USER_LOGOUT,
   USER_CLEAR_ERROR,
-} from "./actionTypes";
-import { AppThunk } from "../types";
+} from './actionTypes';
+import { AppThunk } from '../types';
 
 export const userLookupStart = () => ({ type: USER_LOOKUP_START });
 export const userClearError = () => ({ type: USER_CLEAR_ERROR });
@@ -18,7 +18,7 @@ export const userLookupFinish = (user: User | UserCredential | null) => ({
 });
 
 export const userLookupFailure = (error: unknown) => {
-  let errorMessage = "default";
+  let errorMessage = 'default';
   if (error instanceof FirebaseError) {
     errorMessage = error.code;
   }
@@ -39,13 +39,13 @@ interface RegisterCredentials {
   name: string;
   email: string;
   password: string;
-  mode: "register";
+  mode: 'register';
 }
 
 interface LoginCredentials {
   email: string;
   password: string;
-  mode: "login";
+  mode: 'login';
 }
 
 export const userLookup =
@@ -64,9 +64,7 @@ export const userLookup =
       dispatch(userLookupFailure(error));
     }
 
-    function isLogin(
-      credentials: RegisterCredentials | LoginCredentials
-    ): credentials is LoginCredentials {
-      return credentials.mode === "login";
+    function isLogin(credentials: RegisterCredentials | LoginCredentials): credentials is LoginCredentials {
+      return credentials.mode === 'login';
     }
   };

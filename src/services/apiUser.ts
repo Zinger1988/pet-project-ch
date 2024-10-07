@@ -3,21 +3,13 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
-} from "firebase/auth";
-import { auth, db } from "../firebase";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
+} from 'firebase/auth';
+import { auth, db } from '../firebase';
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
 
-import { DB_USERS } from "./constants";
-import { UserDTO } from "../types/global";
-import { UID } from "agora-rtc-react";
+import { DB_USERS } from './constants';
+import { UserDTO } from '../types/global';
+import { UID } from 'agora-rtc-react';
 
 export const apiSignIn = async (credentials: { email: string; password: string }) => {
   const { email, password } = credentials;
@@ -28,11 +20,7 @@ export const apiSignOut = async () => {
   signOut(auth);
 };
 
-export const apiSignUp = async (credentials: {
-  name: string;
-  email: string;
-  password: string;
-}) => {
+export const apiSignUp = async (credentials: { name: string; email: string; password: string }) => {
   const { email, password } = credentials;
   const userData = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -50,7 +38,7 @@ export const apiResetPassword = async (email: string) => {
 
 export const getUsers = async (arraiIds: UID[]) => {
   const usersCollectionRef = collection(db, DB_USERS);
-  const usersQuery = query(usersCollectionRef, where("__name__", "in", arraiIds));
+  const usersQuery = query(usersCollectionRef, where('__name__', 'in', arraiIds));
   const usersSnapshot = await getDocs(usersQuery);
   const users: UserDTO[] = [];
 

@@ -2,21 +2,21 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  role: "admin" | "user";
+  role: 'admin' | 'user';
   // ... other fields
 }
 
-export type Theme = "light" | "dark";
+export type Theme = 'light' | 'dark';
 
 export interface StatusBannerItem {
-  status?: "operational" | "issue";
+  status?: 'operational' | 'issue';
   statusText?: string;
 }
 
 export interface SystemStatusItem {
   description: string;
   label: string;
-  status: "operational" | "issue";
+  status: 'operational' | 'issue';
   statusText: string;
 }
 
@@ -24,7 +24,7 @@ export interface SystemIncidentItem {
   date: string;
   description: string;
   label: string;
-  status: "investigating" | "resolved";
+  status: 'investigating' | 'resolved';
 }
 
 export interface RegistrationFormValues {

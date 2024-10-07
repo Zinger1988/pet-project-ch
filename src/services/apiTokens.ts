@@ -1,11 +1,8 @@
-import { httpsCallable } from "firebase/functions";
-import { functions } from "../firebase";
+import { httpsCallable } from 'firebase/functions';
+import { functions } from '../firebase';
 
-export const apiGenerateToken = async (data: {
-  roomId: string;
-  userId: string;
-}): Promise<string> => {
-  const generateTokenFunction = httpsCallable(functions, "generateToken");
+export const apiGenerateToken = async (data: { roomId: string; userId: string }): Promise<string> => {
+  const generateTokenFunction = httpsCallable(functions, 'generateToken');
 
   const result: any = await generateTokenFunction({
     channelName: data.roomId,

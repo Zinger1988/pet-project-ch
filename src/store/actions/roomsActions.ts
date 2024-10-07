@@ -1,14 +1,9 @@
-import { FirebaseError } from "firebase/app";
+import { FirebaseError } from 'firebase/app';
 
-import { apiCreateRoom, apiGetRooms } from "../../services/apiRooms";
-import { CreateRoomValues, Room } from "../../types/global";
-import { AppThunk } from "../types";
-import {
-  ROOMS_LOADING_FINSIH,
-  ROOMS_LOADING_START,
-  ROOMS_FAILURE,
-  ROOMS_CLEAR_ERROR,
-} from "./actionTypes";
+import { apiCreateRoom, apiGetRooms } from '../../services/apiRooms';
+import { CreateRoomValues, Room } from '../../types/global';
+import { AppThunk } from '../types';
+import { ROOMS_LOADING_FINSIH, ROOMS_LOADING_START, ROOMS_FAILURE, ROOMS_CLEAR_ERROR } from './actionTypes';
 
 export const fetchRoomsStart = () => ({ type: ROOMS_LOADING_START });
 export const fetchRoomsFinish = (rooms: Room[]) => ({
@@ -17,7 +12,7 @@ export const fetchRoomsFinish = (rooms: Room[]) => ({
 });
 
 export const roomsFailure = (error: unknown) => {
-  let errorMessage = "An error occured during room management";
+  let errorMessage = 'An error occured during room management';
   if (error instanceof FirebaseError) {
     errorMessage = error.code;
   }

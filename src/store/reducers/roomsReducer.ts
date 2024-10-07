@@ -1,11 +1,6 @@
-import { Room } from "../../types/global";
-import { Action } from "../types";
-import {
-  ROOMS_LOADING_START,
-  ROOMS_LOADING_FINSIH,
-  ROOMS_FAILURE,
-  ROOMS_CLEAR_ERROR,
-} from "../actions/actionTypes";
+import { Room } from '../../types/global';
+import { Action } from '../types';
+import { ROOMS_LOADING_START, ROOMS_LOADING_FINSIH, ROOMS_FAILURE, ROOMS_CLEAR_ERROR } from '../actions/actionTypes';
 
 export type RoomsState = {
   loading: boolean;

@@ -1,12 +1,12 @@
-import { User } from "firebase/auth";
+import { User } from 'firebase/auth';
 import {
   USER_LOGOUT,
   USER_CLEAR_ERROR,
   USER_LOOKUP_START,
   USER_LOOKUP_FINISH,
   USER_LOOKUP_FAILURE,
-} from "../actions/actionTypes";
-import { Action } from "../types";
+} from '../actions/actionTypes';
+import { Action } from '../types';
 
 export type UserState = {
   loading: boolean;

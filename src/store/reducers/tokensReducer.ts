@@ -1,4 +1,4 @@
-import { Action } from "../types";
+import { Action } from '../types';
 import {
   TOKEN_LOADING_START,
   TOKEN_GENERATION_FINISH,
@@ -6,7 +6,7 @@ import {
   TOKEN_CLEAR_ERROR,
   TOKEN_REMOVE_FINISH,
   TOKEN_CLEAR_FINISH,
-} from "../actions/actionTypes";
+} from '../actions/actionTypes';
 
 export type TokensState = {
   loading: boolean;

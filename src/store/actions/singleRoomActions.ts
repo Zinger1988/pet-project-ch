@@ -1,10 +1,6 @@
-import { FirebaseError } from "firebase/app";
+import { FirebaseError } from 'firebase/app';
 
-import {
-  apiDeleteRoom,
-  apiGetRoom,
-  apiHandleMembership,
-} from "../../services/apiSingleRoom";
+import { apiDeleteRoom, apiGetRoom, apiHandleMembership } from '../../services/apiSingleRoom';
 
 import {
   ROOM_CLEAR_FINSIH,
@@ -14,10 +10,10 @@ import {
   ROOM_FAILURE,
   ROOM_ADD_MEMBER,
   ROOM_REMOVE_MEMBER,
-} from "./actionTypes";
+} from './actionTypes';
 
-import { AppThunk } from "../types";
-import { Member, Room } from "../../types/global";
+import { AppThunk } from '../types';
+import { Member, Room } from '../../types/global';
 
 export const fetchRoomStart = () => ({ type: ROOM_LOADING_START });
 export const fetchRoomFinish = (room: Room) => ({
@@ -45,7 +41,7 @@ export const clearRoomFinish = (id: string) => ({
 });
 
 export const roomFailure = (error: unknown) => {
-  let errorMessage = "An error occured during room management";
+  let errorMessage = 'An error occured during room management';
   if (error instanceof FirebaseError) {
     errorMessage = error.code;
   }
@@ -53,20 +49,12 @@ export const roomFailure = (error: unknown) => {
 };
 
 export const handleMembership =
-  ({
-    userId,
-    roomId,
-    mode,
-  }: {
-    userId: string;
-    roomId: string;
-    mode: "add" | "remove";
-  }): AppThunk =>
+  ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
   async (dispatch) => {
     dispatch(fetchRoomStart());
     const member = await apiHandleMembership({ userId, roomId, mode });
 
-    dispatch(mode === "add" ? addRoomMember(member) : removeRoomMember(member.id));
+    dispatch(mode === 'add' ? addRoomMember(member) : removeRoomMember(member.id));
 
     try {
     } catch (error) {

@@ -1,5 +1,5 @@
-import { Room } from "../../types/global";
-import { Action } from "../types";
+import { Room } from '../../types/global';
+import { Action } from '../types';
 import {
   ROOM_LOADING_START,
   ROOM_LOADING_FINSIH,
@@ -8,7 +8,7 @@ import {
   ROOM_CLEAR_ERROR,
   ROOM_ADD_MEMBER,
   ROOM_REMOVE_MEMBER,
-} from "../actions/actionTypes";
+} from '../actions/actionTypes';
 
 export type SingleRoomState = {
   loading: boolean;
