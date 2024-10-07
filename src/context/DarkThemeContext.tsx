@@ -10,7 +10,7 @@ interface DarkThemeContextProviderProps {
 }
 
 const DarkThemeContextProvider: React.FC<DarkThemeContextProviderProps> = ({ children }) => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     let isDarkTheme = localStorage.darkTheme === 'true';

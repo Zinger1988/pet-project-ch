@@ -1,11 +1,11 @@
-import React from 'react';
 import { Field, Formik, Form } from 'formik';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import colors from 'tailwindcss/colors';
 
 import { FormControl } from '../form';
-import { Button, Loader } from '../../components';
+import { Button, Spinner } from '../../components';
 
 import { IconId } from '../../types/enums';
 import { RegistrationFormValues } from '../../types/global';
@@ -115,7 +115,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ loading, onSubmit, 
             iconPosition='right'
             disabled={loading}
           >
-            {loading ? <Loader /> : t('buttons.continue')}
+            {loading ? <Spinner fill={colors.gray[100]} /> : t('buttons.continue')}
           </Button>
         </div>
       </Form>

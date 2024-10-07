@@ -1,5 +1,4 @@
 import { Container } from '../components';
-import React from 'react';
 
 const Policy = () => {
   return (

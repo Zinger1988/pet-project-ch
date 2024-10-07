@@ -1,11 +1,11 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
+import colors from 'tailwindcss/colors';
 
 import { FormControl } from '../form';
-import { Button, Loader } from '../../components';
+import { Button, Spinner } from '../../components';
 import { IconId } from '../../types/enums';
 
 interface PasswordRecoveryFormProps {
@@ -52,7 +52,7 @@ const PasswordRecoveryForm: React.FC<PasswordRecoveryFormProps> = ({ loading, on
             iconPosition='right'
             disabled={loading}
           >
-            {loading ? <Loader /> : t('buttons.continue')}
+            {loading ? <Spinner fill={colors.gray[100]} /> : t('buttons.continue')}
           </Button>
         </div>
       </Form>

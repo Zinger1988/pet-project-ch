@@ -1,6 +1,6 @@
 import image404 from '../assets/images/searching.svg';
 import image500 from '../assets/images/interface_fatal_error.svg';
-import React from 'react';
+
 import { Container } from '.';
 
 interface ErrorSectionProps {

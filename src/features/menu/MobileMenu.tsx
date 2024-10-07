@@ -1,4 +1,3 @@
-import React from 'react';
 import ThemeToggle from '../../components/ThemeToggle';
 import LangToggle from '../../components/LangToggle';
 import Button from '../../components/Button';
@@ -6,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/types';
 import { signOut } from '../../store/actions/userActions';
 import { IconId } from '../../types/enums';
-import { User } from 'firebase/auth';
 import { NavLink } from 'react-router-dom';
 import Icon from '../../components/Icon';
 import { capitalizeFirstLetter } from '../../helpers/stringUtils';
 import { useTranslation } from 'react-i18next';
+import { User } from '../../types/global';
 
 interface MobileMenuProps {
   className?: string;
@@ -78,7 +77,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ className = '', onClick, user }
               iconClassName='fill-white'
               className='text-white hover:text-white'
             >
-              {t('header.logout')}
+              {user.name}
             </Button>
           </>
         )}

@@ -15,7 +15,7 @@ import { FirebaseError } from 'firebase/app';
 
 import { db } from '../firebase';
 import { RoomDTO } from './types';
-import { Member } from '../types/global';
+import { User } from '../types/global';
 import { convertRoomData } from './helpers';
 import { DB_MEMBERSHIP, DB_ROOMS, DB_USERS } from './constants';
 
@@ -37,13 +37,12 @@ export const apiGetRoom = async (roomId: string) => {
 export const apiDeleteRoom = async (roomId: string) => {
   const roomRef = doc(db, DB_ROOMS, roomId);
   const memebrshipCollectionRef = collection(db, DB_MEMBERSHIP);
-
-  const queryRes = query(memebrshipCollectionRef, where('roomId', '==', roomId), limit(1));
-
+  const queryRes = query(memebrshipCollectionRef, where('roomId', '==', roomId));
   const querySnapshot = await getDocs(queryRes);
   const roomPerticipationsRef = querySnapshot.docs[0].ref;
 
-  Promise.all([deleteDoc(roomPerticipationsRef), deleteDoc(roomRef)]);
+  await deleteDoc(roomPerticipationsRef);
+  await deleteDoc(roomRef);
 };
 
 export const apiHandleMembership = async ({
@@ -69,7 +68,7 @@ export const apiHandleMembership = async ({
     });
 
     return {
-      ...(memberDoc.data() as Member),
+      ...(memberDoc.data() as User),
       id: memberDoc.id,
     };
   } else {

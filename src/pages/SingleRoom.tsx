@@ -7,8 +7,8 @@ import { Spinner } from '../components';
 import { clearRoomErrors, clearRoomFinish, getRoom } from '../store/actions/singleRoomActions';
 import { AppDispatch } from '../store/types';
 import { RootState } from '../store';
-import { User } from 'firebase/auth';
 import { RoomAudience, RoomBanner } from '../features/room';
+import { User } from '../types/global';
 
 const SingleRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -36,7 +36,7 @@ const SingleRoom = () => {
     return <Spinner className='absolute left-0 top-0 h-full w-full' size='lg' />;
   }
 
-  const { uid: userUid } = user as User;
+  const { id: userUid } = user as User;
 
   return (
     <article>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconId } from '../types/enums';
 
 interface IconProps {

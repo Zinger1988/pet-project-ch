@@ -9,13 +9,15 @@ import { IconId } from '../../types/enums';
 import { AppDispatch } from '../../store/types';
 import { generateToken } from '../../store/actions/tokensActions';
 import { useTranslation } from 'react-i18next';
+import { User } from '../../types/global';
 
 interface RoomAudioProps {
   roomId: string;
   userId: string;
+  members: User[];
 }
 
-const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId }) => {
+const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members }) => {
   const { t } = useTranslation();
   const [micEnabled, setMicEnabled] = useState(false);
   const { loading, tokens, error } = useSelector((state: RootState) => state.tokensSlice);
@@ -23,6 +25,9 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId }) => {
   const dispatch = useDispatch<AppDispatch>();
   const microphoneTrackRef = useRef<null | IMicrophoneAudioTrack>(null);
   const tokenData = tokens.find((item) => item.roomId === roomId);
+  const isMember = members.some((member) => {
+    return member.id === userId;
+  });
 
   useEffect(() => {
     const token = tokens.find((item) => item.roomId === roomId);
@@ -65,6 +70,10 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId }) => {
       setMicEnabled(!micEnabled);
     }
   };
+
+  if (!isMember) {
+    return null;
+  }
 
   return (
     <Button

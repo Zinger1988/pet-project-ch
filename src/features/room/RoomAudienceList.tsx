@@ -1,20 +1,20 @@
-import React from 'react';
-import { Member, RemoteMember } from '../../types/global';
+import { User, RemoteUser } from '../../types/global';
 
 interface RoomAudienceListProps {
   title: string;
-  render: (value: Member | RemoteMember) => React.ReactNode;
-  audience: (Member | RemoteMember)[];
+  render: (value: User | RemoteUser) => React.ReactNode;
+  audience: (User | RemoteUser)[];
 }
 
 const RoomAudienceList: React.FC<RoomAudienceListProps> = ({ title, render, audience }) => {
-  const membersSectionStyles = 'grid grid-cols-6 justify-items-start';
+  const audienceGridStyles =
+    'grid grid-cols-[repeat(auto-fit,minmax(64px,min-content))] gap-2 lg:gap-4 justify-items-start';
   const sectionTitleStyles = 'col-span-6 mt-0 mb-2';
 
   return (
-    <section className={membersSectionStyles}>
+    <section>
       <h5 className={sectionTitleStyles}>{title}</h5>
-      <div>{audience.map(render)}</div>
+      <div className={audienceGridStyles}>{audience.map(render)}</div>
     </section>
   );
 };

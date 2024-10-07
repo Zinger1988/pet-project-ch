@@ -39,4 +39,5 @@ export enum IconId {
   WarningSquareSm = 'WARNING_SQUARE_SM',
   VoiceSolid = 'VOICE_SOLID',
   VoiceOffSolid = 'VOICE_OFF_SOLID',
+  Crown = 'CROWN',
 }

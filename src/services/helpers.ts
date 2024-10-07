@@ -1,7 +1,7 @@
 import { collection, DocumentReference, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
 
-import { Member, Room } from '../types/global';
+import { User, Room } from '../types/global';
 import { RoomDTO } from './types';
 import { db } from '../firebase';
 import { DB_MEMBERSHIP } from './constants';
@@ -44,7 +44,7 @@ export const convertRoomData = async ({
   };
 };
 
-export const getMembers = async (roomId: string): Promise<Member[]> => {
+export const getMembers = async (roomId: string): Promise<User[]> => {
   const memebrshipCollectionRef = collection(db, DB_MEMBERSHIP);
   const q = query(memebrshipCollectionRef, where('roomId', '==', roomId), limit(1));
   const querySnapshot = await getDocs(q);

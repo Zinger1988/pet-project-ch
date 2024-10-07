@@ -5,14 +5,14 @@ import Button from '../../components/Button';
 
 import { AppDispatch } from '../../store/types';
 import { deleteRoom, handleMembership } from '../../store/actions/singleRoomActions';
-import { Member } from '../../types/global';
+import { User } from '../../types/global';
 import { useTranslation } from 'react-i18next';
 
 interface RoomControlsProps {
   roomId: string;
   userId: string;
   moderatorId: string;
-  members: Member[];
+  members: User[];
   className?: string;
 }
 
@@ -28,7 +28,7 @@ const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId
   });
 
   const handleDelete = async () => {
-    await dispatch(deleteRoom(userId));
+    await dispatch(deleteRoom(roomId));
     navigate('/rooms');
   };
 

@@ -1,11 +1,3 @@
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'admin' | 'user';
-  // ... other fields
-}
-
 export type Theme = 'light' | 'dark';
 
 export interface StatusBannerItem {
@@ -40,17 +32,17 @@ export interface LoginFormValues {
   password: string;
 }
 
-export interface Member {
+export interface User {
   id: string;
   name: string;
   email: string;
 }
 
-export interface RemoteMember extends Member {
+export interface RemoteUser extends User {
   hasAudio: boolean;
 }
 
-export interface UserDTO extends Member {}
+export interface UserDTO extends User {}
 
 export interface Room {
   id: string;
@@ -69,7 +61,7 @@ export interface Room {
   name: string;
   members: {
     total: number;
-    collection: Member[];
+    collection: User[];
   };
   isDetailed: boolean;
 }

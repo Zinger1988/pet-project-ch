@@ -1,23 +1,23 @@
-import { IAgoraRTCRemoteUser, RemoteUser, useRemoteUsers } from 'agora-rtc-react';
+import { IAgoraRTCRemoteUser, RemoteUser as AgoraRemoterUser, useRemoteUsers } from 'agora-rtc-react';
 import { useEffect, useState } from 'react';
-import { getUsers } from '../../services/apiUser';
-import { Member, RemoteMember } from '../../types/global';
+import { apiGetUsers } from '../../services/apiUser';
+import { User, RemoteUser } from '../../types/global';
 import { useTranslation } from 'react-i18next';
 import RoomAudienceList from './RoomAudienceList';
 import { AudienceAvatar } from '../avatar';
 
 interface RoomAudienceProps {
-  members: Member[];
+  members: User[];
   userId: string;
 }
 
 const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId }) => {
   const { t } = useTranslation();
   const remoteUsers = useRemoteUsers();
-  const [audience, setAudience] = useState<RemoteMember[]>([]);
-  const [online, setOnline] = useState<RemoteMember[]>([]);
-  const [offline, setOffline] = useState<Member[]>([]);
-  const [guests, setGuests] = useState<RemoteMember[]>([]);
+  const [audience, setAudience] = useState<RemoteUser[]>([]);
+  const [online, setOnline] = useState<RemoteUser[]>([]);
+  const [offline, setOffline] = useState<User[]>([]);
+  const [guests, setGuests] = useState<RemoteUser[]>([]);
 
   useEffect(() => {
     const getRemoteUsers = async (remoteUsers: IAgoraRTCRemoteUser[]) => {
@@ -27,7 +27,7 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId }) => {
       }
 
       const ids = remoteUsers.map((ru) => ru.uid);
-      const users = await getUsers(ids);
+      const users = await apiGetUsers(ids);
       const usersWithAudio = users.map((user) => {
         const remoteUser = remoteUsers.find((remoteUser) => user.id === remoteUser.uid);
         return { ...user, hasAudio: remoteUser?.hasAudio ?? false };
@@ -51,7 +51,7 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId }) => {
     const offlineMembers = membersWithStatus.filter((member) => !member.online);
     const guests = audience.filter((user) => !members.find((member) => member.id === user.id));
 
-    setOnline(onlineMembers as RemoteMember[]);
+    setOnline(onlineMembers as RemoteUser[]);
     setOffline(offlineMembers);
     setGuests(guests);
   }, [audience, members, userId]);
@@ -59,9 +59,9 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId }) => {
   return (
     <div>
       {remoteUsers.map((user) => (
-        <RemoteUser user={user} key={user.uid} />
+        <AgoraRemoterUser user={user} key={user.uid} />
       ))}
-      <div className='rounded-xl border-2 border-gray-200 p-4 dark:border-gray-600 lg:p-5'>
+      <div className='flex flex-col gap-6 rounded-xl border-2 border-gray-200 p-4 dark:border-gray-600 lg:p-5'>
         {online.length > 0 && (
           <RoomAudienceList
             title={t('audience.online members', { ns: 'room' })}

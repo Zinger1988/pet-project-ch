@@ -3,6 +3,8 @@ import { Room } from '../../types/global';
 
 import blankImg from '../../assets/images/feeling-lonely.svg';
 import { RoomCard } from '.';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 interface RoomsContainerProps {
   title: string;
@@ -11,6 +13,10 @@ interface RoomsContainerProps {
 }
 
 const RoomsContainer: React.FC<RoomsContainerProps> = ({ title, loading, rooms }) => {
+  const { user } = useSelector((state: RootState) => state.userSlice);
+  const sortedRooms = [...rooms].sort((a, b) => {
+    return a.moderator.id === user?.id ? -1 : 1;
+  });
   const blank = (
     <>
       <img className='mx-auto mb-6 block w-1/2' src={blankImg} alt='A sad woman sitting on the windowsill' />
@@ -30,8 +36,8 @@ const RoomsContainer: React.FC<RoomsContainerProps> = ({ title, loading, rooms }
     <>
       <h1 className='text-h2 mt-0'>{title}</h1>
       <div className='grid gap-2 lg:grid-cols-2'>
-        {rooms.map((room) => (
-          <RoomCard key={room.id} room={room} />
+        {sortedRooms.map((room) => (
+          <RoomCard key={room.id} room={room} isModerator={room.moderator.id === user?.id} />
         ))}
       </div>
     </>

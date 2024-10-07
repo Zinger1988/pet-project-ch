@@ -27,7 +27,7 @@ const CreateRoom = () => {
 
   const handleSumbit = async (values: CreateRoomValues) => {
     if (!user) return;
-    await dispatch(createRoom({ ...values, createdBy: user.uid }));
+    await dispatch(createRoom({ ...values, createdBy: user.id }));
     navigate('/rooms');
   };
 

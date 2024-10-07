@@ -8,7 +8,7 @@ import { auth, db } from '../firebase';
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
 
 import { DB_USERS } from './constants';
-import { UserDTO } from '../types/global';
+import { User } from '../types/global';
 import { UID } from 'agora-rtc-react';
 
 export const apiSignIn = async (credentials: { email: string; password: string }) => {
@@ -36,15 +36,15 @@ export const apiResetPassword = async (email: string) => {
   return sendPasswordResetEmail(auth, email);
 };
 
-export const getUsers = async (arraiIds: UID[]) => {
+export const apiGetUsers = async (arraiIds: UID[]) => {
   const usersCollectionRef = collection(db, DB_USERS);
   const usersQuery = query(usersCollectionRef, where('__name__', 'in', arraiIds));
   const usersSnapshot = await getDocs(usersQuery);
-  const users: UserDTO[] = [];
+  const users: User[] = [];
 
   usersSnapshot.forEach((doc) => {
     users.push({
-      ...(doc.data() as UserDTO),
+      ...(doc.data() as User),
       id: doc.id,
     });
   });
@@ -52,12 +52,12 @@ export const getUsers = async (arraiIds: UID[]) => {
   return users;
 };
 
-export const getUser = async (userId: string) => {
+export const apiGetUser = async (userId: string) => {
   const userRef = doc(db, DB_USERS, userId);
   const userDoc = await getDoc(userRef);
 
   return {
+    ...(userDoc.data() as User),
     id: userDoc.id,
-    ...userDoc.data(),
   };
 };

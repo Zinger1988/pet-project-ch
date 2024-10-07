@@ -1,6 +1,5 @@
 import { FirebaseError } from 'firebase/app';
-import { User, UserCredential } from 'firebase/auth';
-import { apiSignUp, apiSignIn, apiSignOut } from '../../services/apiUser';
+import { apiSignUp, apiSignIn, apiSignOut, apiGetUser } from '../../services/apiUser';
 import {
   USER_LOOKUP_START,
   USER_LOOKUP_FINISH,
@@ -9,10 +8,11 @@ import {
   USER_CLEAR_ERROR,
 } from './actionTypes';
 import { AppThunk } from '../types';
+import { User } from '../../types/global';
 
 export const userLookupStart = () => ({ type: USER_LOOKUP_START });
 export const userClearError = () => ({ type: USER_CLEAR_ERROR });
-export const userLookupFinish = (user: User | UserCredential | null) => ({
+export const userLookupFinish = (user: User | null) => ({
   type: USER_LOOKUP_FINISH,
   payload: user,
 });
@@ -47,6 +47,22 @@ interface LoginCredentials {
   password: string;
   mode: 'login';
 }
+
+export const getUser =
+  (id: string | null): AppThunk =>
+  async (dispatch) => {
+    dispatch(userLookupStart());
+    try {
+      if (id) {
+        const user = await apiGetUser(id);
+        dispatch(userLookupFinish(user));
+      } else {
+        dispatch(userLookupFinish(null));
+      }
+    } catch (error) {
+      dispatch(userLookupFailure(error));
+    }
+  };
 
 export const userLookup =
   (credentials: RegisterCredentials | LoginCredentials): AppThunk =>

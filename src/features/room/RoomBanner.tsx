@@ -10,7 +10,7 @@ interface RoomBannerProps {
   userId: string;
 }
 
-// TODO: Handle Room Banner
+// TODO: Handle Room Banner with custom image
 
 const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBanner, room, userId }) => {
   const { id: roomId, members, moderator, name: roomName } = room;
@@ -30,7 +30,7 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
         <p className={nameStyles}>{name}</p>
         <h3 className={headingStyles}>{roomName}</h3>
         <div className={controlsStyles}>
-          <RoomAudio roomId={roomId} userId={userId} />
+          <RoomAudio roomId={roomId} userId={userId} members={collection} />
           <RoomControls members={collection} moderatorId={id} roomId={roomId} userId={userId} />
         </div>
       </div>

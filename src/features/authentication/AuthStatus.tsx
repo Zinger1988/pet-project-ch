@@ -4,19 +4,18 @@ import { AppDispatch } from '../../store/types';
 
 import { auth } from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { userLookupStart, userLookupFinish } from '../../store/actions/userActions';
+import { getUser } from '../../store/actions/userActions';
 
 const AuthStatus = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(userLookupStart());
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      dispatch(userLookupFinish(currentUser));
+      dispatch(getUser(currentUser ? currentUser.uid : null));
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   return null;
 };

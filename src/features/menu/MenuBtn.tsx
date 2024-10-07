@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface MenuBtnProps {
   onClick?: () => void;
   className?: string;

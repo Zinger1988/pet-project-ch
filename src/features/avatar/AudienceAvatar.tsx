@@ -1,28 +1,28 @@
 import { Icon } from '../../components';
 import { IconId } from '../../types/enums';
-import { Member, RemoteMember } from '../../types/global';
+import { User, RemoteUser } from '../../types/global';
 import { Avatar } from '.';
 
 interface AudienceAvatarProps {
-  member: Member | RemoteMember;
+  member: User | RemoteUser;
   className?: string;
 }
 
 const AudienceAvatar: React.FC<AudienceAvatarProps> = ({ member, className = '' }) => {
-  const memberVoiceIndicatorStyles =
+  const indicatorStyles =
     'bg-emerald-500 rounded-full w-6 h-6 flex items-center justify-center absolute right-0 bottom-0 translate-x-1/3 translate-y-1/4';
-  const memberVoiceIconStyles = 'fill-white w-3 h-3';
+  const iconStyles = 'fill-white w-3 h-3';
 
-  const isRemoteMember = (member: Member | RemoteMember): member is RemoteMember => {
-    return 'hasAudio' in member;
+  const hasAudio = (member: User | RemoteUser) => {
+    return 'hasAudio' in member ? member.hasAudio : false;
   };
 
   return (
     <div className={`relative ${className}`} key={member.id}>
       <Avatar name={member.name} size='lg' />
-      {isRemoteMember(member) && member.hasAudio && (
-        <div className={memberVoiceIndicatorStyles}>
-          <Icon id={IconId.VoiceSolid} className={memberVoiceIconStyles} />
+      {hasAudio(member) && (
+        <div className={indicatorStyles}>
+          <Icon id={IconId.VoiceSolid} className={iconStyles} />
         </div>
       )}
     </div>

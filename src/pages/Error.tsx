@@ -1,4 +1,3 @@
-import React from 'react';
 import { ErrorSection } from '../components';
 
 interface ErrorProps {

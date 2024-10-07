@@ -1,14 +1,14 @@
-import React from 'react';
 import { Field, Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
+import colors from 'tailwindcss/colors';
 
 import FormControl from '../form/FormControl';
 import Button from '../../components/Button';
-import Loader from '../../components/Loader';
 
 import { IconId } from '../../types/enums';
 import { CreateRoomValues } from '../../types/global';
+import { Spinner } from '../../components';
 
 interface CreateRoomFormProps {
   loading: boolean;
@@ -74,7 +74,7 @@ const CreateRoomForm: React.FC<CreateRoomFormProps> = ({ loading, onSubmit, clas
             iconPosition='right'
             disabled={loading}
           >
-            {loading ? <Loader /> : t('continue')}
+            {loading ? <Spinner fill={colors.gray[100]} /> : t('continue')}
           </Button>
         </div>
       </Form>

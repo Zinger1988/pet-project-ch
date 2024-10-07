@@ -13,7 +13,7 @@ import {
 } from './actionTypes';
 
 import { AppThunk } from '../types';
-import { Member, Room } from '../../types/global';
+import { User, Room } from '../../types/global';
 
 export const fetchRoomStart = () => ({ type: ROOM_LOADING_START });
 export const fetchRoomFinish = (room: Room) => ({
@@ -21,7 +21,7 @@ export const fetchRoomFinish = (room: Room) => ({
   payload: room,
 });
 
-export const addRoomMember = (member: Member) => ({
+export const addRoomMember = (member: User) => ({
   type: ROOM_ADD_MEMBER,
   payload: member,
 });

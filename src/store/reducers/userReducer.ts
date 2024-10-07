@@ -1,10 +1,11 @@
-import { User } from 'firebase/auth';
+import { User } from '../../types/global';
 import {
   USER_LOGOUT,
   USER_CLEAR_ERROR,
   USER_LOOKUP_START,
   USER_LOOKUP_FINISH,
   USER_LOOKUP_FAILURE,
+  USER_CLEAR,
 } from '../actions/actionTypes';
 import { Action } from '../types';
 
@@ -29,6 +30,8 @@ const userReducer = (state = initialState, action: Action) => {
     case USER_LOOKUP_FAILURE: {
       return { ...state, loading: false, error: action.payload };
     }
+    case USER_CLEAR:
+      return { ...state, user: null };
     case USER_CLEAR_ERROR:
       return { ...state, error: null };
     case USER_LOGOUT:

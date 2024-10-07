@@ -17,7 +17,7 @@ const Rooms = () => {
 
   useEffect(() => {
     if (!user) return;
-    dispatch(getRooms({ userId: user.uid, userRooms: isUserRooms }));
+    dispatch(getRooms({ userId: user.id, userRooms: isUserRooms }));
   }, [dispatch, user, enpoint, isUserRooms]);
 
   return <RoomsContainer title={isUserRooms ? 'My rooms' : 'Explore'} loading={loading} rooms={rooms} />;

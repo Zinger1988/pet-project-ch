@@ -1,15 +1,15 @@
-import React from 'react';
 import { Field, Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
+import colors from 'tailwindcss/colors';
 
 import { FormControl } from '../form';
 import Button from '../../components/Button';
-import Loader from '../../components/Loader';
 
 import { IconId } from '../../types/enums';
 import { LoginFormValues } from '../../types/global';
+import { Spinner } from '../../components';
 
 interface LoginFormProps {
   loading: boolean;
@@ -75,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit, className = ''
             type='submit'
             disabled={loading}
           >
-            {loading ? <Loader /> : t('buttons.continue')}
+            {loading ? <Spinner fill={colors.gray[100]} /> : t('buttons.continue')}
           </Button>
         </div>
       </Form>

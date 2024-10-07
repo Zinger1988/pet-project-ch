@@ -1,14 +1,13 @@
-import React from 'react';
-import { Member } from '../../types/global';
+import { User } from '../../types/global';
 import Avatar from './Avatar';
 
-interface AvatarsThumbnailsProps {
+interface AvatarThumbnailsProps {
   className?: string;
   size?: number;
-  usersList: Member[];
+  usersList: User[];
 }
 
-const AvatarsThumbnails: React.FC<AvatarsThumbnailsProps> = ({ usersList, className = '', size = 4 }) => {
+const AvatarThumbnails: React.FC<AvatarThumbnailsProps> = ({ usersList, className = '', size = 4 }) => {
   const viewedUsers = usersList.slice(0, size);
   const restUsersQuantity = usersList.length - size;
   const viewedAvatars = viewedUsers.map((item) => (
@@ -30,4 +29,4 @@ const AvatarsThumbnails: React.FC<AvatarsThumbnailsProps> = ({ usersList, classN
   );
 };
 
-export default AvatarsThumbnails;
+export default AvatarThumbnails;
