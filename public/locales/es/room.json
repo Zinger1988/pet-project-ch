@@ -1,0 +1,23 @@
+{
+  "create": {
+    "Create room": "Crear sala",
+    "Room name": "Nombre de la sala",
+    "People will be able to find your room by its name": "Las personas podrán encontrar tu sala por su nombre",
+    "Room description": "Descripción de la sala",
+    "Tell people something about this room": "Dile a la gente algo sobre esta sala",
+    "Create private room": "Crear sala privada"
+  },
+  "audience": {
+    "online members": "Miembros en línea",
+    "offline members": "Miembros fuera de línea",
+    "guests": "Invitados"
+  },
+  "buttons": {
+    "mute": "Silenciar",
+    "unmute": "Activar sonido",
+    "leave room": "Salir de la sala",
+    "delete room": "Eliminar sala",
+    "join room": "Unirse a la sala",
+    "loading": "Cargando"
+  }
+}

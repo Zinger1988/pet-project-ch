@@ -34,7 +34,7 @@ const RoomsContainer: React.FC<RoomsContainerProps> = ({ title, loading, rooms }
   return (
     <>
       <h1 className="text-h2 mt-0">{title}</h1>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid lg:grid-cols-2 gap-2">
         {rooms.map((room) => (
           <RoomCard key={room.id} room={room} />
         ))}

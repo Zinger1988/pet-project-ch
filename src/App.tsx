@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./layout/AppLayout";

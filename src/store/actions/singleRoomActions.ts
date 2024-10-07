@@ -7,7 +7,7 @@ import {
 } from "../../services/apiSingleRoom";
 
 import {
-  ROOM_DELETE_FINSIH,
+  ROOM_CLEAR_FINSIH,
   ROOM_LOADING_START,
   ROOM_LOADING_FINSIH,
   ROOM_CLEAR_ERROR,
@@ -39,8 +39,8 @@ export const clearRoomErrors = () => ({
   type: ROOM_CLEAR_ERROR,
 });
 
-export const deleteRoomFinish = (id: string) => ({
-  type: ROOM_DELETE_FINSIH,
+export const clearRoomFinish = (id: string) => ({
+  type: ROOM_CLEAR_FINSIH,
   payload: id,
 });
 
@@ -92,7 +92,7 @@ export const deleteRoom =
     dispatch(fetchRoomStart());
     try {
       await apiDeleteRoom(id);
-      dispatch(deleteRoomFinish(id));
+      dispatch(clearRoomFinish(id));
     } catch (error) {
       dispatch(roomFailure(error));
     }

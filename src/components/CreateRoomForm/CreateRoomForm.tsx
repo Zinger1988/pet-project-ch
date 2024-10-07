@@ -50,8 +50,10 @@ const CreateRoomForm: React.FC<CreateRoomFormProps> = ({
           component={FormControl}
           type="text"
           name="name"
-          label={"Room name"}
-          placeholder={"People will be able to find your room by its name"}
+          label={t("create.Room name", { ns: "room" })}
+          placeholder={t("create.People will be able to find your room by its name", {
+            ns: "room",
+          })}
           id="name"
           className="mb-3"
         />
@@ -59,8 +61,8 @@ const CreateRoomForm: React.FC<CreateRoomFormProps> = ({
           component={FormControl}
           type="textarea"
           name="description"
-          label={"Room description"}
-          placeholder={"Tell people something about this room"}
+          label={t("create.Room description", { ns: "room" })}
+          placeholder={t("create.Tell people something about this room", { ns: "room" })}
           id="description"
           className="mb-6"
         />
@@ -68,7 +70,7 @@ const CreateRoomForm: React.FC<CreateRoomFormProps> = ({
           component={FormControl}
           type="checkbox"
           name="isPrivate"
-          label="Create private room"
+          label={t("create.Create private room", { ns: "room" })}
           id="isPrivate"
           className="mb-9"
         />
@@ -80,7 +82,7 @@ const CreateRoomForm: React.FC<CreateRoomFormProps> = ({
             iconPosition="right"
             disabled={loading}
           >
-            {loading ? <Loader /> : "Continue"}
+            {loading ? <Loader /> : t("continue")}
           </Button>
         </div>
       </Form>

@@ -37,4 +37,6 @@ export enum IconId {
   UserSolid = "USER_SOLID",
   Voice = "VOICE",
   WarningSquareSm = "WARNING_SQUARE_SM",
+  VoiceSolid = "VOICE_SOLID",
+  VoiceOffSolid = "VOICE_OFF_SOLID",
 }

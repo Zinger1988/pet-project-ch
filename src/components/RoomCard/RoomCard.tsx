@@ -11,7 +11,7 @@ interface RoomCardProps {
 }
 
 const RoomCard: React.FC<RoomCardProps> = ({ room, className = "" }) => {
-  const linkStyles = `relative dark:bg-gray-800 block p-3 bg-white rounded-2xl text-inherit no-underline ${className}`;
+  const linkStyles = `relative dark:bg-gray-800 block p-2 p-3 bg-white rounded-2xl text-inherit no-underline ${className}`;
   const headingStyles = "flex gap-3 items-center mb-3 pr-12 ";
 
   return (

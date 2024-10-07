@@ -1,0 +1,23 @@
+{
+  "create": {
+    "Create room": "Create room",
+    "Room name": "Room name",
+    "People will be able to find your room by its name": "People will be able to find your room by its name",
+    "Room description": "Room description",
+    "Tell people something about this room": "Tell people something about this room",
+    "Create private room": "Create private room"
+  },
+  "audience": {
+    "online members": "Online members",
+    "offline members": "Offline members",
+    "guests": "Guests"
+  },
+  "buttons": {
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "leave room": "Leave room",
+    "delete room": "Delete room",
+    "join room": "Join room",
+    "loading": "Loading"
+  }
+}
