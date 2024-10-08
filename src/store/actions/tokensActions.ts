@@ -1,13 +1,13 @@
-import { apiGenerateToken } from "../../services/apiTokens";
-import { AppThunk } from "../types";
+import { apiGenerateToken } from '../../services/apiTokens';
+import { AppThunk } from '../types';
 import {
   TOKEN_LOADING_START,
   TOKEN_GENERATION_FINISH,
   TOKEN_REMOVE_FINISH,
-  TOKEN_CLEAR_FINISH,
+  TOKEN_CLEAR,
   TOKEN_FAILURE,
   TOKEN_CLEAR_ERROR,
-} from "./actionTypes";
+} from './actionTypes';
 
 export const loadTokenStart = () => ({ type: TOKEN_LOADING_START });
 export const generationTokenFinish = (data: { roomId: string; token: string }) => ({
@@ -16,8 +16,8 @@ export const generationTokenFinish = (data: { roomId: string; token: string }) =
 });
 
 export const tokensFailure = (error: unknown) => {
-  let errorMessage = "An error occured during token loading";
-  if (typeof error === "string") {
+  let errorMessage = 'An error occured during token loading';
+  if (typeof error === 'string') {
     errorMessage = `Error generating token: ${error}`;
   }
   return { type: TOKEN_FAILURE, payload: errorMessage };
@@ -34,6 +34,10 @@ export const generateToken =
       dispatch(tokensFailure(error));
     }
   };
+
+export const clearToken = () => {
+  return { type: TOKEN_CLEAR };
+};
 
 export const сlearTokensError = () => {
   return { type: TOKEN_CLEAR_ERROR };

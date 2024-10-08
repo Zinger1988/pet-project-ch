@@ -1,10 +1,10 @@
-import { addDoc, collection, doc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, where } from 'firebase/firestore';
 
-import { db } from "../firebase";
-import { RoomDTO } from "./types";
-import { convertRoomData } from "./helpers";
-import { CreateRoomValues } from "../types/global";
-import { DB_MEMBERSHIP, DB_ROOMS, DB_USERS } from "./constants";
+import { db } from '../firebase';
+import { RoomDTO } from './types';
+import { convertRoomData } from './helpers';
+import { CreateRoomValues } from '../types/global';
+import { DB_MEMBERSHIP, DB_ROOMS, DB_USERS } from './constants';
 
 export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: string }) => {
   const userRef = await doc(db, DB_USERS, values.createdBy);
@@ -22,13 +22,7 @@ export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: stri
   return room;
 };
 
-export const apiGetRooms = async ({
-  userId,
-  userRooms = false,
-}: {
-  userId: string;
-  userRooms?: boolean;
-}) => {
+export const apiGetRooms = async ({ userId, userRooms = false }: { userId: string; userRooms?: boolean }) => {
   const roomsCollectionRef = collection(db, DB_ROOMS);
   const userRef = await doc(db, DB_USERS, userId);
   const rooms: RoomDTO[] = [];
@@ -38,9 +32,9 @@ export const apiGetRooms = async ({
     // fetching rooms where user has membership
     const roomsAsMember = await getRoomsWhereUserHasMembership(userId);
     rooms.push(...roomsAsMember);
-    roomsQuery = query(roomsCollectionRef, where("createdBy", "==", userRef));
+    roomsQuery = query(roomsCollectionRef, where('createdBy', '==', userRef));
   } else {
-    roomsQuery = query(roomsCollectionRef, where("createdBy", "!=", userRef));
+    roomsQuery = query(roomsCollectionRef, where('createdBy', '!=', userRef));
   }
 
   const roomsSnapshot = await getDocs(roomsQuery);
@@ -62,11 +56,7 @@ export const getRoomsWhereUserHasMembership = async (userId: string) => {
   const membershipCollectionRef = collection(db, DB_MEMBERSHIP);
   const roomsId: string[] = [];
 
-  const membershipsQuery = query(
-    membershipCollectionRef,
-    where("members", "array-contains", userRef)
-  );
-
+  const membershipsQuery = query(membershipCollectionRef, where('members', 'array-contains', userRef));
   const membershipsSnapshot = await getDocs(membershipsQuery);
 
   membershipsSnapshot.forEach((doc) => {
@@ -74,20 +64,22 @@ export const getRoomsWhereUserHasMembership = async (userId: string) => {
     roomsId.push(roomId);
   });
 
-  const roomsQuery = query(roomsCollectionRef, where("__name__", "in", roomsId));
-  const roomsSnapshot = await getDocs(roomsQuery);
   const rooms: RoomDTO[] = [];
 
-  roomsSnapshot.forEach((doc) => {
-    const docData = doc.data();
+  if (roomsId.length) {
+    const roomsQuery = query(roomsCollectionRef, where('__name__', 'in', roomsId));
+    const roomsSnapshot = await getDocs(roomsQuery);
 
-    if (docData.createdBy.id !== userRef.id) {
-      rooms.push({
-        ...(docData as RoomDTO),
-        id: doc.id,
-      });
-    }
-  });
+    roomsSnapshot.forEach((doc) => {
+      const docData = doc.data();
 
+      if (docData.createdBy.id !== userRef.id) {
+        rooms.push({
+          ...(docData as RoomDTO),
+          id: doc.id,
+        });
+      }
+    });
+  }
   return rooms;
 };

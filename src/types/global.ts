@@ -1,22 +1,14 @@
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: "admin" | "user";
-  // ... other fields
-}
-
-export type Theme = "light" | "dark";
+export type Theme = 'light' | 'dark';
 
 export interface StatusBannerItem {
-  status?: "operational" | "issue";
+  status?: 'operational' | 'issue';
   statusText?: string;
 }
 
 export interface SystemStatusItem {
   description: string;
   label: string;
-  status: "operational" | "issue";
+  status: 'operational' | 'issue';
   statusText: string;
 }
 
@@ -24,7 +16,7 @@ export interface SystemIncidentItem {
   date: string;
   description: string;
   label: string;
-  status: "investigating" | "resolved";
+  status: 'investigating' | 'resolved';
 }
 
 export interface RegistrationFormValues {
@@ -40,17 +32,17 @@ export interface LoginFormValues {
   password: string;
 }
 
-export interface Member {
+export interface User {
   id: string;
   name: string;
   email: string;
 }
 
-export interface RemoteMember extends Member {
+export interface RemoteUser extends User {
   hasAudio: boolean;
 }
 
-export interface UserDTO extends Member {}
+export interface UserDTO extends User {}
 
 export interface Room {
   id: string;
@@ -69,7 +61,7 @@ export interface Room {
   name: string;
   members: {
     total: number;
-    collection: Member[];
+    collection: User[];
   };
   isDetailed: boolean;
 }

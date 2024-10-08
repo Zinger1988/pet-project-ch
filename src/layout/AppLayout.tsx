@@ -1,12 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import { Footer, Header } from './';
 
-import { Footer, Header } from "../components";
-
-const AppLayout: React.FC = () => {
+const AppLayout = () => {
   return (
     <>
       <Header />
-      <main className="flex-grow pt-16 lg:pt-20">
+      <main className='flex-grow pt-16 lg:pt-20'>
         <Outlet />
       </main>
       <Footer />

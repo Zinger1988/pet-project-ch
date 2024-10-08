@@ -1,14 +1,14 @@
-import { Room } from "../../types/global";
-import { Action } from "../types";
+import { Room } from '../../types/global';
+import { Action } from '../types';
 import {
   ROOM_LOADING_START,
   ROOM_LOADING_FINSIH,
   ROOM_FAILURE,
-  ROOM_CLEAR_FINSIH,
+  ROOM_CLEAR,
   ROOM_CLEAR_ERROR,
   ROOM_ADD_MEMBER,
   ROOM_REMOVE_MEMBER,
-} from "../actions/actionTypes";
+} from '../actions/actionTypes';
 
 export type SingleRoomState = {
   loading: boolean;
@@ -52,8 +52,8 @@ const singleRoomReducer = (state = initialState, action: Action) => {
         room: { ...state.room, members: updatedMembers },
       };
     }
-    case ROOM_CLEAR_FINSIH: {
-      return { ...state, loading: false, room: null };
+    case ROOM_CLEAR: {
+      return initialState;
     }
     case ROOM_FAILURE: {
       return { ...state, loading: false, error: action.payload };
