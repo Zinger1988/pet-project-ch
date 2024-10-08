@@ -57,7 +57,6 @@ export const getRoomsWhereUserHasMembership = async (userId: string) => {
   const roomsId: string[] = [];
 
   const membershipsQuery = query(membershipCollectionRef, where('members', 'array-contains', userRef));
-
   const membershipsSnapshot = await getDocs(membershipsQuery);
 
   membershipsSnapshot.forEach((doc) => {
@@ -65,20 +64,22 @@ export const getRoomsWhereUserHasMembership = async (userId: string) => {
     roomsId.push(roomId);
   });
 
-  const roomsQuery = query(roomsCollectionRef, where('__name__', 'in', roomsId));
-  const roomsSnapshot = await getDocs(roomsQuery);
   const rooms: RoomDTO[] = [];
 
-  roomsSnapshot.forEach((doc) => {
-    const docData = doc.data();
+  if (roomsId.length) {
+    const roomsQuery = query(roomsCollectionRef, where('__name__', 'in', roomsId));
+    const roomsSnapshot = await getDocs(roomsQuery);
 
-    if (docData.createdBy.id !== userRef.id) {
-      rooms.push({
-        ...(docData as RoomDTO),
-        id: doc.id,
-      });
-    }
-  });
+    roomsSnapshot.forEach((doc) => {
+      const docData = doc.data();
 
+      if (docData.createdBy.id !== userRef.id) {
+        rooms.push({
+          ...(docData as RoomDTO),
+          id: doc.id,
+        });
+      }
+    });
+  }
   return rooms;
 };

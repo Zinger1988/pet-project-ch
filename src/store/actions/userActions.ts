@@ -1,5 +1,8 @@
 import { FirebaseError } from 'firebase/app';
 import { apiSignUp, apiSignIn, apiSignOut, apiGetUser } from '../../services/apiUser';
+import { clearToken } from './tokensActions';
+import { clearRoom } from './singleRoomActions';
+import { сlearRooms } from './roomsActions';
 import {
   USER_LOOKUP_START,
   USER_LOOKUP_FINISH,
@@ -12,6 +15,7 @@ import { User } from '../../types/global';
 
 export const userLookupStart = () => ({ type: USER_LOOKUP_START });
 export const userClearError = () => ({ type: USER_CLEAR_ERROR });
+export const userLogout = () => ({ type: USER_LOGOUT });
 export const userLookupFinish = (user: User | null) => ({
   type: USER_LOOKUP_FINISH,
   payload: user,
@@ -29,7 +33,10 @@ export const userLookupFailure = (error: unknown) => {
 export const signOut = (): AppThunk => async (dispatch) => {
   try {
     await apiSignOut();
-    dispatch({ type: USER_LOGOUT });
+    dispatch(userLogout());
+    dispatch(clearToken());
+    dispatch(clearRoom());
+    dispatch(сlearRooms());
   } catch (error) {
     dispatch(userLookupFailure(error));
   }

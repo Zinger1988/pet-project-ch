@@ -3,7 +3,13 @@ import { FirebaseError } from 'firebase/app';
 import { apiCreateRoom, apiGetRooms } from '../../services/apiRooms';
 import { CreateRoomValues, Room } from '../../types/global';
 import { AppThunk } from '../types';
-import { ROOMS_LOADING_FINSIH, ROOMS_LOADING_START, ROOMS_FAILURE, ROOMS_CLEAR_ERROR } from './actionTypes';
+import {
+  ROOMS_LOADING_FINSIH,
+  ROOMS_LOADING_START,
+  ROOMS_FAILURE,
+  ROOMS_CLEAR_ERROR,
+  ROOMS_CLEAR,
+} from './actionTypes';
 
 export const fetchRoomsStart = () => ({ type: ROOMS_LOADING_START });
 export const fetchRoomsFinish = (rooms: Room[]) => ({
@@ -32,6 +38,10 @@ export const createRoom =
 
 export const сlearRoomsError = () => {
   return { type: ROOMS_CLEAR_ERROR };
+};
+
+export const сlearRooms = () => {
+  return { type: ROOMS_CLEAR };
 };
 
 export const getRooms =

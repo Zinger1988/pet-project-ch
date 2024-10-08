@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Spinner } from '../components';
 
-import { clearRoomErrors, clearRoomFinish, getRoom } from '../store/actions/singleRoomActions';
+import { clearRoomErrors, clearRoom, getRoom } from '../store/actions/singleRoomActions';
 import { AppDispatch } from '../store/types';
 import { RootState } from '../store';
 import { RoomAudience, RoomBanner } from '../features/room';
@@ -21,7 +21,7 @@ const SingleRoom = () => {
     dispatch(getRoom(id as string));
 
     return () => {
-      dispatch(clearRoomFinish(id as string));
+      dispatch(clearRoom());
     };
   }, [id, dispatch]);
 

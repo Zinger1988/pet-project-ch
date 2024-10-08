@@ -31,7 +31,7 @@ const userReducer = (state = initialState, action: Action) => {
       return { ...state, loading: false, error: action.payload };
     }
     case USER_CLEAR:
-      return { ...state, user: null };
+      return initialState;
     case USER_CLEAR_ERROR:
       return { ...state, error: null };
     case USER_LOGOUT:

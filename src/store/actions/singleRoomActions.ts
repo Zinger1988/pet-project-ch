@@ -3,7 +3,7 @@ import { FirebaseError } from 'firebase/app';
 import { apiDeleteRoom, apiGetRoom, apiHandleMembership } from '../../services/apiSingleRoom';
 
 import {
-  ROOM_CLEAR_FINSIH,
+  ROOM_CLEAR,
   ROOM_LOADING_START,
   ROOM_LOADING_FINSIH,
   ROOM_CLEAR_ERROR,
@@ -35,9 +35,8 @@ export const clearRoomErrors = () => ({
   type: ROOM_CLEAR_ERROR,
 });
 
-export const clearRoomFinish = (id: string) => ({
-  type: ROOM_CLEAR_FINSIH,
-  payload: id,
+export const clearRoom = () => ({
+  type: ROOM_CLEAR,
 });
 
 export const roomFailure = (error: unknown) => {
@@ -80,7 +79,7 @@ export const deleteRoom =
     dispatch(fetchRoomStart());
     try {
       await apiDeleteRoom(id);
-      dispatch(clearRoomFinish(id));
+      dispatch(clearRoom());
     } catch (error) {
       dispatch(roomFailure(error));
     }
