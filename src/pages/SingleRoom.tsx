@@ -42,7 +42,7 @@ const SingleRoom = () => {
     <article>
       <RoomBanner className='mb-4 lg:mb-6' room={room} userId={userUid} />
       <p className='mb-4 lg:mb-6'>{room.description}</p>
-      <RoomAudience userId={userUid} members={room.members.collection} />
+      <RoomAudience userId={userUid} moderatorId={room.moderator.id} members={room.members.collection} />
     </article>
   );
 };

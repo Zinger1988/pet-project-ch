@@ -55,16 +55,14 @@ export const getRoomsWhereUserHasMembership = async (userId: string) => {
   const roomsCollectionRef = collection(db, DB_ROOMS);
   const membershipCollectionRef = collection(db, DB_MEMBERSHIP);
   const roomsId: string[] = [];
-
   const membershipsQuery = query(membershipCollectionRef, where('members', 'array-contains', userRef));
   const membershipsSnapshot = await getDocs(membershipsQuery);
+  const rooms: RoomDTO[] = [];
 
   membershipsSnapshot.forEach((doc) => {
     const { roomId } = doc.data();
     roomsId.push(roomId);
   });
-
-  const rooms: RoomDTO[] = [];
 
   if (roomsId.length) {
     const roomsQuery = query(roomsCollectionRef, where('__name__', 'in', roomsId));
