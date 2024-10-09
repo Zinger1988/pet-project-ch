@@ -9,15 +9,17 @@ import { AudienceAvatar } from '../avatar';
 interface RoomAudienceProps {
   members: User[];
   userId: string;
+  moderatorId: string;
 }
 
-const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId }) => {
+const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, moderatorId }) => {
   const { t } = useTranslation();
   const remoteUsers = useRemoteUsers();
   const [audience, setAudience] = useState<RemoteUser[]>([]);
   const [online, setOnline] = useState<RemoteUser[]>([]);
   const [offline, setOffline] = useState<User[]>([]);
   const [guests, setGuests] = useState<RemoteUser[]>([]);
+  const isModerator = userId === moderatorId;
 
   useEffect(() => {
     const getRemoteUsers = async (remoteUsers: IAgoraRTCRemoteUser[]) => {
@@ -66,21 +68,21 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId }) => {
           <RoomAudienceList
             title={t('audience.online members', { ns: 'room' })}
             audience={online}
-            render={(member) => <AudienceAvatar key={member.id} member={member} />}
+            render={(member) => <AudienceAvatar key={member.id} member={member} isModerator={isModerator} />}
           />
         )}
         {guests.length > 0 && (
           <RoomAudienceList
             title={t('audience.guests', { ns: 'room' })}
             audience={guests}
-            render={(guest) => <AudienceAvatar key={guest.id} member={guest} />}
+            render={(guest) => <AudienceAvatar key={guest.id} member={guest} isModerator={isModerator} />}
           />
         )}
         {offline.length > 0 && (
           <RoomAudienceList
             title={t('audience.offline members', { ns: 'room' })}
             audience={offline}
-            render={(member) => <AudienceAvatar key={member.id} member={member} />}
+            render={(member) => <AudienceAvatar key={member.id} member={member} isModerator={isModerator} />}
           />
         )}
       </div>

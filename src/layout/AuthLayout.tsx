@@ -2,11 +2,62 @@ import AgoraRTC, { AgoraRTCProvider } from 'agora-rtc-react';
 import { Outlet } from 'react-router-dom';
 import { Container } from '../components';
 import { Footer, Header, Sidebar } from './';
+import AgoraRTM from 'agora-rtm-sdk';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { httpsCallable } from 'firebase/functions';
+import { functions } from '../firebase';
 
 AgoraRTC.setLogLevel(3);
 const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 
 const AuthLayout: React.FC = () => {
+  const { user } = useSelector((state: RootState) => state.userSlice);
+  const [rtmToken, setRtmToken] = useState<string>();
+  const [isTokenLoading, setIsTokenLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (rtmToken || isTokenLoading || !user) return;
+
+    const generateRTMToken = async (): Promise<void> => {
+      const generateTokenFunction = httpsCallable(functions, 'generateRTMToken');
+
+      try {
+        setIsTokenLoading(true);
+
+        const result: any = await generateTokenFunction({
+          uid: user.id,
+          expiryTime: 36000,
+        });
+
+        setRtmToken(result.data);
+      } catch (err) {
+        console.error(err);
+        console.error('Error generating token:', err);
+      } finally {
+        setIsTokenLoading(false);
+      }
+    };
+
+    generateRTMToken();
+  }, [rtmToken, isTokenLoading, user]);
+
+  useEffect(() => {
+    if (!rtmToken || isTokenLoading || !user) return;
+    const initRtm = async () => {
+      try {
+        const rtm = new AgoraRTM.RTM(process.env.REACT_APP_AGORA_APP_ID as string, user.id);
+        await rtm.login({ token: rtmToken });
+      } catch (status) {
+        console.log('Error');
+        console.log(status);
+      }
+    };
+
+    initRtm();
+  }, [user, isTokenLoading, rtmToken]);
+
   return (
     <AgoraRTCProvider client={client}>
       <Header />

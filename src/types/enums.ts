@@ -40,4 +40,8 @@ export enum IconId {
   VoiceSolid = 'VOICE_SOLID',
   VoiceOffSolid = 'VOICE_OFF_SOLID',
   Crown = 'CROWN',
+  SoundOn = 'SOUND_ON',
+  SoundOff = 'SOUND_OFF',
+  CancelSquare = 'CANCEL_SQUARE',
+  Forbidden = 'FORBIDDEN',
 }
