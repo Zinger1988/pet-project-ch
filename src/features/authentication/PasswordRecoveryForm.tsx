@@ -6,6 +6,7 @@ import colors from 'tailwindcss/colors';
 
 import { FormControl } from '../form';
 import { Button, Spinner } from '../../components';
+
 import { IconId } from '../../types/enums';
 
 interface PasswordRecoveryFormProps {
@@ -22,10 +23,15 @@ const PasswordRecoveryForm: React.FC<PasswordRecoveryFormProps> = ({ loading, on
 
   // prettier-ignore
   const validationSchema = Yup.object({
-    email: Yup.string()
+    email: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .email(t("email", { ns: "validations" })),
   });
+
+  const LinkStyles = `text-body-sm font-bold decoration-transparent decoration-dotted underline-offset-4 transition-colors hover:decoration-black dark:hover:decoration-white`;
+  const formFooterStyles = 'grid grid-cols-[1fr,_auto] items-center gap-x-4';
+  const submitBtnStyles = 'w-full sm:w-auto';
 
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -38,16 +44,13 @@ const PasswordRecoveryForm: React.FC<PasswordRecoveryFormProps> = ({ loading, on
           name='email'
           type='email'
         />
-        <div className='grid grid-cols-[1fr,_auto] items-center gap-x-4'>
-          <Link
-            to='/login'
-            className='text-body-sm font-bold decoration-transparent decoration-dotted underline-offset-4 transition-colors hover:decoration-black dark:hover:decoration-white'
-          >
+        <div className={formFooterStyles}>
+          <Link to='/login' className={LinkStyles}>
             {t('Back to login page', { ns: 'pagePasswordRecovery' })}
           </Link>
           <Button
             type='submit'
-            className='w-full sm:w-auto'
+            className={submitBtnStyles}
             icon={loading ? undefined : IconId.ArrowRight}
             iconPosition='right'
             disabled={loading}

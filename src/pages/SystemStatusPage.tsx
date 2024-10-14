@@ -3,9 +3,10 @@ import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 
 import { Container, Button } from '../components';
-import { StatusBannerItem, SystemIncidentItem, SystemStatusItem } from '../types/global';
 import { FormControl } from '../features/form';
 import { StatusBanner, StatusCurrent, StatusHistory } from '../features/systemStatus';
+
+import { StatusBannerItem, SystemIncidentItem, SystemStatusItem } from '../types/global';
 
 type SystemStatusData = {
   overall: StatusBannerItem;
@@ -103,7 +104,7 @@ const SystemStatusPage = () => {
 
         <h3 className='mb-6'>{t('Subscribe for updates', { ns: 'pageSystemStatus' })}</h3>
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-          <div className='rounded-lg bg-gray-100 p-8'>
+          <div className='bg-gray-10 rounded-lg p-8 dark:bg-gray-800'>
             <Form className='mx-auto sm:flex sm:items-start sm:gap-4'>
               <Field
                 component={FormControl}

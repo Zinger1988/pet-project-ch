@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 import { Button, Container } from '../components';
+import { FormControl } from '../features/form';
 
 import { IconId } from '../types/enums';
 import serviceTeamImg from '../assets/images/сustomer_service_support.svg';
-import { FormControl } from '../features/form';
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -19,13 +19,16 @@ const Contact = () => {
 
   // prettier-ignore
   const validationSchema = Yup.object({
-    email: Yup.string()
+    email: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .email(t("email", { ns: "validations" })),
-    name: Yup.string()
+    name: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .min(3, t("validations:minLength", { count: 3 })),
-    message: Yup.string()
+    message: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .min(20, t("validations:minLength", { count: 20 })),
   });

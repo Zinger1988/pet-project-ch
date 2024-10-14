@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 
 import { Button } from '.';
-import { useTranslation } from 'react-i18next';
 import { Checkbox } from '../features/form';
 
 const CookieBanner = () => {
@@ -85,9 +85,7 @@ const CookieBanner = () => {
             className='mb-6'
           />
           <div className='flex gap-4'>
-            <Button onClick={handleCustomize} className=''>
-              {t('buttons.save')}
-            </Button>
+            <Button onClick={handleCustomize}>{t('buttons.save')}</Button>
             <Button variant='secondary' onClick={() => setIsPreferncesVisible(false)}>
               {t('buttons.cancel')}
             </Button>

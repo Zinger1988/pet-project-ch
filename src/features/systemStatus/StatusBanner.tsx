@@ -1,7 +1,9 @@
-import { IconId } from '../../types/enums';
 import colors from 'tailwindcss/colors';
+
 import Icon from '../../components/Icon';
+
 import { StatusBannerItem } from '../../types/global';
+import { IconId } from '../../types/enums';
 
 interface StatusBannerProps extends StatusBannerItem {
   className?: string;

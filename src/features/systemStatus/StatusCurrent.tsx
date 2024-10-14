@@ -1,7 +1,7 @@
-import { Badge } from '../../components';
-import { capitalizeFirstLetter } from '../../helpers/stringUtils';
-import { IconId } from '../../types/enums';
+import { InfoTooltip } from '../../components';
+
 import { SystemStatusItem } from '../../types/global';
+import { capitalizeFirstLetter } from '../../helpers/stringUtils';
 
 interface StatusCurrentProps {
   items: SystemStatusItem[];
@@ -21,14 +21,13 @@ const StatusCurrent: React.FC<StatusCurrentProps> = ({ items, className = '' }) 
       {items.map((item) => {
         const { label, description, status, statusText } = item;
         const isOperational = status === 'operational';
-        const badgeIcon = isOperational ? IconId.CheckCircle : IconId.DangerCircle;
         const badgeStatus = isOperational ? 'success' : 'warning';
 
         return (
           <li key={label} className={listItemStyles}>
             <b className={headingStyles}>{label}</b>
             <p className={descriptionStyles}>{capitalizeFirstLetter(description)}</p>
-            <Badge icon={badgeIcon} text={statusText} type={badgeStatus} className={badgeStyles} />
+            <InfoTooltip type={badgeStatus} message={statusText} className={badgeStyles} />
           </li>
         );
       })}

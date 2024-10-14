@@ -1,10 +1,10 @@
 import { Action } from '../types';
 import {
-  TOKEN_LOADING_START,
-  TOKEN_GENERATION_FINISH,
+  TOKEN_LOADING,
+  TOKEN_GENERATED,
   TOKEN_FAILURE,
   TOKEN_CLEAR_ERROR,
-  TOKEN_REMOVE_FINISH,
+  TOKEN_REMOVED,
   TOKEN_CLEAR,
 } from '../actions/actionTypes';
 
@@ -22,14 +22,14 @@ const initialState: TokensState = {
 
 const tokensReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case TOKEN_LOADING_START:
+    case TOKEN_LOADING:
       return { ...state, loading: true };
-    case TOKEN_GENERATION_FINISH:
+    case TOKEN_GENERATED:
       return { ...state, loading: false, tokens: [...state.tokens, action.payload] };
     case TOKEN_FAILURE: {
       return { ...state, loading: false, error: action.payload };
     }
-    case TOKEN_REMOVE_FINISH:
+    case TOKEN_REMOVED:
       return {
         ...state,
         tokens: state.tokens.filter(({ roomId }) => roomId !== action.payload),

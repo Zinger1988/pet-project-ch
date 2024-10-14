@@ -29,22 +29,31 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ loading, onSubmit, 
 
   // prettier-ignore
   const validationSchema = Yup.object({
-    name: Yup.string()
+    name: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .min(3, t("validations:minLength", { count: 3 })),
-    email: Yup.string()
+    email: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .email(t("email", { ns: "validations" })),
-    password: Yup.string()
+    password: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, t("password", { ns: "validations" })),
-    passwordRepeat: Yup.string()
+    passwordRepeat: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .oneOf([Yup.ref("password")], t("passwordRepeat", { ns: "validations" })),
-    agreement: Yup.boolean()
+    agreement: Yup
+      .boolean()
       .required(t("required", { ns: "validations" }))
       .oneOf([true], t("agreement", { ns: "validations" })),
   });
+
+  const LinkStyles = `text-body-sm font-bold decoration-transparent decoration-dotted underline-offset-4 transition-colors hover:decoration-black dark:hover:decoration-white`;
+  const formFooterStyles = 'grid grid-cols-[1fr,_auto] items-center gap-x-4';
+  const submitBtnStyles = 'w-full sm:w-auto';
 
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -101,16 +110,13 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ loading, onSubmit, 
           id='agreement'
           className='mb-9'
         />
-        <div className='grid grid-cols-[1fr,_auto] items-center gap-x-4'>
-          <Link
-            to='/login'
-            className='text-body-sm font-bold decoration-transparent decoration-dotted underline-offset-4 transition-colors hover:decoration-black dark:hover:decoration-white'
-          >
+        <div className={formFooterStyles}>
+          <Link to='/login' className={LinkStyles}>
             {t('Already have an account?', { ns: 'pageRegistration' })}
           </Link>
           <Button
             type='submit'
-            className='w-full sm:w-auto'
+            className={submitBtnStyles}
             icon={loading ? undefined : IconId.ArrowRight}
             iconPosition='right'
             disabled={loading}

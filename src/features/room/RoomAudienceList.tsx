@@ -7,8 +7,7 @@ interface RoomAudienceListProps {
 }
 
 const RoomAudienceList: React.FC<RoomAudienceListProps> = ({ title, render, audience }) => {
-  const audienceGridStyles =
-    'grid grid-cols-[repeat(auto-fit,minmax(64px,min-content))] gap-2 lg:gap-4 justify-items-start';
+  const audienceGridStyles = `grid grid-cols-[repeat(auto-fit,minmax(64px,min-content))] gap-2 lg:gap-4 justify-items-start`;
   const sectionTitleStyles = 'col-span-6 mt-0 mb-2';
 
   return (

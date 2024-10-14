@@ -29,11 +29,16 @@ const ErrorSection: React.FC<ErrorSectionProps> = ({
       statusImage = image500;
   }
 
+  const containerStyles = `flex flex-col items-center ${className}`;
+  const imageStyles = 'mb-6 block w-80';
+  const headingStyles = 'text-h2 mb-5 text-center';
+  const messageStyles = 'mb-5 text-slate-400';
+
   return (
-    <Container className={`flex flex-col items-center ${className}`}>
-      <img className='mb-6 block w-80' src={statusImage} alt={title} />
-      <h1 className='text-h2 mb-5 text-center'>{title}</h1>
-      {message && <p className='mb-5 text-slate-400'>{message}</p>}
+    <Container className={containerStyles}>
+      <img className={imageStyles} src={statusImage} alt={title} />
+      <h1 className={headingStyles}>{title}</h1>
+      {message && <p className={messageStyles}>{message}</p>}
     </Container>
   );
 };

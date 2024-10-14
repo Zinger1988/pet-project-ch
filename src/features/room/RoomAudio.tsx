@@ -1,15 +1,16 @@
+import AgoraRTC, { IMicrophoneAudioTrack, useRTCClient } from 'agora-rtc-react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import AgoraRTC, { IMicrophoneAudioTrack, useRTCClient } from 'agora-rtc-react';
+import { useTranslation } from 'react-i18next';
 
 import { Icon, Button, Spinner } from '../../components';
 
 import { RootState } from '../../store';
-import { IconId } from '../../types/enums';
-import { AppDispatch } from '../../store/types';
 import { generateToken } from '../../store/actions/tokensActions';
-import { useTranslation } from 'react-i18next';
+import { AppDispatch } from '../../store/types';
+import { IconId } from '../../types/enums';
 import { User } from '../../types/global';
+import { useAgoraRTMContext } from '../../context/RTMContext';
 
 interface RoomAudioProps {
   roomId: string;
@@ -18,16 +19,36 @@ interface RoomAudioProps {
 }
 
 const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members }) => {
-  const { t } = useTranslation();
   const [micEnabled, setMicEnabled] = useState(false);
-  const { loading, tokens, error } = useSelector((state: RootState) => state.tokensSlice);
-  const client = useRTCClient();
+  const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const microphoneTrackRef = useRef<null | IMicrophoneAudioTrack>(null);
+  const client = useRTCClient();
+  const { loading, tokens, error } = useSelector((state: RootState) => state.tokensSlice);
+  const { isLoading, rtmClient } = useAgoraRTMContext();
   const tokenData = tokens.find((item) => item.roomId === roomId);
   const isMember = members.some((member) => {
     return member.id === userId;
   });
+
+  useEffect(() => {
+    const handler = async (event: any) => {
+      if (event.message === 'Mute' && microphoneTrackRef.current) {
+        await microphoneTrackRef.current.setEnabled(false);
+        setMicEnabled(false);
+      }
+    };
+
+    if (!isLoading && rtmClient) {
+      rtmClient.addEventListener('message', handler);
+    }
+
+    return () => {
+      if (!isLoading && rtmClient) {
+        rtmClient.removeEventListener('message', handler);
+      }
+    };
+  }, [rtmClient, isLoading]);
 
   useEffect(() => {
     const token = tokens.find((item) => item.roomId === roomId);

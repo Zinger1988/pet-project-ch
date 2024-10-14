@@ -1,4 +1,5 @@
 import { Link, LinkProps } from 'react-router-dom';
+
 import { IconId } from '../types/enums';
 import { Icon } from '.';
 
@@ -89,14 +90,13 @@ const Button = ({
   if (props.as === 'link') {
     const { as, children, ...rest } = props;
     const linkStyles = `${buttonStylesMap.base} ${buttonStylesMap.size[size]} ${buttonStylesMap.variant[variant]} ${className}`;
+    const iconPositionStyles = iconPosition === 'left' ? 'order-first' : 'order-last';
     return (
       <Link className={linkStyles} {...rest}>
         {icon && (
           <Icon
             id={icon}
-            className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${
-              iconPosition === 'left' ? 'order-first' : 'order-last'
-            } ${iconClassName}`}
+            className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${iconPositionStyles} ${iconClassName}`}
           />
         )}
         {children}
@@ -105,21 +105,17 @@ const Button = ({
   }
 
   const { as, children, disabled, ...rest } = props;
-  const diasbledButtonStyles = `text-gray-400 cursor-default ${
-    isSolid ? 'bg-gray-200' : 'shadow-[inset_0_0_0_2px_theme(colors.gray.200)]'
-  }`;
-  const buttonStyles = `${buttonStylesMap.base} ${buttonStylesMap.size[size]} ${
-    disabled ? diasbledButtonStyles : buttonStylesMap.variant[variant]
-  } ${className}`;
+  const diasbledButtonStyles = `text-gray-400 cursor-default ${isSolid ? 'bg-gray-200' : 'shadow-[inset_0_0_0_2px_theme(colors.gray.200)]'}`;
+  const buttonStyles = `${buttonStylesMap.base} ${buttonStylesMap.size[size]} ${disabled ? diasbledButtonStyles : buttonStylesMap.variant[variant]} ${className}`;
+  const iconPositionStyles = iconPosition === 'left' ? 'order-first' : 'order-last';
+  const disabledStyles = disabled ? 'fill-gray-400' : '';
 
   return (
     <button className={buttonStyles} {...rest}>
       {icon && (
         <Icon
           id={icon}
-          className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${
-            iconPosition === 'left' ? 'order-first' : 'order-last'
-          } ${disabled ? 'fill-gray-400' : ''} ${iconClassName}`}
+          className={`${iconStylesMap.size[size]} ${iconStylesMap.variant[variant]} ${iconPositionStyles} ${disabledStyles} ${iconClassName}`}
         />
       )}
       {children}

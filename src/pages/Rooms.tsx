@@ -1,22 +1,26 @@
+import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getRooms } from '../store/actions/roomsActions';
+
+import RoomsContainer from '../features/room/RoomsContainer';
+
 import { RootState } from '../store';
 import { AppDispatch } from '../store/types';
-import RoomsContainer from '../features/room/RoomsContainer';
-import { useLocation } from 'react-router-dom';
+import { getRooms } from '../store/actions/roomsActions';
+import { assertUser } from '../types/assertions';
 
 const Rooms = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { rooms, loading, error } = useSelector((state: RootState) => state.roomsSlice);
+  const { rooms, loading } = useSelector((state: RootState) => state.roomsSlice);
   const { user } = useSelector((state: RootState) => state.userSlice);
   const { pathname } = useLocation();
   const enpoint = pathname.split('/').at(-1);
   const isUserRooms = enpoint === 'rooms';
 
+  assertUser(user);
+
   useEffect(() => {
-    if (!user) return;
     dispatch(getRooms({ userId: user.id, userRooms: isUserRooms }));
   }, [dispatch, user, enpoint, isUserRooms]);
 

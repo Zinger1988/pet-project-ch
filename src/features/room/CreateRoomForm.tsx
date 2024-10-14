@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import colors from 'tailwindcss/colors';
 
+import { Spinner } from '../../components';
 import FormControl from '../form/FormControl';
 import Button from '../../components/Button';
 
 import { IconId } from '../../types/enums';
 import { CreateRoomValues } from '../../types/global';
-import { Spinner } from '../../components';
 
 interface CreateRoomFormProps {
   loading: boolean;
@@ -27,10 +27,12 @@ const CreateRoomForm: React.FC<CreateRoomFormProps> = ({ loading, onSubmit, clas
 
   // prettier-ignore
   const validationSchema = Yup.object({
-    name: Yup.string()
+    name: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .min(3, t("validations:minLength", { count: 3 })),
-    description: Yup.string()
+    description: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .min(10, t("validations:minLength", { count: 10 }))
   });
