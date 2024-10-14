@@ -1,9 +1,3 @@
-export enum UserRole {
-  Admin = 'ADMIN',
-  User = 'USER',
-  Guest = 'GUEST',
-}
-
 export enum IconId {
   ArrowRight = 'ARROW_RIGHT',
   Call = 'CALL',
@@ -44,4 +38,8 @@ export enum IconId {
   SoundOff = 'SOUND_OFF',
   CancelSquare = 'CANCEL_SQUARE',
   Forbidden = 'FORBIDDEN',
+  EllipsisVer = 'ELLIPSIS_VER',
+  ShieldOk = 'SHIELD_OK',
+  ShieldCancel = 'SHIELD_CANCEL',
+  Cancel = 'CANCEL',
 }

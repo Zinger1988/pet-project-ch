@@ -1,25 +1,45 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Spinner } from '../components';
+import { RoomAudience, RoomBanner } from '../features/room';
 
-import { clearRoomErrors, clearRoom, getRoom } from '../store/actions/singleRoomActions';
 import { AppDispatch } from '../store/types';
 import { RootState } from '../store';
-import { RoomAudience, RoomBanner } from '../features/room';
-import { User } from '../types/global';
+import { clearRoomErrors, clearRoom, getRoom } from '../store/actions/singleRoomActions';
+import { assertRoom, assertUser } from '../types/assertions';
+import { apiOnRoomUpdates } from '../services/apiSingleRoom';
+import { Room } from '../types/global';
+import { useModal } from '../context/ModalContext';
 
 const SingleRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useSelector((state: RootState) => state.userSlice);
-  const { loading, room, error } = useSelector((state: RootState) => state.singleRoomSlice);
+  const { initialized, loading, room, error } = useSelector((state: RootState) => state.singleRoomSlice);
+  const { openModal } = useModal();
+
+  const spinnerStyles = 'absolute left-0 top-0 h-full w-full';
+  const bannerStyles = 'mb-4 lg:mb-6';
+  const descriptionStyles = 'mb-4 lg:mb-6';
+
+  assertUser(user);
+
+  const handleBlock = useCallback(
+    (room: Room) => {
+      openModal({
+        id: 'alert',
+        headerContent: 'Warning',
+        bodyContent: `The moderator has restricted your access to the room ${room.name}`,
+      });
+    },
+    [openModal],
+  );
 
   useEffect(() => {
     dispatch(getRoom(id as string));
-
     return () => {
       dispatch(clearRoom());
     };
@@ -32,17 +52,36 @@ const SingleRoom = () => {
     }
   }, [error, dispatch, navigate]);
 
-  if (loading || !room) {
-    return <Spinner className='absolute left-0 top-0 h-full w-full' size='lg' />;
-  }
+  useEffect(() => {
+    if (!id || error) return;
+    const onRoomUpdates = apiOnRoomUpdates({
+      roomId: id,
+      callback: (room: Room) => {
+        if (room.blackList.includes(user.id)) {
+          handleBlock(room);
+          navigate('/rooms', { replace: true });
+        }
+      },
+    });
 
-  const { id: userUid } = user as User;
+    return onRoomUpdates;
+  }, [handleBlock, id, error, user, navigate]);
+
+  if (!initialized) return null;
+  if (loading) return <Spinner className={spinnerStyles} size='lg' />;
+
+  assertRoom(room);
+
+  if (room.blackList.includes(user.id)) {
+    handleBlock(room);
+    return <Navigate to='/rooms' replace />;
+  }
 
   return (
     <article>
-      <RoomBanner className='mb-4 lg:mb-6' room={room} userId={userUid} />
-      <p className='mb-4 lg:mb-6'>{room.description}</p>
-      <RoomAudience userId={userUid} moderatorId={room.moderator.id} members={room.members.collection} />
+      <RoomBanner className={bannerStyles} room={room} userId={user.id} />
+      <p className={descriptionStyles}>{room.description}</p>
+      <RoomAudience userId={user.id} moderatorId={room.moderator.id} members={room.members.collection} />
     </article>
   );
 };

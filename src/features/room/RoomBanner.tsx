@@ -1,7 +1,8 @@
-import defaultBanner from '../../assets/images/room/banner.jpg';
-import { Room } from '../../types/global';
 import { RoomAudio, RoomControls } from '.';
 import { Avatar } from '../avatar';
+
+import { Room } from '../../types/global';
+import defaultBanner from '../../assets/images/room/banner.jpg';
 
 interface RoomBannerProps {
   className?: string;

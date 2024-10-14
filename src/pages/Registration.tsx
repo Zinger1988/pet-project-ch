@@ -4,18 +4,28 @@ import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
 
-import { userClearError, userLookup } from '../store/actions/userActions';
-import { RootState } from '../store';
-import { AppDispatch } from '../store/types';
-import { RegistrationFormValues } from '../types/global';
-import workingImg from '../assets/images/working_in_airport.svg';
+import { Spinner } from '../components';
 import { RegistrationForm } from '../features/authentication';
 
+import { RootState } from '../store';
+import { AppDispatch } from '../store/types';
+import { userClearError, userLookup } from '../store/actions/userActions';
+import { RegistrationFormValues } from '../types/global';
+
+import workingImg from '../assets/images/working_in_airport.svg';
+
 const Registration = () => {
-  const [formLoading, setFormLoading] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-  const { loading, user, error } = useSelector((state: RootState) => state.userSlice);
   const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
+  const [formLoading, setFormLoading] = useState(false);
+  const { initialized, loading, user, error } = useSelector((state: RootState) => state.userSlice);
+
+  const wrapperStyles = `grid lg:grid-cols-2 items-center min-h-[calc(100dvh_-_theme(spacing.16))] lg:min-h-[calc(100dvh_-_theme(spacing.20))]`;
+  const formContainerStyles = 'col-span-1 max-w-[calc(500px_+_theme(spacing.16))] mx-auto w-full p-6 sm:p-16';
+  const imgContainerStyles = 'lg:col-span-1 lg:relative lg:bg-primary-400 lg:h-full hidden lg:block';
+  const headingStyles = 'text-h2 mt-0';
+  const imgStyles = 'absolute w-full h-full object-cover';
+  const spinnerStyles = 'fixed left-0 top-0 z-[10000] h-full w-full bg-black/70';
 
   useEffect(() => {
     if (error) {
@@ -24,8 +34,12 @@ const Registration = () => {
     }
   }, [error, dispatch, t]);
 
+  if (!initialized) {
+    return null;
+  }
+
   if (loading && !formLoading) {
-    return <>Loading...</>;
+    return <Spinner className={spinnerStyles} size='lg' />;
   }
 
   if (user) {
@@ -37,13 +51,6 @@ const Registration = () => {
     await dispatch(userLookup({ ...credentials, mode: 'register' }));
     setFormLoading(false);
   };
-
-  const wrapperStyles =
-    'grid lg:grid-cols-2 items-center min-h-[calc(100dvh_-_theme(spacing.16))] lg:min-h-[calc(100dvh_-_theme(spacing.20))]';
-  const formContainerStyles = 'col-span-1 max-w-[calc(500px_+_theme(spacing.16))] mx-auto w-full p-6 sm:p-16';
-  const imgContainerStyles = 'lg:col-span-1 lg:relative lg:bg-primary-400 lg:h-full hidden lg:block';
-  const headingStyles = 'text-h2 mt-0';
-  const imgStyles = 'absolute w-full h-full object-cover';
 
   return (
     <section className={wrapperStyles}>

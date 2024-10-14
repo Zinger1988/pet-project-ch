@@ -1,8 +1,14 @@
 import { useEffect, useRef } from 'react';
 
-type useClickOutsideElementProps = ({ callback }: { callback: () => void }) => unknown;
+type useClickOutsideElementProps = ({
+  callback,
+  capturingPhase,
+}: {
+  callback: () => void;
+  capturingPhase?: boolean;
+}) => unknown;
 
-const useClickOutsideElement: useClickOutsideElementProps = ({ callback }) => {
+const useClickOutsideElement: useClickOutsideElementProps = ({ callback, capturingPhase = false }) => {
   const ref = useRef<HTMLElement>();
 
   useEffect(() => {
@@ -12,11 +18,11 @@ const useClickOutsideElement: useClickOutsideElementProps = ({ callback }) => {
       }
     };
 
-    document.addEventListener('click', clickHandler);
+    document.addEventListener('click', clickHandler, capturingPhase);
     return () => {
-      document.removeEventListener('click', clickHandler);
+      document.removeEventListener('click', clickHandler, capturingPhase);
     };
-  }, [callback]);
+  }, [callback, capturingPhase]);
 
   return ref;
 };

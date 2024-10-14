@@ -1,7 +1,8 @@
 import { FieldProps } from 'formik';
 import { ReactNode, useEffect } from 'react';
-import { InfoTooltip } from '../../components';
 import { useTranslation } from 'react-i18next';
+
+import { InfoTooltip } from '../../components';
 import { Checkbox, Textarea, TextInput } from '.';
 
 type inputTypes = 'text' | 'password' | 'email' | 'number' | 'checkbox';

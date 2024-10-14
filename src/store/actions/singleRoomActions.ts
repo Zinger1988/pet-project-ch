@@ -1,23 +1,31 @@
 import { FirebaseError } from 'firebase/app';
 
-import { apiDeleteRoom, apiGetRoom, apiHandleMembership } from '../../services/apiSingleRoom';
+import {
+  apiBlockUser,
+  apiDeleteRoom,
+  apiGetRoom,
+  apiHandleMembership,
+  apiUnblockUser,
+} from '../../services/apiSingleRoom';
 
 import {
   ROOM_CLEAR,
-  ROOM_LOADING_START,
-  ROOM_LOADING_FINSIH,
+  ROOM_LOADING,
+  ROOM_LOADED,
   ROOM_CLEAR_ERROR,
   ROOM_FAILURE,
   ROOM_ADD_MEMBER,
   ROOM_REMOVE_MEMBER,
+  ROOM_BLOCK_USER,
+  ROOM_UNBLOCK_USER,
 } from './actionTypes';
 
 import { AppThunk } from '../types';
 import { User, Room } from '../../types/global';
 
-export const fetchRoomStart = () => ({ type: ROOM_LOADING_START });
+export const fetchRoomStart = () => ({ type: ROOM_LOADING });
 export const fetchRoomFinish = (room: Room) => ({
-  type: ROOM_LOADING_FINSIH,
+  type: ROOM_LOADED,
   payload: room,
 });
 
@@ -56,6 +64,34 @@ export const handleMembership =
     dispatch(mode === 'add' ? addRoomMember(member) : removeRoomMember(member.id));
 
     try {
+    } catch (error) {
+      dispatch(roomFailure(error));
+    }
+  };
+
+export const blockUser =
+  (roomId: string, userId: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      await apiBlockUser(roomId, userId);
+      dispatch({
+        type: ROOM_BLOCK_USER,
+        payload: userId,
+      });
+    } catch (error) {
+      dispatch(roomFailure(error));
+    }
+  };
+
+export const unblockUser =
+  (roomId: string, userId: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      await apiUnblockUser(roomId, userId);
+      dispatch({
+        type: ROOM_UNBLOCK_USER,
+        payload: userId,
+      });
     } catch (error) {
       dispatch(roomFailure(error));
     }

@@ -1,9 +1,9 @@
 import { addDoc, collection, doc, getDocs, query, where } from 'firebase/firestore';
-
 import { db } from '../firebase';
+
 import { RoomDTO } from './types';
-import { convertRoomData } from './helpers';
 import { CreateRoomValues } from '../types/global';
+import { convertRoomData } from './helpers';
 import { DB_MEMBERSHIP, DB_ROOMS, DB_USERS } from './constants';
 
 export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: string }) => {
@@ -12,6 +12,7 @@ export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: stri
     ...values,
     createdBy: userRef,
     moderator: userRef,
+    blackList: [],
   });
 
   await addDoc(collection(db, DB_MEMBERSHIP), {
@@ -54,9 +55,9 @@ export const getRoomsWhereUserHasMembership = async (userId: string) => {
   const userRef = await doc(db, DB_USERS, userId);
   const roomsCollectionRef = collection(db, DB_ROOMS);
   const membershipCollectionRef = collection(db, DB_MEMBERSHIP);
-  const roomsId: string[] = [];
   const membershipsQuery = query(membershipCollectionRef, where('members', 'array-contains', userRef));
   const membershipsSnapshot = await getDocs(membershipsQuery);
+  const roomsId: string[] = [];
   const rooms: RoomDTO[] = [];
 
   membershipsSnapshot.forEach((doc) => {

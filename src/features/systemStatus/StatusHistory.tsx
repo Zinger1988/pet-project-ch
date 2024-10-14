@@ -2,9 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { compareDesc, isValid, format, parseISO, formatRelative, Locale } from 'date-fns';
 import { enGB, es, fr } from 'date-fns/locale';
 
-import Badge from '../../components/Badge';
+import { InfoTooltip } from '../../components';
 
-import { IconId } from '../../types/enums';
 import { SystemIncidentItem } from '../../types/global';
 import { capitalizeFirstLetter } from '../../helpers/stringUtils';
 
@@ -67,7 +66,6 @@ const StatusHistory: React.FC<StatusHistoryPorps> = ({ logs, className = '' }) =
             const { status, date, label, description } = incident;
             const isResolved = status === 'resolved';
             const badgeType = isResolved ? 'success' : 'warning';
-            const badgeIcon = isResolved ? IconId.CheckCircle : IconId.Search;
             const formattedDate = formatRelative(parseISO(incident.date), Date.now(), {
               locale,
             });
@@ -76,7 +74,7 @@ const StatusHistory: React.FC<StatusHistoryPorps> = ({ logs, className = '' }) =
                 <b className={headingStyles}>{label}</b>
                 <p className={descriptionStyles}>{description}</p>
                 <p className={dateStyles}>{formattedDate}</p>
-                <Badge icon={badgeIcon} text={status} type={badgeType} className={badgeStyles} />
+                <InfoTooltip type={badgeType} message={status} className={badgeStyles} />
               </div>
             );
           })}

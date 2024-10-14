@@ -7,9 +7,8 @@ import {
 import { auth, db } from '../firebase';
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
 
-import { DB_USERS } from './constants';
 import { User } from '../types/global';
-import { UID } from 'agora-rtc-react';
+import { DB_USERS } from './constants';
 
 export const apiSignIn = async (credentials: { email: string; password: string }) => {
   const { email, password } = credentials;
@@ -36,9 +35,9 @@ export const apiResetPassword = async (email: string) => {
   return sendPasswordResetEmail(auth, email);
 };
 
-export const apiGetUsers = async (arraiIds: UID[]) => {
+export const apiGetUsers = async (arrayIds: string[]) => {
   const usersCollectionRef = collection(db, DB_USERS);
-  const usersQuery = query(usersCollectionRef, where('__name__', 'in', arraiIds));
+  const usersQuery = query(usersCollectionRef, where('__name__', 'in', arrayIds));
   const usersSnapshot = await getDocs(usersQuery);
   const users: User[] = [];
 

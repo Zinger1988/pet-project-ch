@@ -1,17 +1,17 @@
 import { apiGenerateToken } from '../../services/apiTokens';
 import { AppThunk } from '../types';
 import {
-  TOKEN_LOADING_START,
-  TOKEN_GENERATION_FINISH,
-  TOKEN_REMOVE_FINISH,
+  TOKEN_LOADING,
+  TOKEN_GENERATED,
+  TOKEN_REMOVED,
   TOKEN_CLEAR,
   TOKEN_FAILURE,
   TOKEN_CLEAR_ERROR,
 } from './actionTypes';
 
-export const loadTokenStart = () => ({ type: TOKEN_LOADING_START });
+export const loadTokenStart = () => ({ type: TOKEN_LOADING });
 export const generationTokenFinish = (data: { roomId: string; token: string }) => ({
-  type: TOKEN_GENERATION_FINISH,
+  type: TOKEN_GENERATED,
   payload: data,
 });
 

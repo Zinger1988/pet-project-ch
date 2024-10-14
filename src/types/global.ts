@@ -42,8 +42,6 @@ export interface RemoteUser extends User {
   hasAudio: boolean;
 }
 
-export interface UserDTO extends User {}
-
 export interface Room {
   id: string;
   createdBy: {
@@ -64,6 +62,7 @@ export interface Room {
     collection: User[];
   };
   isDetailed: boolean;
+  blackList: string[];
 }
 
 export interface CreateRoomValues {

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+
+import Avatar from '../avatar/Avatar';
+import AvatarThumbnails from '../avatar/AvatarThumbnails';
+import { Icon, ModeratorIcon } from '../../components';
+
 import { Room } from '../../types/global';
 import { IconId } from '../../types/enums';
-import Icon from '../../components/Icon';
-import AvatarThumbnails from '../avatar/AvatarThumbnails';
-import Avatar from '../avatar/Avatar';
-import ModeratorIcon from '../../components/ModeratorIcon';
 
 interface RoomCardProps {
   room: Room;
