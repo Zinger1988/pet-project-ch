@@ -9,9 +9,10 @@ import { AppDispatch } from '../store/types';
 import { RootState } from '../store';
 import { clearRoomErrors, clearRoom, getRoom } from '../store/actions/singleRoomActions';
 import { assertRoom, assertUser } from '../types/assertions';
-import { apiOnRoomUpdates } from '../services/apiSingleRoom';
+import { apiOnRoomMembersUpdate, apiOnRoomUpdates } from '../services/apiSingleRoom';
 import { Room } from '../types/global';
 import { useModal } from '../context/ModalContext';
+import { ROOM_SET_MEMBERS } from '../store/actions/actionTypes';
 
 const SingleRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -54,9 +55,11 @@ const SingleRoom = () => {
 
   useEffect(() => {
     if (!id || error) return;
+
     const onRoomUpdates = apiOnRoomUpdates({
       roomId: id,
       callback: (room: Room) => {
+        console.log('UPDATEROOM');
         if (room.blackList.includes(user.id)) {
           handleBlock(room);
           navigate('/rooms', { replace: true });
@@ -66,6 +69,24 @@ const SingleRoom = () => {
 
     return onRoomUpdates;
   }, [handleBlock, id, error, user, navigate]);
+
+  useEffect(() => {
+    if (!room) return;
+
+    const onRoomMemberUpdates = apiOnRoomMembersUpdate({
+      id: room.members.id,
+      callback: (members) => {
+        if (room.members.collection.length !== members.length) {
+          dispatch({
+            type: ROOM_SET_MEMBERS,
+            payload: members,
+          });
+        }
+      },
+    });
+
+    return onRoomMemberUpdates;
+  }, [room, dispatch]);
 
   if (!initialized) return null;
   if (loading) return <Spinner className={spinnerStyles} size='lg' />;

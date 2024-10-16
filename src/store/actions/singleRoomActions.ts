@@ -14,8 +14,6 @@ import {
   ROOM_LOADED,
   ROOM_CLEAR_ERROR,
   ROOM_FAILURE,
-  ROOM_ADD_MEMBER,
-  ROOM_REMOVE_MEMBER,
   ROOM_BLOCK_USER,
   ROOM_UNBLOCK_USER,
 } from './actionTypes';
@@ -27,16 +25,6 @@ export const fetchRoomStart = () => ({ type: ROOM_LOADING });
 export const fetchRoomFinish = (room: Room) => ({
   type: ROOM_LOADED,
   payload: room,
-});
-
-export const addRoomMember = (member: User) => ({
-  type: ROOM_ADD_MEMBER,
-  payload: member,
-});
-
-export const removeRoomMember = (id: string) => ({
-  type: ROOM_REMOVE_MEMBER,
-  payload: id,
 });
 
 export const clearRoomErrors = () => ({
@@ -58,11 +46,7 @@ export const roomFailure = (error: unknown) => {
 export const handleMembership =
   ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
   async (dispatch) => {
-    dispatch(fetchRoomStart());
-    const member = await apiHandleMembership({ userId, roomId, mode });
-
-    dispatch(mode === 'add' ? addRoomMember(member) : removeRoomMember(member.id));
-
+    await apiHandleMembership({ userId, roomId, mode });
     try {
     } catch (error) {
       dispatch(roomFailure(error));

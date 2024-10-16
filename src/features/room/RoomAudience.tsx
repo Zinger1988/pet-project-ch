@@ -7,6 +7,7 @@ import { AudienceAvatar } from '../avatar';
 
 import { apiGetUsers } from '../../services/apiUser';
 import { User, RemoteUser } from '../../types/global';
+import { Spinner } from '../../components';
 
 interface RoomAudienceProps {
   members: User[];
@@ -22,7 +23,8 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, moderatorI
   const [offline, setOffline] = useState<User[]>([]);
   const [guests, setGuests] = useState<RemoteUser[]>([]);
   const isModerator = userId === moderatorId;
-  const containerStyles = 'flex flex-col gap-6 rounded-xl border-2 border-gray-200 p-4 dark:border-gray-600 lg:p-5';
+  const containerStyles = `flex flex-col gap-6 rounded-xl border-2 border-gray-200 p-4 dark:border-gray-600 lg:p-5 relative min-h-[200px]`;
+  const spinnerStyles = 'absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center';
 
   useEffect(() => {
     const getRemoteUsers = async (remoteUsers: IAgoraRTCRemoteUser[]) => {
@@ -44,6 +46,8 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, moderatorI
   }, [remoteUsers, members]);
 
   useEffect(() => {
+    if (!audience.length) return;
+
     const membersWithStatus = members
       .map((member) => {
         const onlineMember = audience.find((user) => user.id === member.id);
@@ -61,33 +65,32 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, moderatorI
   }, [audience, members, userId]);
 
   return (
-    <div>
+    <div className={containerStyles}>
+      {!audience.length && <Spinner className={spinnerStyles} />}
       {remoteUsers.map((user) => (
-        <AgoraRemoterUser user={user} key={user.uid} />
+        <AgoraRemoterUser user={user} key={user.uid} className='hidden' />
       ))}
-      <div className={containerStyles}>
-        {online.length > 0 && (
-          <RoomAudienceList
-            title={t('audience.online members', { ns: 'room' })}
-            audience={online}
-            render={(member) => <AudienceAvatar key={member.id} member={member} isModerator={isModerator} />}
-          />
-        )}
-        {guests.length > 0 && (
-          <RoomAudienceList
-            title={t('audience.guests', { ns: 'room' })}
-            audience={guests}
-            render={(guest) => <AudienceAvatar key={guest.id} member={guest} isModerator={isModerator} />}
-          />
-        )}
-        {offline.length > 0 && (
-          <RoomAudienceList
-            title={t('audience.offline members', { ns: 'room' })}
-            audience={offline}
-            render={(member) => <AudienceAvatar key={member.id} member={member} isModerator={isModerator} />}
-          />
-        )}
-      </div>
+      {online.length > 0 && (
+        <RoomAudienceList
+          title={t('audience.online members', { ns: 'room' })}
+          audience={online}
+          render={(member) => <AudienceAvatar key={member.id} member={member} isModerator={isModerator} />}
+        />
+      )}
+      {guests.length > 0 && (
+        <RoomAudienceList
+          title={t('audience.guests', { ns: 'room' })}
+          audience={guests}
+          render={(guest) => <AudienceAvatar key={guest.id} member={guest} isModerator={isModerator} />}
+        />
+      )}
+      {offline.length > 0 && (
+        <RoomAudienceList
+          title={t('audience.offline members', { ns: 'room' })}
+          audience={offline}
+          render={(member) => <AudienceAvatar key={member.id} member={member} isModerator={isModerator} />}
+        />
+      )}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  DocumentReference,
   getDoc,
   getDocs,
   limit,
@@ -45,6 +46,20 @@ export const apiOnRoomUpdates = ({ roomId, callback }: { roomId: string; callbac
       },
     });
     callback(roomData);
+  });
+};
+
+export const apiOnRoomMembersUpdate = ({ id, callback }: { id: string; callback: (members: User[]) => void }) => {
+  const docRef = doc(db, DB_MEMBERSHIP, id);
+  return onSnapshot(docRef, async (snapshot) => {
+    const data = snapshot.data();
+    const membersReq = data?.members.map((ref: DocumentReference) => {
+      return getDoc(ref);
+    });
+    const membersDocs = await Promise.all(membersReq);
+    const membersData = membersDocs.map((p) => ({ id: p.id, ...p.data() }));
+
+    callback(membersData);
   });
 };
 

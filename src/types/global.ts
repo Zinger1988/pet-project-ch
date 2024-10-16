@@ -58,6 +58,7 @@ export interface Room {
   };
   name: string;
   members: {
+    id: string;
     total: number;
     collection: User[];
   };

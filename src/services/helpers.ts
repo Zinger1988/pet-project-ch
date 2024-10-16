@@ -20,9 +20,9 @@ export const convertRoomData = async ({
   let visibleMembers = null;
 
   if (!isDetailed) {
-    visibleMembers = members.slice(0, 4);
+    visibleMembers = members.collection.slice(0, 4);
   } else {
-    visibleMembers = members;
+    visibleMembers = members.collection;
   }
 
   return {
@@ -37,6 +37,7 @@ export const convertRoomData = async ({
       ...(moderator.data() as { name: string; email: string }),
     },
     members: {
+      id: members.id,
       total: visibleMembers.length,
       collection: visibleMembers,
     },
@@ -44,7 +45,7 @@ export const convertRoomData = async ({
   };
 };
 
-export const getMembers = async (roomId: string): Promise<User[]> => {
+export const getMembers = async (roomId: string): Promise<{ id: string; collection: User[] }> => {
   const memebrshipCollectionRef = collection(db, DB_MEMBERSHIP);
   const q = query(memebrshipCollectionRef, where('roomId', '==', roomId), limit(1));
   const querySnapshot = await getDocs(q);
@@ -58,7 +59,10 @@ export const getMembers = async (roomId: string): Promise<User[]> => {
     const membersDocs = await Promise.all(membersReq);
     const membersData = membersDocs.map((p) => ({ id: p.id, ...p.data() }));
 
-    return membersData;
+    return {
+      id: doc.id,
+      collection: membersData,
+    };
   }
 
   throw new FirebaseError('404', 'No room participators founded');
