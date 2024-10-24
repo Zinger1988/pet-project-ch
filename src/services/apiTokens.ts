@@ -11,10 +11,4 @@ export const apiGenerateToken = async (data: { roomId: string; userId: string })
   });
 
   return result.data;
-  //   try {
-
-  //   } catch (err) {
-  //     console.error("Error generating token:", err);
-  //     //setError(err.message);
-  //   }
 };

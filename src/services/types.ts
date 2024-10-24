@@ -1,7 +1,8 @@
 import { DocumentReference } from 'firebase/firestore';
-import { Room } from '../types/global';
+import { MemberDTO, Room } from '../types/global';
 
-export type RoomDTO = Room & {
+export type RoomDTO = Omit<Room, 'members' | 'moderator' | 'createdBy'> & {
   moderator: DocumentReference;
   createdBy: DocumentReference;
+  members: MemberDTO[];
 };

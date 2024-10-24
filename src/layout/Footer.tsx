@@ -1,20 +1,24 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
 import { Container, Icon } from '../components';
+
 import { IconId } from '../types/enums';
 
 const Footer = () => {
   const { t } = useTranslation();
   const footerStyles = 'bg-black border-t-[1px] border-black dark:border-gray-700 text-gray-300 py-12 lg:py-20';
-  const footerContainerStyles =
-    'grid grid-cols-[min-content] justify-center sm:grid-cols-2 md:grid-cols-3 gap-12  max-w-screen-xl';
+  const footerContainerStyles = `grid grid-cols-[min-content] justify-center sm:grid-cols-2 md:grid-cols-3 gap-12  max-w-screen-xl`;
   const headingStyles = 'uppercase text-body mb-7 pb-5 relative';
-  const headingAfterStyles =
-    'after:absolute after:left-0 after:bottom-0 after:w-7 after:h-1 after:bg-yellow-400 after:rounded-lg';
+  const headingAfterStyles = `after:absolute after:left-0 after:bottom-0 after:w-7 after:h-1 after:bg-yellow-400 after:rounded-lg`;
   const listStyles = 'm-0 p-0';
   const conactsListItemStyles = 'flex items-center gap-4 mb-3 pl-0 text-sm before:hidden';
   const listItemStyles = 'mb-3 pl-0 text-sm before:hidden';
   const linkStyles = 'transition-colors hover:text-yellow-400 duration-300 font-semibold no-underline text-inherit';
+  const socialsSectionStyles = 'sm:col-span-2 md:col-span-1';
+  const socialsContainerStyles = 'flex gap-6';
+  const socialsIconsStyles = 'transiton-colors fill-white duration-300 hover:fill-primary-400';
+  const logoStyles = 'mb-6 w-36 lg:w-40';
 
   const footerItems = {
     socials: [
@@ -35,7 +39,7 @@ const Footer = () => {
 
   const socialsItemsNodes = footerItems.socials.map((item) => (
     <a href={item.url} target='_blank' rel='noreferrer' key={item.url}>
-      <Icon id={item.iconId} width='24' className='transiton-colors fill-white duration-300 hover:fill-primary-400' />
+      <Icon id={item.iconId} width='24' className={socialsIconsStyles} />
     </a>
   ));
 
@@ -59,11 +63,11 @@ const Footer = () => {
   return (
     <footer className={footerStyles}>
       <Container className={footerContainerStyles}>
-        <section className='sm:col-span-2 md:col-span-1'>
+        <section className={socialsSectionStyles}>
           <Link to='/'>
-            <img src='/logo_text_white.svg' alt='Talktube logo' className='mb-6 w-36 lg:w-40' />
+            <img src='/logo_text_white.svg' alt='Talktube logo' className={logoStyles} />
           </Link>
-          <div className='flex gap-6'>{socialsItemsNodes}</div>
+          <div className={socialsContainerStyles}>{socialsItemsNodes}</div>
         </section>
 
         <section>

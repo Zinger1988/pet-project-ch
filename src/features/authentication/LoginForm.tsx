@@ -5,11 +5,11 @@ import * as Yup from 'yup';
 import colors from 'tailwindcss/colors';
 
 import { FormControl } from '../form';
+import { Spinner } from '../../components';
 import Button from '../../components/Button';
 
 import { IconId } from '../../types/enums';
 import { LoginFormValues } from '../../types/global';
-import { Spinner } from '../../components';
 
 interface LoginFormProps {
   loading: boolean;
@@ -27,10 +27,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit, className = ''
 
   // prettier-ignore
   const validationSchema = Yup.object({
-    email: Yup.string()
+    email: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .email(t("email", { ns: "validations" })),
-    password: Yup.string()
+    password: Yup
+      .string()
       .required(t("required", { ns: "validations" }))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
@@ -38,9 +40,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit, className = ''
       ),
   });
 
-  const formControlsStyles = 'grid grid-cols-[1fr,_auto] grid-rows-2 gap-x-4 items-center';
-  const LinkStyles =
-    'decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black dark:hover:decoration-white col-span-1 col-start-1';
+  const LinkStyles = `decoration-transparent text-body-sm decoration-dotted underline-offset-4 font-bold transition-colors hover:decoration-black dark:hover:decoration-white col-span-1 col-start-1`;
+  const formFooterStyles = 'grid grid-cols-[1fr,_auto] grid-rows-2 gap-x-4 items-center';
+  const submitBtnStyles = 'relative col-span-1 col-start-2 row-span-2 row-start-1 w-full sm:w-auto';
 
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -61,7 +63,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit, className = ''
           name='password'
           type='password'
         />
-        <div className={formControlsStyles}>
+        <div className={formFooterStyles}>
           <Link className={LinkStyles} to='/password-recovery'>
             {t('Forgot password', { ns: 'pageLogin' })}
           </Link>
@@ -69,7 +71,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit, className = ''
             {t("Don't have an account yet?", { ns: 'pageLogin' })}
           </Link>
           <Button
-            className='relative col-span-1 col-start-2 row-span-2 row-start-1 w-full sm:w-auto'
+            className={submitBtnStyles}
             icon={loading ? undefined : IconId.ArrowRight}
             iconPosition='right'
             type='submit'

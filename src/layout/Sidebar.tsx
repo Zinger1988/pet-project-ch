@@ -1,8 +1,9 @@
-import { NavLink } from 'react-router-dom';
-import { IconId } from '../types/enums';
 import Icon from '../components/Icon';
-import { capitalizeFirstLetter } from '../helpers/stringUtils';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
+import { IconId } from '../types/enums';
+import { capitalizeFirstLetter } from '../helpers/stringUtils';
 
 interface SidebarProps {
   className?: string;
@@ -24,6 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   ];
 
   const sidebarStyles = `p-3 bg-gray-950 dark:bg-gray-800 rounded-[1.3rem] lg:rounded-3xl lg:p-4 ${className}`;
+  const navListStyles = 'm-0 p-0';
   const navListItemStyles = 'before:hidden m-0 mb-1.5 p-0  last:border-none';
   const navBaseLinkStyles =
     'flex items-center gap-4 px-4 py-3 lg:px-5 lg:py-4 no-underline font-semibold rounded-xl lg:rounded-[1.1rem] border-gray-700 transition-colors duration-300';
@@ -34,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   return (
     <div className={sidebarStyles}>
       <nav>
-        <ul className='m-0 p-0'>
+        <ul className={navListStyles}>
           {navItems.map((item) => (
             <li key={item.label} className={navListItemStyles}>
               <NavLink

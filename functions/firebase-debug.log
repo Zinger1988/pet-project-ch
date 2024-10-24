@@ -1,0 +1,74 @@
+[debug] [2024-10-09T09:35:11.178Z] ----------------------------------------------------------------------
+[debug] [2024-10-09T09:35:11.180Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ZNGR\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2024-10-09T09:35:11.181Z] CLI Version:   13.20.1
+[debug] [2024-10-09T09:35:11.181Z] Platform:      win32
+[debug] [2024-10-09T09:35:11.181Z] Node Version:  v22.3.0
+[debug] [2024-10-09T09:35:11.181Z] Time:          Wed Oct 09 2024 12:35:11 GMT+0300 (Восточная Европа, летнее время)
+[debug] [2024-10-09T09:35:11.181Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-09T09:35:11.252Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-09T09:35:11.253Z] > authorizing via signed-in user (sergeygonchar88@gmail.com)
+[debug] [2024-10-09T09:35:11.253Z] [iam] checking project talktube-901ef for permissions ["firebase.projects.get"]
+[debug] [2024-10-09T09:35:11.254Z] Checked if tokens are valid: true, expires at: 1728469370303
+[debug] [2024-10-09T09:35:11.254Z] Checked if tokens are valid: true, expires at: 1728469370303
+[debug] [2024-10-09T09:35:11.255Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/talktube-901ef:testIamPermissions [none]
+[debug] [2024-10-09T09:35:11.255Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/talktube-901ef:testIamPermissions x-goog-quota-user=projects/talktube-901ef
+[debug] [2024-10-09T09:35:11.255Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/talktube-901ef:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-09T09:35:11.615Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/talktube-901ef:testIamPermissions 200
+[debug] [2024-10-09T09:35:11.615Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/talktube-901ef:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-09T09:35:11.620Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-09T09:35:11.622Z] defaultcredentials: writing to file C:\Users\ZNGR\AppData\Roaming\firebase\sergeygonchar88_gmail_com_application_default_credentials.json
+[debug] [2024-10-09T09:35:11.623Z] DEBUG: Setting GAC to C:\Users\ZNGR\AppData\Roaming\firebase\sergeygonchar88_gmail_com_application_default_credentials.json
+[debug] [2024-10-09T09:35:11.623Z] Checked if tokens are valid: true, expires at: 1728469370303
+[debug] [2024-10-09T09:35:11.623Z] Checked if tokens are valid: true, expires at: 1728469370303
+[debug] [2024-10-09T09:35:11.623Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/talktube-901ef/adminSdkConfig [none]
+[debug] [2024-10-09T09:35:12.174Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/talktube-901ef/adminSdkConfig 200
+[debug] [2024-10-09T09:35:12.174Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/talktube-901ef/adminSdkConfig {"projectId":"talktube-901ef","databaseURL":"https://talktube-901ef-default-rtdb.europe-west1.firebasedatabase.app","storageBucket":"talktube-901ef.appspot.com"}
+[debug] [2024-10-09T09:35:12.189Z] [functions] Watching "D:\Mentoring\Talktube\functions" for Cloud Functions...
+[debug] [2024-10-09T09:35:12.194Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2024-10-09T09:35:13.217Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "fix": "eslint . --fix",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "agora-access-token": "^2.0.4",
+    "agora-token": "^2.0.3",
+    "dotenv": "^16.4.5",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-09T09:35:13.217Z] Building nodejs source
+[debug] [2024-10-09T09:35:13.217Z] Failed to find version of module node: reached end of search path D:\Mentoring\Talktube\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "22". Using node@22 from host. 
+[info] i  functions: Loaded environment variables from .env. 
+[debug] [2024-10-09T09:35:13.220Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-09T09:35:13.226Z] Found firebase-functions binary at 'D:\Mentoring\Talktube\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8668
+
+[debug] [2024-10-09T09:35:13.899Z] Got response from /__/functions.yaml {"endpoints":{"generateToken":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"generateToken"},"generateRTMToken":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"generateRTMToken"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-09T09:35:18.951Z] [functions] Loaded functions definitions from source: generateToken, generateRTMToken.
+[debug] [2024-10-09T09:35:18.952Z] [functions[us-central1-generateToken]] http function initialized (http://127.0.0.1:5000/talktube-901ef/us-central1/generateToken).
+[debug] [2024-10-09T09:35:18.953Z] [functions[us-central1-generateRTMToken]] http function initialized (http://127.0.0.1:5000/talktube-901ef/us-central1/generateRTMToken).
+[info] i  functions: Loaded functions: generateToken, generateRTMToken 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage, eventarc, tasks 

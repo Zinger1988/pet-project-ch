@@ -1,12 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Button from '../../components/Button';
 
-import { AppDispatch } from '../../store/types';
+import { useModal } from '../../context/ModalContext';
 import { deleteRoom, handleMembership } from '../../store/actions/singleRoomActions';
+import { AppDispatch } from '../../store/types';
 import { User } from '../../types/global';
-import { useTranslation } from 'react-i18next';
 
 interface RoomControlsProps {
   roomId: string;
@@ -20,6 +21,7 @@ const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { openModal } = useModal();
 
   let roomControls = null;
   const isModerator = userId === moderatorId;
@@ -28,8 +30,17 @@ const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId
   });
 
   const handleDelete = async () => {
-    await dispatch(deleteRoom(roomId));
-    navigate('/rooms');
+    openModal({
+      id: 'confirm',
+      headerContent: 'Confirmation required',
+      bodyContent: `Are you sure you want to delete this room?`,
+      callbacks: {
+        onConfirm: async () => {
+          await dispatch(deleteRoom(roomId, userId));
+          navigate('/rooms');
+        },
+      },
+    });
   };
 
   const handleJoin = async () => {

@@ -22,10 +22,7 @@ const Avatar: React.FC<AvatarProps> = ({ name, className = '', size = 'md', rand
     lg: 'w-16 h-16 text-h2 rounded-2xl',
     xl: 'w-20 h-20 text-h2 rounded-[28px]',
   };
-  const avatarStyles = `
-    bg-gray-600 relative flex flex-col items-center
-    justify-center uppercase font-bold leading-none
-    overflow-hidden text-white ${sizeMap[size]} ${className}`;
+  const avatarStyles = `bg-gray-600 relative flex flex-col items-center justify-center uppercase font-bold leading-none overflow-hidden text-white ${sizeMap[size]} ${className}`;
 
   return (
     <div style={{ backgroundColor: randomizeFill ? fill : colors.blue[500] }} className={avatarStyles}>

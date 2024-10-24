@@ -1,19 +1,14 @@
 import { FirebaseError } from 'firebase/app';
 
-import { apiCreateRoom, apiGetRooms } from '../../services/apiRooms';
+import { apiGetRooms } from '../../services/apiRooms';
+import { apiCreateRoom } from '../../services/apiSingleRoom';
 import { CreateRoomValues, Room } from '../../types/global';
 import { AppThunk } from '../types';
-import {
-  ROOMS_LOADING_FINSIH,
-  ROOMS_LOADING_START,
-  ROOMS_FAILURE,
-  ROOMS_CLEAR_ERROR,
-  ROOMS_CLEAR,
-} from './actionTypes';
+import { ROOMS_LOADED, ROOMS_LOADING, ROOMS_FAILURE, ROOMS_CLEAR_ERROR, ROOMS_CLEAR } from './actionTypes';
 
-export const fetchRoomsStart = () => ({ type: ROOMS_LOADING_START });
+export const fetchRoomsStart = () => ({ type: ROOMS_LOADING });
 export const fetchRoomsFinish = (rooms: Room[]) => ({
-  type: ROOMS_LOADING_FINSIH,
+  type: ROOMS_LOADED,
   payload: rooms,
 });
 
@@ -47,7 +42,7 @@ export const сlearRooms = () => {
 export const getRooms =
   ({ userId, userRooms = false }: { userId: string; userRooms?: boolean }): AppThunk =>
   async (dispatch) => {
-    dispatch({ type: ROOMS_LOADING_START });
+    dispatch({ type: ROOMS_LOADING });
     try {
       const rooms = await apiGetRooms({ userId, userRooms });
       dispatch(fetchRoomsFinish(rooms));

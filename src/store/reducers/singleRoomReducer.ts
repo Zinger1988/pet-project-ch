@@ -1,16 +1,17 @@
 import { Room } from '../../types/global';
 import { Action } from '../types';
 import {
-  ROOM_LOADING_START,
-  ROOM_LOADING_FINSIH,
+  ROOM_LOADING,
+  ROOM_LOADED,
   ROOM_FAILURE,
   ROOM_CLEAR,
   ROOM_CLEAR_ERROR,
-  ROOM_ADD_MEMBER,
-  ROOM_REMOVE_MEMBER,
+  ROOM_SET_BLACKLIST,
+  ROOM_SET_MEMBERS,
 } from '../actions/actionTypes';
 
 export type SingleRoomState = {
+  initialized: boolean;
   loading: boolean;
   error: null | string;
   room: Room | null;
@@ -18,45 +19,36 @@ export type SingleRoomState = {
 
 const initialState: SingleRoomState = {
   loading: false,
+  initialized: false,
   error: null,
   room: null,
 };
 
 const singleRoomReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case ROOM_LOADING_START:
-      return { ...state, loading: true };
-    case ROOM_LOADING_FINSIH:
+    case ROOM_LOADING:
+      return { ...state, loading: true, initialized: true };
+    case ROOM_LOADED:
       return { ...state, loading: false, room: action.payload };
-    case ROOM_ADD_MEMBER: {
-      const { total, collection } = state.room!.members;
-      const updatedMembers = {
-        total: total + 1,
-        collection: [...collection, action.payload],
-      };
+    case ROOM_SET_BLACKLIST: {
       return {
         ...state,
         loading: false,
-        room: { ...state.room, members: updatedMembers },
+        room: { ...state.room, blackList: action.payload },
       };
     }
-    case ROOM_REMOVE_MEMBER: {
-      const { total, collection } = state.room!.members;
-      const updatedMembers = {
-        total: total - 1,
-        collection: collection.filter((item) => item.id !== action.payload),
-      };
+    case ROOM_SET_MEMBERS: {
       return {
         ...state,
         loading: false,
-        room: { ...state.room, members: updatedMembers },
+        room: { ...state.room, members: action.payload, membersCount: action.payload.length },
       };
     }
     case ROOM_CLEAR: {
-      return initialState;
+      return { ...initialState, initialized: false };
     }
     case ROOM_FAILURE: {
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, initialized: false, error: action.payload };
     }
     case ROOM_CLEAR_ERROR:
       return { ...state, error: null };

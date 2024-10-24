@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+
+import Avatar from '../avatar/Avatar';
+import AvatarThumbnails from '../avatar/AvatarThumbnails';
+import { Icon, ModeratorIcon } from '../../components';
+
 import { Room } from '../../types/global';
 import { IconId } from '../../types/enums';
-import Icon from '../../components/Icon';
-import AvatarThumbnails from '../avatar/AvatarThumbnails';
-import Avatar from '../avatar/Avatar';
-import ModeratorIcon from '../../components/ModeratorIcon';
 
 interface RoomCardProps {
   room: Room;
@@ -24,7 +25,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, className = '', isModerator =
         <h4 className='my-0'>{room.name}</h4>
       </div>
 
-      <AvatarThumbnails usersList={room.members.collection} className='mb-4' />
+      <AvatarThumbnails usersList={room.members} className='mb-4' />
 
       <div className={moderatorStyles}>
         <Avatar name={room.moderator.name} size='xs' />

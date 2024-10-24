@@ -3,21 +3,15 @@ import { apiSignUp, apiSignIn, apiSignOut, apiGetUser } from '../../services/api
 import { clearToken } from './tokensActions';
 import { clearRoom } from './singleRoomActions';
 import { сlearRooms } from './roomsActions';
-import {
-  USER_LOOKUP_START,
-  USER_LOOKUP_FINISH,
-  USER_LOOKUP_FAILURE,
-  USER_LOGOUT,
-  USER_CLEAR_ERROR,
-} from './actionTypes';
+import { USER_LOADING, USER_LOADED, USER_FAILURE, USER_CLEAR, USER_CLEAR_ERROR } from './actionTypes';
 import { AppThunk } from '../types';
 import { User } from '../../types/global';
 
-export const userLookupStart = () => ({ type: USER_LOOKUP_START });
+export const userLookupStart = () => ({ type: USER_LOADING });
 export const userClearError = () => ({ type: USER_CLEAR_ERROR });
-export const userLogout = () => ({ type: USER_LOGOUT });
+export const userLogout = () => ({ type: USER_CLEAR });
 export const userLookupFinish = (user: User | null) => ({
-  type: USER_LOOKUP_FINISH,
+  type: USER_LOADED,
   payload: user,
 });
 
@@ -27,7 +21,7 @@ export const userLookupFailure = (error: unknown) => {
     errorMessage = error.code;
   }
 
-  return { type: USER_LOOKUP_FAILURE, payload: errorMessage };
+  return { type: USER_FAILURE, payload: errorMessage };
 };
 
 export const signOut = (): AppThunk => async (dispatch) => {

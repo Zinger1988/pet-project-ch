@@ -1,22 +1,26 @@
-import CreateRoomForm from '../features/room/CreateRoomForm';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { CreateRoomValues } from '../types/global';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../store/types';
-import { createRoom } from '../store/actions/roomsActions';
 import { useEffect } from 'react';
-import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { сlearRoomsError } from '../store/actions/roomsActions';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+
+import CreateRoomForm from '../features/room/CreateRoomForm';
+
+import { RootState } from '../store';
+import { AppDispatch } from '../store/types';
+import { createRoom, сlearRoomsError } from '../store/actions/roomsActions';
+import { CreateRoomValues } from '../types/global';
+import { assertUser } from '../types/assertions';
 
 const CreateRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useSelector((state: RootState) => state.userSlice);
   const { loading, error } = useSelector((state: RootState) => state.roomsSlice);
-  const { t } = useTranslation();
+
+  assertUser(user);
 
   useEffect(() => {
     if (error) {
@@ -26,7 +30,6 @@ const CreateRoom = () => {
   }, [error, dispatch, t]);
 
   const handleSumbit = async (values: CreateRoomValues) => {
-    if (!user) return;
     await dispatch(createRoom({ ...values, createdBy: user.id }));
     navigate('/rooms');
   };

@@ -1,10 +1,7 @@
-import { collection, DocumentReference, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
-import { FirebaseError } from 'firebase/app';
+import { getDoc } from 'firebase/firestore';
 
 import { User, Room } from '../types/global';
 import { RoomDTO } from './types';
-import { db } from '../firebase';
-import { DB_MEMBERSHIP } from './constants';
 
 export const convertRoomData = async ({
   room,
@@ -13,53 +10,27 @@ export const convertRoomData = async ({
   room: RoomDTO;
   isDetailed?: boolean;
 }): Promise<Room> => {
-  const createdBy = await getDoc(room.createdBy);
-  const moderator = await getDoc(room.moderator);
-  const roomId = room.id;
-  const members = await getMembers(roomId);
-  let visibleMembers = null;
+  const { id, createdBy, moderator, members, ...roomRest } = room;
+  const [createdBySnap, moderatorSnap] = await Promise.all([getDoc(room.createdBy), getDoc(room.moderator)]);
 
-  if (!isDetailed) {
-    visibleMembers = members.slice(0, 4);
-  } else {
-    visibleMembers = members;
-  }
+  const membersSnap = await Promise.all(members.map((member) => getDoc(member.user)));
+  const visibleMembers = isDetailed ? membersSnap.slice(0, 4) : membersSnap;
 
   return {
-    ...room,
-    id: roomId,
+    ...roomRest,
+    id,
     createdBy: {
-      id: createdBy.id,
-      ...(createdBy.data() as { name: string; email: string }),
+      id: createdBySnap.id,
+      ...(createdBySnap.data() as Omit<User, 'id'>),
     },
     moderator: {
-      id: moderator.id,
-      ...(moderator.data() as { name: string; email: string }),
+      id: moderatorSnap.id,
+      ...(createdBySnap.data() as Omit<User, 'id'>),
     },
-    members: {
-      total: visibleMembers.length,
-      collection: visibleMembers,
-    },
-    isDetailed,
+    members: members.map((member, i) => ({
+      ...(visibleMembers[i].data() as Omit<User, 'id'>),
+      role: member.role,
+      id: visibleMembers[i].id,
+    })),
   };
-};
-
-export const getMembers = async (roomId: string): Promise<User[]> => {
-  const memebrshipCollectionRef = collection(db, DB_MEMBERSHIP);
-  const q = query(memebrshipCollectionRef, where('roomId', '==', roomId), limit(1));
-  const querySnapshot = await getDocs(q);
-
-  if (!querySnapshot.empty) {
-    const doc = querySnapshot.docs[0];
-    const data = doc.data();
-    const membersReq = data.members.map((ref: DocumentReference) => {
-      return getDoc(ref);
-    });
-    const membersDocs = await Promise.all(membersReq);
-    const membersData = membersDocs.map((p) => ({ id: p.id, ...p.data() }));
-
-    return membersData;
-  }
-
-  throw new FirebaseError('404', 'No room participators founded');
 };

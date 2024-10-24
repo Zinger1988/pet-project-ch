@@ -1,21 +1,23 @@
-import defaultBanner from '../../assets/images/room/banner.jpg';
-import { Room } from '../../types/global';
 import { RoomAudio, RoomControls } from '.';
 import { Avatar } from '../avatar';
+
+import { Room } from '../../types/global';
+import defaultBanner from '../../assets/images/room/banner.jpg';
+import { RTMClient } from 'agora-rtm-sdk';
 
 interface RoomBannerProps {
   className?: string;
   src?: string;
   room: Room;
   userId: string;
+  rtmClient: RTMClient;
 }
 
 // TODO: Handle Room Banner with custom image
 
-const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBanner, room, userId }) => {
+const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBanner, room, userId, rtmClient }) => {
   const { id: roomId, members, moderator, name: roomName } = room;
   const { id, name } = moderator;
-  const { collection } = members;
 
   const bannerSyles = `relative p-7 rounded-xl overflow-hidden bg-gray-800 ${className}`;
   const gridStyles = 'grid grid-cols-[auto,1fr] gap-2 relative z-10 items-center';
@@ -30,8 +32,8 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
         <p className={nameStyles}>{name}</p>
         <h3 className={headingStyles}>{roomName}</h3>
         <div className={controlsStyles}>
-          <RoomAudio roomId={roomId} userId={userId} members={collection} />
-          <RoomControls members={collection} moderatorId={id} roomId={roomId} userId={userId} />
+          <RoomAudio roomId={roomId} userId={userId} members={members} rtmClient={rtmClient} />
+          <RoomControls members={members} moderatorId={id} roomId={roomId} userId={userId} />
         </div>
       </div>
       <img src={src} alt='Room banner' className='absolute left-0 top-0 h-full w-full object-cover opacity-30' />

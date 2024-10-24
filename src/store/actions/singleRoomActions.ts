@@ -1,34 +1,16 @@
 import { FirebaseError } from 'firebase/app';
 
-import { apiDeleteRoom, apiGetRoom, apiHandleMembership } from '../../services/apiSingleRoom';
+import { apiDeleteRoom, apiGetRoom, apiHandleBlackList, apiHandleMembership } from '../../services/apiSingleRoom';
 
-import {
-  ROOM_CLEAR,
-  ROOM_LOADING_START,
-  ROOM_LOADING_FINSIH,
-  ROOM_CLEAR_ERROR,
-  ROOM_FAILURE,
-  ROOM_ADD_MEMBER,
-  ROOM_REMOVE_MEMBER,
-} from './actionTypes';
+import { ROOM_CLEAR, ROOM_LOADING, ROOM_LOADED, ROOM_CLEAR_ERROR, ROOM_FAILURE } from './actionTypes';
 
 import { AppThunk } from '../types';
-import { User, Room } from '../../types/global';
+import { Room } from '../../types/global';
 
-export const fetchRoomStart = () => ({ type: ROOM_LOADING_START });
+export const fetchRoomStart = () => ({ type: ROOM_LOADING });
 export const fetchRoomFinish = (room: Room) => ({
-  type: ROOM_LOADING_FINSIH,
+  type: ROOM_LOADED,
   payload: room,
-});
-
-export const addRoomMember = (member: User) => ({
-  type: ROOM_ADD_MEMBER,
-  payload: member,
-});
-
-export const removeRoomMember = (id: string) => ({
-  type: ROOM_REMOVE_MEMBER,
-  payload: id,
 });
 
 export const clearRoomErrors = () => ({
@@ -50,11 +32,17 @@ export const roomFailure = (error: unknown) => {
 export const handleMembership =
   ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
   async (dispatch) => {
-    dispatch(fetchRoomStart());
-    const member = await apiHandleMembership({ userId, roomId, mode });
+    await apiHandleMembership({ userId, roomId, mode });
+    try {
+    } catch (error) {
+      dispatch(roomFailure(error));
+    }
+  };
 
-    dispatch(mode === 'add' ? addRoomMember(member) : removeRoomMember(member.id));
-
+export const handleBlacklist =
+  ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
+  async (dispatch) => {
+    await apiHandleBlackList({ userId, roomId, mode });
     try {
     } catch (error) {
       dispatch(roomFailure(error));
@@ -74,11 +62,11 @@ export const getRoom =
   };
 
 export const deleteRoom =
-  (id: string): AppThunk =>
+  (roomId: string, userId: string): AppThunk =>
   async (dispatch) => {
     dispatch(fetchRoomStart());
     try {
-      await apiDeleteRoom(id);
+      await apiDeleteRoom(roomId, userId);
       dispatch(clearRoom());
     } catch (error) {
       dispatch(roomFailure(error));
