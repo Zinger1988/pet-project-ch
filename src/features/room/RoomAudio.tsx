@@ -7,6 +7,7 @@ import { Icon, Button, Spinner } from '../../components';
 
 import { RootState } from '../../store';
 import { generateToken } from '../../store/actions/tokensActions';
+import { requestAudio } from '../../store/actions/singleRoomActions';
 import { AppDispatch } from '../../store/types';
 import { IconId } from '../../types/enums';
 import { Member } from '../../types/global';
@@ -17,32 +18,44 @@ interface RoomAudioProps {
   userId: string;
   members: Member[];
   rtmClient: RTMClient;
+  raisedHands: string[];
 }
 
-const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClient }) => {
+const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClient, raisedHands }) => {
   const [micEnabled, setMicEnabled] = useState(false);
+  const [unmuteTemporarily, setUnmuteTemporarily] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const microphoneTrackRef = useRef<null | IMicrophoneAudioTrack>(null);
   const client = useRTCClient();
   const { loading, tokens } = useSelector((state: RootState) => state.tokensSlice);
   const tokenData = tokens.find((item) => item.roomId === roomId);
-  const isMember = members.find((member) => member.id === userId);
+  const member = members.find((member) => member.id === userId);
+  const isSpeaker = member?.role === 'speaker';
+  const isHandRaised = raisedHands.includes(userId);
 
   useEffect(() => {
     const handler = async (event: any) => {
       if (event.message === 'Mute' && microphoneTrackRef.current) {
         await microphoneTrackRef.current.setEnabled(false);
         setMicEnabled(false);
+        setUnmuteTemporarily(false);
+      }
+
+      if (event.message === 'Unmute' && microphoneTrackRef.current) {
+        await microphoneTrackRef.current.setEnabled(true);
+        setMicEnabled(true);
+        setUnmuteTemporarily(true);
       }
     };
 
     rtmClient.addEventListener('message', handler);
 
     return () => {
+      setUnmuteTemporarily(false);
       rtmClient.removeEventListener('message', handler);
     };
-  }, [rtmClient]);
+  }, [rtmClient, roomId, userId, dispatch]);
 
   useEffect(() => {
     const token = tokens.find((item) => item.roomId === roomId);
@@ -79,35 +92,27 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
     };
   }, [client, roomId, userId, loading, tokenData]);
 
-  // const handleRaiseHand = async () => {
-  //   if (rtmClient) {
-  //     const payload = { type: 'Raise hand', message: userId };
-  //     const publishMessage = JSON.stringify(payload);
-  //     const publishOptions = { channelType: 'MESSAGE' } as PublishOptions;
-  //     try {
-  //       await rtmClient.publish(roomId, publishMessage, publishOptions);
-  //     } catch (status) {
-  //       console.log(status);
-  //     }
-  //   }
-  // };
+  const handleRiseHand = async () => {
+    dispatch(requestAudio({ userId, roomId, mode: isHandRaised ? 'remove' : 'add' }));
+  };
 
   const toggleMicrophone = async () => {
     if (microphoneTrackRef.current) {
       await microphoneTrackRef.current.setEnabled(!micEnabled);
+      setUnmuteTemporarily(false);
       setMicEnabled(!micEnabled);
+    }
+
+    if (!isSpeaker) {
+      setUnmuteTemporarily(false);
     }
   };
 
-  if (!isMember) {
-    return null;
-  }
-
-  if (isMember.role === 'audience') {
+  if (!isSpeaker && !unmuteTemporarily) {
     return (
-      <Button size='sm' variant='info' className='gap-2.5 pl-4'>
+      <Button onClick={handleRiseHand} size='sm' variant='info' className='gap-2.5 pl-4'>
         <Icon id={IconId.RaiseHand} className='h-5 w-5 fill-primary-400' />
-        Raise hand
+        {isHandRaised ? 'Lower hand' : 'Raise hand'}
       </Button>
     );
   }

@@ -37,7 +37,7 @@ export const apiOnRoomStateUpdate = ({
   callback,
 }: {
   id: string;
-  callback: (members: User[], blackList: string[]) => void;
+  callback: (members: User[], blackList: string[], requestAudio: string[]) => void;
 }) => {
   const roomRef = doc(db, DB_ROOMS, id);
 
@@ -57,7 +57,7 @@ export const apiOnRoomStateUpdate = ({
       ...(membersDocs[i].data() as Omit<User, 'id'>),
     }));
 
-    callback(membersData, data.blackList);
+    callback(membersData, data.blackList, data.requestAudio);
   });
 };
 
@@ -159,6 +159,7 @@ export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: stri
     blackList: [],
     members: [{ user: userRef, role: 'speaker' }],
     membersCount: 0,
+    requestAudio: [],
   });
 
   await updateDoc(userRef, {
@@ -166,4 +167,19 @@ export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: stri
   });
 
   return roomRef;
+};
+
+export const apiRequestAudio = async ({
+  userId,
+  roomId,
+  mode,
+}: {
+  userId: string;
+  roomId: string;
+  mode: 'add' | 'remove';
+}) => {
+  const roomRef = await doc(db, DB_ROOMS, roomId);
+  await updateDoc(roomRef, {
+    requestAudio: mode === 'add' ? arrayUnion(userId) : arrayRemove(userId),
+  });
 };

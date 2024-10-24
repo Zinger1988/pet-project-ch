@@ -16,7 +16,7 @@ interface RoomBannerProps {
 // TODO: Handle Room Banner with custom image
 
 const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBanner, room, userId, rtmClient }) => {
-  const { id: roomId, members, moderator, name: roomName } = room;
+  const { id: roomId, members, moderator, name: roomName, requestAudio } = room;
   const { id, name } = moderator;
 
   const bannerSyles = `relative p-7 rounded-xl overflow-hidden bg-gray-800 ${className}`;
@@ -32,7 +32,13 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
         <p className={nameStyles}>{name}</p>
         <h3 className={headingStyles}>{roomName}</h3>
         <div className={controlsStyles}>
-          <RoomAudio roomId={roomId} userId={userId} members={members} rtmClient={rtmClient} />
+          <RoomAudio
+            roomId={roomId}
+            userId={userId}
+            members={members}
+            rtmClient={rtmClient}
+            raisedHands={requestAudio}
+          />
           <RoomControls members={members} moderatorId={id} roomId={roomId} userId={userId} />
         </div>
       </div>

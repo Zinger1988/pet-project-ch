@@ -7,12 +7,12 @@ import { RoomAudience, RoomBanner } from '../features/room';
 
 import { AppDispatch } from '../store/types';
 import { RootState } from '../store';
-import { clearRoomErrors, clearRoom, getRoom } from '../store/actions/singleRoomActions';
+import { clearRoomErrors, clearRoom, getRoom, requestAudio } from '../store/actions/singleRoomActions';
 import { assertRoom, assertRTMClinet, assertUser } from '../types/assertions';
 import { apiOnRoomStateUpdate } from '../services/apiSingleRoom';
 import { Room } from '../types/global';
 import { useModal } from '../context/ModalContext';
-import { ROOM_SET_BLACKLIST, ROOM_SET_MEMBERS } from '../store/actions/actionTypes';
+import { ROOM_SET_BLACKLIST, ROOM_SET_MEMBERS, ROOM_SET_REQ_AUDIO } from '../store/actions/actionTypes';
 import { useAgoraRTMContext } from '../context/RTMContext';
 
 const SingleRoom = () => {
@@ -39,6 +39,14 @@ const SingleRoom = () => {
       });
     },
     [openModal],
+  );
+
+  useEffect(
+    () => () => {
+      // Check is event firing if DB removes an id that wasn`t in collection
+      dispatch(requestAudio({ userId: user.id, roomId: id as string, mode: 'remove' }));
+    },
+    [id, dispatch, user],
   );
 
   useEffect(() => {
@@ -87,11 +95,11 @@ const SingleRoom = () => {
   useEffect(() => {
     if (!room) return;
 
-    const { id, members, blackList } = room;
+    const { id, members, blackList, requestAudio } = room;
 
     const onRoomStateUpdates = apiOnRoomStateUpdate({
       id,
-      callback: (updatedMembers, updatedBlackList) => {
+      callback: (updatedMembers, updatedBlackList, updatedRequestAudio) => {
         if (members.length !== updatedMembers.length) {
           dispatch({
             type: ROOM_SET_MEMBERS,
@@ -103,6 +111,13 @@ const SingleRoom = () => {
           dispatch({
             type: ROOM_SET_BLACKLIST,
             payload: updatedBlackList,
+          });
+        }
+
+        if (requestAudio.length !== updatedRequestAudio.length) {
+          dispatch({
+            type: ROOM_SET_REQ_AUDIO,
+            payload: updatedRequestAudio,
           });
         }
       },
@@ -126,7 +141,12 @@ const SingleRoom = () => {
     <article>
       <RoomBanner className={bannerStyles} room={room} userId={user.id} rtmClient={rtmClient} />
       <p className={descriptionStyles}>{room.description}</p>
-      <RoomAudience userId={user.id} moderatorId={room.moderator.id} members={room.members} />
+      <RoomAudience
+        userId={user.id}
+        moderatorId={room.moderator.id}
+        members={room.members}
+        raisedHands={room.requestAudio}
+      />
     </article>
   );
 };

@@ -64,6 +64,7 @@ export interface Room {
   members: Member[];
   membersCount: number;
   blackList: string[];
+  requestAudio: string[];
 }
 
 export type MemberRole = 'audience' | 'speaker';
