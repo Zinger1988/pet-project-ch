@@ -1,42 +1,37 @@
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 import { ContextMenu, Icon } from '../../components';
 
-import { blockUser, unblockUser } from '../../store/actions/singleRoomActions';
-import { RootState } from '../../store';
+import { handleBlacklist } from '../../store/actions/singleRoomActions';
 import { AppDispatch } from '../../store/types';
-import { assertRoom } from '../../types/assertions';
 import { IconId } from '../../types/enums';
 import { useAgoraRTMContext } from '../../context/RTMContext';
 import { useModal } from '../../context/ModalContext';
+import { Room } from '../../types/global';
 
 interface AudienceContextMenuProps {
-  memderId: string;
+  memberId: string;
   hasAudio: boolean;
+  room: Room;
 }
 
-const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memderId, hasAudio }) => {
+const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, hasAudio, room }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { room } = useSelector((state: RootState) => state.singleRoomSlice);
   const { rtmClient } = useAgoraRTMContext();
   const { openModal } = useModal();
 
-  const containerStyles = 'z-1000 absolute bottom-0 right-0 translate-x-1/3 translate-y-1/3';
+  const containerStyles = 'z-50 absolute bottom-0 right-0 translate-x-1/3 translate-y-1/3';
   const toggleIconStyles = 'h-6 w-6 fill-gray-400';
   const listStyles = 'min-w-[10rem] rounded-md bg-gray-800 py-1 shadow-md mt-2';
   const optionStyles = 'text-body flex cursor-pointer items-center gap-2 px-3 py-1.5 hover:bg-gray-700/50';
   const optionIconStyles = 'h-6 w-6';
   const buttonStyles = 'bg-gray-800 rounded-full flex items-center justify-center hover:[&>svg]:fill-white';
-
-  assertRoom(room);
-
-  const isBlocked = room.blackList.includes(memderId);
+  const isBlocked = room.blackList.includes(memberId);
 
   const handleMute = async () => {
     if (rtmClient) {
       try {
-        await rtmClient.publish(memderId, 'Mute', { channelType: 'USER' });
+        await rtmClient.publish(memberId, 'Mute', { channelType: 'USER' });
       } catch (status) {
         console.log(status);
       }
@@ -50,7 +45,8 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memderId, has
       bodyContent: `Are you sure you want to ${isBlocked ? 'unblock' : 'block'} this user?`,
       callbacks: {
         onConfirm: () => {
-          isBlocked ? dispatch(unblockUser(room.id, memderId)) : dispatch(blockUser(room.id, memderId));
+          const mode = isBlocked ? 'remove' : 'add';
+          dispatch(handleBlacklist({ userId: memberId, roomId: room.id, mode }));
         },
       },
     });

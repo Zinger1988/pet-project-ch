@@ -1,25 +1,11 @@
 import { FirebaseError } from 'firebase/app';
 
-import {
-  apiBlockUser,
-  apiDeleteRoom,
-  apiGetRoom,
-  apiHandleMembership,
-  apiUnblockUser,
-} from '../../services/apiSingleRoom';
+import { apiDeleteRoom, apiGetRoom, apiHandleBlackList, apiHandleMembership } from '../../services/apiSingleRoom';
 
-import {
-  ROOM_CLEAR,
-  ROOM_LOADING,
-  ROOM_LOADED,
-  ROOM_CLEAR_ERROR,
-  ROOM_FAILURE,
-  ROOM_BLOCK_USER,
-  ROOM_UNBLOCK_USER,
-} from './actionTypes';
+import { ROOM_CLEAR, ROOM_LOADING, ROOM_LOADED, ROOM_CLEAR_ERROR, ROOM_FAILURE } from './actionTypes';
 
 import { AppThunk } from '../types';
-import { User, Room } from '../../types/global';
+import { Room } from '../../types/global';
 
 export const fetchRoomStart = () => ({ type: ROOM_LOADING });
 export const fetchRoomFinish = (room: Room) => ({
@@ -53,29 +39,11 @@ export const handleMembership =
     }
   };
 
-export const blockUser =
-  (roomId: string, userId: string): AppThunk =>
+export const handleBlacklist =
+  ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
   async (dispatch) => {
+    await apiHandleBlackList({ userId, roomId, mode });
     try {
-      await apiBlockUser(roomId, userId);
-      dispatch({
-        type: ROOM_BLOCK_USER,
-        payload: userId,
-      });
-    } catch (error) {
-      dispatch(roomFailure(error));
-    }
-  };
-
-export const unblockUser =
-  (roomId: string, userId: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      await apiUnblockUser(roomId, userId);
-      dispatch({
-        type: ROOM_UNBLOCK_USER,
-        payload: userId,
-      });
     } catch (error) {
       dispatch(roomFailure(error));
     }
@@ -94,11 +62,11 @@ export const getRoom =
   };
 
 export const deleteRoom =
-  (id: string): AppThunk =>
+  (roomId: string, userId: string): AppThunk =>
   async (dispatch) => {
     dispatch(fetchRoomStart());
     try {
-      await apiDeleteRoom(id);
+      await apiDeleteRoom(roomId, userId);
       dispatch(clearRoom());
     } catch (error) {
       dispatch(roomFailure(error));

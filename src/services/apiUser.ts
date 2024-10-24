@@ -26,6 +26,8 @@ export const apiSignUp = async (credentials: { name: string; email: string; pass
   await setDoc(doc(db, DB_USERS, userData.user.uid), {
     name: credentials.name,
     email: userData.user.email,
+    createdRoomRefs: [],
+    joinedRoomRefs: [],
   });
 
   return userData;

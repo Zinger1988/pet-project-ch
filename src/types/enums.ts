@@ -42,4 +42,5 @@ export enum IconId {
   ShieldOk = 'SHIELD_OK',
   ShieldCancel = 'SHIELD_CANCEL',
   Cancel = 'CANCEL',
+  RaiseHand = 'RAISE_HAND',
 }

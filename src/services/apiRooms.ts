@@ -1,84 +1,49 @@
-import { addDoc, collection, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, DocumentSnapshot, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 
 import { RoomDTO } from './types';
-import { CreateRoomValues } from '../types/global';
+import { User } from '../types/global';
 import { convertRoomData } from './helpers';
-import { DB_MEMBERSHIP, DB_ROOMS, DB_USERS } from './constants';
-
-export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: string }) => {
-  const userRef = await doc(db, DB_USERS, values.createdBy);
-  const room = await addDoc(collection(db, DB_ROOMS), {
-    ...values,
-    createdBy: userRef,
-    moderator: userRef,
-    blackList: [],
-  });
-
-  await addDoc(collection(db, DB_MEMBERSHIP), {
-    roomId: room.id,
-    members: [userRef],
-  });
-
-  return room;
-};
+import { DB_ROOMS, DB_USERS } from './constants';
 
 export const apiGetRooms = async ({ userId, userRooms = false }: { userId: string; userRooms?: boolean }) => {
-  const roomsCollectionRef = collection(db, DB_ROOMS);
-  const userRef = await doc(db, DB_USERS, userId);
-  const rooms: RoomDTO[] = [];
-  let roomsQuery = null;
-
-  if (userRooms) {
-    // fetching rooms where user has membership
-    const roomsAsMember = await getRoomsWhereUserHasMembership(userId);
-    rooms.push(...roomsAsMember);
-    roomsQuery = query(roomsCollectionRef, where('createdBy', '==', userRef));
-  } else {
-    roomsQuery = query(roomsCollectionRef, where('createdBy', '!=', userRef));
-  }
-
-  const roomsSnapshot = await getDocs(roomsQuery);
-
-  roomsSnapshot.forEach((doc) => {
-    rooms.push({
-      ...(doc.data() as RoomDTO),
-      id: doc.id,
-    });
-  });
-
+  const rooms = await getUserRooms(userId, userRooms);
   const roomsData = rooms.map((room: RoomDTO) => convertRoomData({ room }));
+
   return Promise.all(roomsData);
 };
 
-export const getRoomsWhereUserHasMembership = async (userId: string) => {
+export const getUserRooms = async (userId: string, userRooms: boolean = false) => {
+  const roomsSnap: DocumentSnapshot[] = [];
   const userRef = await doc(db, DB_USERS, userId);
-  const roomsCollectionRef = collection(db, DB_ROOMS);
-  const membershipCollectionRef = collection(db, DB_MEMBERSHIP);
-  const membershipsQuery = query(membershipCollectionRef, where('members', 'array-contains', userRef));
-  const membershipsSnapshot = await getDocs(membershipsQuery);
-  const roomsId: string[] = [];
-  const rooms: RoomDTO[] = [];
 
-  membershipsSnapshot.forEach((doc) => {
-    const { roomId } = doc.data();
-    roomsId.push(roomId);
+  if (userRooms) {
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.data() as User;
+
+    const { createdRoomRefs, joinedRoomRefs } = userData;
+    const createdRoomsReq = createdRoomRefs.map((roomRef) => getDoc(roomRef));
+    const joinedRoomReq = joinedRoomRefs.map((roomRef) => getDoc(roomRef));
+
+    const [createdRoomsSnap, joinedRoomSnap]: [DocumentSnapshot[], DocumentSnapshot[]] = await Promise.all([
+      Promise.all(createdRoomsReq),
+      Promise.all(joinedRoomReq),
+    ]);
+
+    [...createdRoomsSnap, ...joinedRoomSnap].forEach((snap) => {
+      snap.exists() && roomsSnap.push(snap);
+    });
+  } else {
+    const roomsCollectionRef = collection(db, DB_ROOMS);
+    const otherRoomsQuery = query(roomsCollectionRef, where('createdBy', '!=', userRef));
+    const otherRoomsSnap = await getDocs(otherRoomsQuery);
+
+    otherRoomsSnap.forEach((snap) => snap.exists() && roomsSnap.push(snap));
+  }
+
+  const rooms = roomsSnap.map((snap) => {
+    return { id: snap.id, ...(snap.data() as Omit<RoomDTO, 'id'>) };
   });
 
-  if (roomsId.length) {
-    const roomsQuery = query(roomsCollectionRef, where('__name__', 'in', roomsId));
-    const roomsSnapshot = await getDocs(roomsQuery);
-
-    roomsSnapshot.forEach((doc) => {
-      const docData = doc.data();
-
-      if (docData.createdBy.id !== userRef.id) {
-        rooms.push({
-          ...(docData as RoomDTO),
-          id: doc.id,
-        });
-      }
-    });
-  }
   return rooms;
 };

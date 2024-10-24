@@ -9,27 +9,25 @@ import { RootState } from '../../store';
 import { generateToken } from '../../store/actions/tokensActions';
 import { AppDispatch } from '../../store/types';
 import { IconId } from '../../types/enums';
-import { User } from '../../types/global';
-import { useAgoraRTMContext } from '../../context/RTMContext';
+import { Member } from '../../types/global';
+import { RTMClient } from 'agora-rtm-sdk';
 
 interface RoomAudioProps {
   roomId: string;
   userId: string;
-  members: User[];
+  members: Member[];
+  rtmClient: RTMClient;
 }
 
-const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members }) => {
+const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClient }) => {
   const [micEnabled, setMicEnabled] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const microphoneTrackRef = useRef<null | IMicrophoneAudioTrack>(null);
   const client = useRTCClient();
-  const { loading, tokens, error } = useSelector((state: RootState) => state.tokensSlice);
-  const { isLoading, rtmClient } = useAgoraRTMContext();
+  const { loading, tokens } = useSelector((state: RootState) => state.tokensSlice);
   const tokenData = tokens.find((item) => item.roomId === roomId);
-  const isMember = members.some((member) => {
-    return member.id === userId;
-  });
+  const isMember = members.find((member) => member.id === userId);
 
   useEffect(() => {
     const handler = async (event: any) => {
@@ -39,16 +37,12 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members }) => {
       }
     };
 
-    if (!isLoading && rtmClient) {
-      rtmClient.addEventListener('message', handler);
-    }
+    rtmClient.addEventListener('message', handler);
 
     return () => {
-      if (!isLoading && rtmClient) {
-        rtmClient.removeEventListener('message', handler);
-      }
+      rtmClient.removeEventListener('message', handler);
     };
-  }, [rtmClient, isLoading]);
+  }, [rtmClient]);
 
   useEffect(() => {
     const token = tokens.find((item) => item.roomId === roomId);
@@ -85,6 +79,19 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members }) => {
     };
   }, [client, roomId, userId, loading, tokenData]);
 
+  // const handleRaiseHand = async () => {
+  //   if (rtmClient) {
+  //     const payload = { type: 'Raise hand', message: userId };
+  //     const publishMessage = JSON.stringify(payload);
+  //     const publishOptions = { channelType: 'MESSAGE' } as PublishOptions;
+  //     try {
+  //       await rtmClient.publish(roomId, publishMessage, publishOptions);
+  //     } catch (status) {
+  //       console.log(status);
+  //     }
+  //   }
+  // };
+
   const toggleMicrophone = async () => {
     if (microphoneTrackRef.current) {
       await microphoneTrackRef.current.setEnabled(!micEnabled);
@@ -94,6 +101,15 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members }) => {
 
   if (!isMember) {
     return null;
+  }
+
+  if (isMember.role === 'audience') {
+    return (
+      <Button size='sm' variant='info' className='gap-2.5 pl-4'>
+        <Icon id={IconId.RaiseHand} className='h-5 w-5 fill-primary-400' />
+        Raise hand
+      </Button>
+    );
   }
 
   return (

@@ -36,7 +36,7 @@ const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId
       bodyContent: `Are you sure you want to delete this room?`,
       callbacks: {
         onConfirm: async () => {
-          await dispatch(deleteRoom(roomId));
+          await dispatch(deleteRoom(roomId, userId));
           navigate('/rooms');
         },
       },

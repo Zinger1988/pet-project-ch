@@ -1,3 +1,5 @@
+import { DocumentReference } from 'firebase/firestore';
+
 export type Theme = 'light' | 'dark';
 
 export interface StatusBannerItem {
@@ -36,6 +38,8 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  createdRoomRefs: DocumentReference[];
+  joinedRoomRefs: DocumentReference[];
 }
 
 export interface RemoteUser extends User {
@@ -57,14 +61,33 @@ export interface Room {
     email: string;
   };
   name: string;
-  members: {
-    id: string;
-    total: number;
-    collection: User[];
-  };
-  isDetailed: boolean;
+  members: Member[];
+  membersCount: number;
   blackList: string[];
 }
+
+export type MemberRole = 'audience' | 'speaker';
+
+export type MemberDTO = {
+  user: DocumentReference;
+  role: MemberRole;
+};
+
+export type Member = User & {
+  role: MemberRole;
+};
+
+export type RoomStateDTO = {
+  roomId: string;
+  members: MemberDTO[];
+  blackList: string[];
+};
+
+export type RoomState = {
+  roomId: string;
+  members: Member[];
+  blackList: string[];
+};
 
 export interface CreateRoomValues {
   name: string;

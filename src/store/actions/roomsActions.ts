@@ -1,6 +1,7 @@
 import { FirebaseError } from 'firebase/app';
 
-import { apiCreateRoom, apiGetRooms } from '../../services/apiRooms';
+import { apiGetRooms } from '../../services/apiRooms';
+import { apiCreateRoom } from '../../services/apiSingleRoom';
 import { CreateRoomValues, Room } from '../../types/global';
 import { AppThunk } from '../types';
 import { ROOMS_LOADED, ROOMS_LOADING, ROOMS_FAILURE, ROOMS_CLEAR_ERROR, ROOMS_CLEAR } from './actionTypes';
