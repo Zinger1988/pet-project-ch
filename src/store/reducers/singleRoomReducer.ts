@@ -8,6 +8,7 @@ import {
   ROOM_CLEAR_ERROR,
   ROOM_SET_BLACKLIST,
   ROOM_SET_MEMBERS,
+  ROOM_SET_REQ_AUDIO,
 } from '../actions/actionTypes';
 
 export type SingleRoomState = {
@@ -42,6 +43,12 @@ const singleRoomReducer = (state = initialState, action: Action) => {
         ...state,
         loading: false,
         room: { ...state.room, members: action.payload, membersCount: action.payload.length },
+      };
+    }
+    case ROOM_SET_REQ_AUDIO: {
+      return {
+        ...state,
+        room: { ...state.room, requestAudio: action.payload },
       };
     }
     case ROOM_CLEAR: {

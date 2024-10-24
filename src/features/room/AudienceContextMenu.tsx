@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 
 import { ContextMenu, Icon } from '../../components';
 
-import { handleBlacklist } from '../../store/actions/singleRoomActions';
+import { handleBlacklist, requestAudio } from '../../store/actions/singleRoomActions';
 import { AppDispatch } from '../../store/types';
 import { IconId } from '../../types/enums';
 import { useAgoraRTMContext } from '../../context/RTMContext';
@@ -13,9 +13,10 @@ interface AudienceContextMenuProps {
   memberId: string;
   hasAudio: boolean;
   room: Room;
+  raisedHand: boolean;
 }
 
-const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, hasAudio, room }) => {
+const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, hasAudio, room, raisedHand }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { rtmClient } = useAgoraRTMContext();
   const { openModal } = useModal();
@@ -32,6 +33,17 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, has
     if (rtmClient) {
       try {
         await rtmClient.publish(memberId, 'Mute', { channelType: 'USER' });
+      } catch (status) {
+        console.log(status);
+      }
+    }
+  };
+
+  const handleUnmuteTemporarily = async () => {
+    if (rtmClient) {
+      try {
+        await rtmClient.publish(memberId, 'Unmute', { channelType: 'USER' });
+        await dispatch(requestAudio({ userId: memberId, roomId: room.id, mode: 'remove' }));
       } catch (status) {
         console.log(status);
       }
@@ -60,6 +72,12 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, has
             <Icon id={IconId.EllipsisVer} className={toggleIconStyles} />
           </ContextMenu.Button>
           <ContextMenu.List className={listStyles}>
+            {raisedHand && (
+              <ContextMenu.Option onClick={handleUnmuteTemporarily} className={optionStyles}>
+                <Icon id={IconId.SoundOn} className={`${optionIconStyles} fill-gray-500`} />
+                <span>Unmute temporarily</span>
+              </ContextMenu.Option>
+            )}
             {hasAudio && (
               <ContextMenu.Option onClick={handleMute} className={optionStyles}>
                 <Icon id={IconId.SoundOff} className={`${optionIconStyles} fill-gray-500`} />

@@ -1,6 +1,12 @@
 import { FirebaseError } from 'firebase/app';
 
-import { apiDeleteRoom, apiGetRoom, apiHandleBlackList, apiHandleMembership } from '../../services/apiSingleRoom';
+import {
+  apiDeleteRoom,
+  apiGetRoom,
+  apiHandleBlackList,
+  apiHandleMembership,
+  apiRequestAudio,
+} from '../../services/apiSingleRoom';
 
 import { ROOM_CLEAR, ROOM_LOADING, ROOM_LOADED, ROOM_CLEAR_ERROR, ROOM_FAILURE } from './actionTypes';
 
@@ -43,6 +49,16 @@ export const handleBlacklist =
   ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
   async (dispatch) => {
     await apiHandleBlackList({ userId, roomId, mode });
+    try {
+    } catch (error) {
+      dispatch(roomFailure(error));
+    }
+  };
+
+export const requestAudio =
+  ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
+  async (dispatch) => {
+    await apiRequestAudio({ userId, roomId, mode });
     try {
     } catch (error) {
       dispatch(roomFailure(error));

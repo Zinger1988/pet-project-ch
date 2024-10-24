@@ -12,9 +12,16 @@ interface AudienceAvatarProps {
   className?: string;
   userId: string;
   moderatorId: string;
+  raisedHand?: boolean;
 }
 
-const AudienceAvatar: React.FC<AudienceAvatarProps> = ({ member, className = '', userId, moderatorId }) => {
+const AudienceAvatar: React.FC<AudienceAvatarProps> = ({
+  member,
+  className = '',
+  userId,
+  moderatorId,
+  raisedHand = false,
+}) => {
   const { room } = useSelector((state: RootState) => state.singleRoomSlice);
 
   assertRoom(room);
@@ -24,6 +31,8 @@ const AudienceAvatar: React.FC<AudienceAvatarProps> = ({ member, className = '',
   const ModeratorIconStyles = 'absolute left-0 top-0 -translate-x-1/4 -translate-y-1/4 z-50';
   const blockedIndicatorStyles = `absolute left-0 top-0 z-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-black/70 backdrop-grayscale`;
   const blockedIconStyles = 'h-8 w-8 fill-gray-300';
+  const raiseHandIndicatorStyles = `absolute left-0 top-0 z-10 flex h-8 w-8 -translate-x-1/4 -translate-y-1/4 items-center justify-center rounded-full bg-gray-800`;
+  const raiseHandIconStyles = 'h-4 w-4 fill-primary-400';
 
   const isModerator = userId === moderatorId;
   const isMemberModerator = member.id === moderatorId;
@@ -40,13 +49,15 @@ const AudienceAvatar: React.FC<AudienceAvatarProps> = ({ member, className = '',
           <Icon id={IconId.Lock} className={blockedIconStyles} />
         </div>
       )}
-      {/* {raisedHand && (
-        <div className='absolute left-0 top-0 z-10 flex h-8 w-8 -translate-x-1/4 -translate-y-1/4 items-center justify-center rounded-full bg-gray-800'>
-          <Icon id={IconId.RaiseHand} className='h-4 w-4 fill-primary-400' />
+      {raisedHand && (
+        <div className={raiseHandIndicatorStyles}>
+          <Icon id={IconId.RaiseHand} className={raiseHandIconStyles} />
         </div>
-      )} */}
+      )}
       {isMemberModerator && <ModeratorIcon className={ModeratorIconStyles} />}
-      {isModerator && <AudienceContextMenu memberId={member.id} hasAudio={hasAudio(member)} room={room} />}
+      {isModerator && (
+        <AudienceContextMenu memberId={member.id} hasAudio={hasAudio(member)} room={room} raisedHand={raisedHand} />
+      )}
       <Avatar name={member.name} size='lg' />
       {hasAudio(member) && (
         <div className={voiceIndicatorStyles}>
