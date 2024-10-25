@@ -1,9 +1,10 @@
 import AgoraRTC, { IMicrophoneAudioTrack, useRTCClient } from 'agora-rtc-react';
+import toast from 'react-hot-toast';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Icon, Button, Spinner } from '../../components';
+import { Icon, Button, Spinner, InfoTooltip } from '../../components';
 
 import { RootState } from '../../store';
 import { generateToken } from '../../store/actions/tokensActions';
@@ -40,12 +41,14 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
         await microphoneTrackRef.current.setEnabled(false);
         setMicEnabled(false);
         setUnmuteTemporarily(false);
+        toast.custom(<InfoTooltip type='danger' message='You was muted by room moderator' />);
       }
 
       if (event.message === 'Unmute' && microphoneTrackRef.current) {
         await microphoneTrackRef.current.setEnabled(true);
         setMicEnabled(true);
         setUnmuteTemporarily(true);
+        toast.custom(<InfoTooltip type='success' message='You was unmuted by room moderator' />);
       }
     };
 

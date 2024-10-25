@@ -1,8 +1,9 @@
 import { useCallback, useEffect } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
-import { Spinner } from '../components';
+import { InfoTooltip, Spinner } from '../components';
 import { RoomAudience, RoomBanner } from '../features/room';
 
 import { AppDispatch } from '../store/types';
@@ -14,6 +15,7 @@ import { Room } from '../types/global';
 import { useModal } from '../context/ModalContext';
 import { ROOM_SET_BLACKLIST, ROOM_SET_MEMBERS, ROOM_SET_REQ_AUDIO } from '../store/actions/actionTypes';
 import { useAgoraRTMContext } from '../context/RTMContext';
+import { apiGetUser } from '../services/apiUser';
 
 const SingleRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -105,6 +107,22 @@ const SingleRoom = () => {
             type: ROOM_SET_MEMBERS,
             payload: updatedMembers,
           });
+
+          const newMembers = updatedMembers.filter(
+            (updatedMember) => !members.some((member) => member.id === updatedMember.id),
+          );
+
+          const exMembers = members.filter(
+            (member) => !updatedMembers.some((updatedMember) => member.id === updatedMember.id),
+          );
+
+          newMembers.forEach((member) => {
+            toast.custom(<InfoTooltip type='success' message={`${member.name} join room`} />);
+          });
+
+          exMembers.forEach((member) => {
+            toast.custom(<InfoTooltip type='danger' message={`${member.name} left room`} />);
+          });
         }
 
         if (blackList.length !== updatedBlackList.length) {
@@ -119,6 +137,17 @@ const SingleRoom = () => {
             type: ROOM_SET_REQ_AUDIO,
             payload: updatedRequestAudio,
           });
+
+          if (user.id === room.moderator.id) {
+            const newRequests = updatedRequestAudio.filter((req) => !requestAudio.includes(req));
+            newRequests.forEach((req) => {
+              apiGetUser(req)
+                .then((user) => {
+                  toast.custom(<InfoTooltip type='info' message={`${user.name} raise hand`} />);
+                })
+                .catch((e) => console.error(e));
+            });
+          }
         }
       },
     });
