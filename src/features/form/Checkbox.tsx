@@ -4,12 +4,12 @@ import Icon from '../../components/Icon';
 
 import { IconId } from '../../types/enums';
 
-interface TextInputProps {
+interface CheckboxInputProps {
   label?: string | ReactNode;
   className?: string;
 }
 
-const TextInput: React.FC<TextInputProps & InputHTMLAttributes<HTMLInputElement>> = ({
+const Checkbox: React.FC<CheckboxInputProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'form'>> = ({
   label,
   className = '',
   ...props
@@ -31,4 +31,4 @@ const TextInput: React.FC<TextInputProps & InputHTMLAttributes<HTMLInputElement>
   );
 };
 
-export default TextInput;
+export default Checkbox;

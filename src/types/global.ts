@@ -62,9 +62,10 @@ export interface Room {
   };
   name: string;
   members: Member[];
-  membersCount: number;
   blackList: string[];
   requestAudio: string[];
+  newMemberRole: MemberRole;
+  maxRoomCapacity: number | null;
 }
 
 export type MemberRole = 'audience' | 'speaker';
@@ -94,4 +95,6 @@ export interface CreateRoomValues {
   name: string;
   description: string;
   isPrivate: boolean;
+  newMemberRole: MemberRole;
+  maxRoomCapacity: number | null;
 }

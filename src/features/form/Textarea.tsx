@@ -1,15 +1,18 @@
+import { FormikProps } from 'formik';
 import { ReactNode, TextareaHTMLAttributes } from 'react';
 
 interface TextareaProps {
   label?: string | ReactNode;
   id?: string;
   className?: string;
+  form: FormikProps<any>;
 }
 
-const Textarea: React.FC<TextareaProps & TextareaHTMLAttributes<HTMLTextAreaElement>> = ({
+const Textarea: React.FC<TextareaProps & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'form'>> = ({
   label,
   id,
   className = '',
+  form,
   ...props
 }) => {
   const hasLabel = label && id;

@@ -6,6 +6,7 @@ import { Icon, ModeratorIcon } from '../../components';
 
 import { Room } from '../../types/global';
 import { IconId } from '../../types/enums';
+import RoomCapacity from './RoomCapacity';
 
 interface RoomCardProps {
   room: Room;
@@ -22,7 +23,8 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, className = '', isModerator =
       <div className='mb-3 flex items-center gap-3'>
         {room.isPrivate && <Icon id={IconId.Lock} width='20' className='fill-gray-400' />}
         {isModerator && <ModeratorIcon />}
-        <h4 className='my-0'>{room.name}</h4>
+        <h4 className='my-0 flex-1 shrink'>{room.name}</h4>
+        <RoomCapacity membersCount={room.members.length} maxMembersCount={room.maxRoomCapacity} />
       </div>
 
       <AvatarThumbnails usersList={room.members} className='mb-4' />

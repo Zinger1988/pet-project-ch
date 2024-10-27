@@ -7,7 +7,7 @@ interface TextInputProps {
   type?: string;
 }
 
-const TextInput: React.FC<TextInputProps & InputHTMLAttributes<HTMLInputElement>> = ({
+const TextInput: React.FC<TextInputProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'form'>> = ({
   id,
   label,
   className = '',

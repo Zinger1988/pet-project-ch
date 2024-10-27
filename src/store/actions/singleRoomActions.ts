@@ -11,7 +11,7 @@ import {
 import { ROOM_CLEAR, ROOM_LOADING, ROOM_LOADED, ROOM_CLEAR_ERROR, ROOM_FAILURE } from './actionTypes';
 
 import { AppThunk } from '../types';
-import { Room } from '../../types/global';
+import { MemberRole, Room } from '../../types/global';
 
 export const fetchRoomStart = () => ({ type: ROOM_LOADING });
 export const fetchRoomFinish = (room: Room) => ({
@@ -36,9 +36,19 @@ export const roomFailure = (error: unknown) => {
 };
 
 export const handleMembership =
-  ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
+  ({
+    userId,
+    roomId,
+    mode,
+    role = 'audience',
+  }: {
+    userId: string;
+    roomId: string;
+    mode: 'add' | 'remove';
+    role?: MemberRole;
+  }): AppThunk =>
   async (dispatch) => {
-    await apiHandleMembership({ userId, roomId, mode });
+    await apiHandleMembership({ userId, roomId, mode, role });
     try {
     } catch (error) {
       dispatch(roomFailure(error));

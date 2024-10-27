@@ -42,10 +42,9 @@ export const apiOnRoomStateUpdate = ({
   const roomRef = doc(db, DB_ROOMS, id);
 
   return onSnapshot(roomRef, async (snapshot) => {
+    if (!snapshot.exists()) return;
+
     const data = snapshot.data() as RoomDTO;
-
-    if (!data) return;
-
     const membersRoles = data.members.map((member) => member.role);
     const membersReq = data.members.map((member) => {
       return getDoc(member.user);
@@ -66,7 +65,7 @@ export const apiDeleteRoom = async (roomId: string, userId: string) => {
   const userRef = doc(db, DB_USERS, userId);
 
   await updateDoc(userRef, {
-    createdRoomIds: arrayRemove(roomRef),
+    createdRoomRefs: arrayRemove(roomRef),
   });
 
   await deleteDoc(roomRef);
@@ -158,7 +157,6 @@ export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: stri
     moderator: userRef,
     blackList: [],
     members: [{ user: userRef, role: 'speaker' }],
-    membersCount: 0,
     requestAudio: [],
   });
 

@@ -9,6 +9,8 @@ import Button from '../../components/Button';
 
 import { IconId } from '../../types/enums';
 import { CreateRoomValues } from '../../types/global';
+import { ChangeEvent, useState } from 'react';
+import RoomCapacityToggle from './RoomCapacityToggle';
 
 interface CreateRoomFormProps {
   loading: boolean;
@@ -18,24 +20,42 @@ interface CreateRoomFormProps {
 
 const CreateRoomForm: React.FC<CreateRoomFormProps> = ({ loading, onSubmit, className = '' }) => {
   const { t } = useTranslation();
+  const [showRoomCapacity, setShowRoomCapacity] = useState(false);
 
   const initialValues: CreateRoomValues = {
     name: '',
     description: '',
     isPrivate: false,
+    newMemberRole: 'speaker',
+    maxRoomCapacity: null,
   };
 
   // prettier-ignore
   const validationSchema = Yup.object({
-    name: Yup
-      .string()
-      .required(t("required", { ns: "validations" }))
-      .min(3, t("validations:minLength", { count: 3 })),
-    description: Yup
-      .string()
-      .required(t("required", { ns: "validations" }))
-      .min(10, t("validations:minLength", { count: 10 }))
+    name: Yup.string()
+      .required(t('required', { ns: 'validations' }))
+      .min(3, t('validations:minLength', { count: 3 })),
+    description: Yup.string()
+      .required(t('required', { ns: 'validations' }))
+      .min(10, t('validations:minLength', { count: 10 })),
+    maxRoomCapacity: Yup.number()
+      .nullable()
+      .integer()
+      .positive()
+      .test('check-capacity', 'The minimum number of room members must be at least 2', (value) => {
+        if (!showRoomCapacity) return true;
+
+        if (value) {
+          return value >= 2;
+        }
+
+        return false;
+      }),
   });
+
+  const handleShowRoomCapacity = (event: ChangeEvent<HTMLInputElement>) => {
+    setShowRoomCapacity(event.target.checked);
+  };
 
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -60,6 +80,19 @@ const CreateRoomForm: React.FC<CreateRoomFormProps> = ({ loading, onSubmit, clas
           id='description'
           className='mb-6'
         />
+        <Field
+          component={FormControl}
+          type='select'
+          name='newMemberRole'
+          label={'Default role for new members'}
+          id='newMemberRole'
+          className='mb-6'
+          options={[
+            { value: 'speaker', label: 'Speaker' },
+            { value: 'audience', label: 'Audience' },
+          ]}
+        />
+        <RoomCapacityToggle showCapacity={showRoomCapacity} onChange={handleShowRoomCapacity} />
         <Field
           component={FormControl}
           type='checkbox'

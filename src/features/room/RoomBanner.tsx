@@ -1,4 +1,4 @@
-import { RoomAudio, RoomControls } from '.';
+import { RoomAudio, RoomCapacity, RoomControls } from '.';
 import { Avatar } from '../avatar';
 
 import { Room } from '../../types/global';
@@ -16,20 +16,21 @@ interface RoomBannerProps {
 // TODO: Handle Room Banner with custom image
 
 const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBanner, room, userId, rtmClient }) => {
-  const { id: roomId, members, moderator, name: roomName, requestAudio } = room;
+  const { id: roomId, members, moderator, name: roomName, requestAudio, newMemberRole, maxRoomCapacity } = room;
   const { id, name } = moderator;
 
   const bannerSyles = `relative p-7 rounded-xl overflow-hidden bg-gray-800 ${className}`;
-  const gridStyles = 'grid grid-cols-[auto,1fr] gap-2 relative z-10 items-center';
+  const gridStyles = 'grid grid-cols-[auto,1fr,auto] gap-2 relative z-10 items-center';
   const nameStyles = 'my-0 font-semibold text-body-xs text-white';
-  const headingStyles = 'col-span-2 mt-0 mb-1 text-white';
-  const controlsStyles = 'flex gap-4 flex-wrap col-span-2';
+  const headingStyles = 'col-span-3 mt-0 mb-1 text-white';
+  const controlsStyles = 'flex gap-4 flex-wrap col-span-3';
 
   return (
     <header className={bannerSyles}>
       <div className={gridStyles}>
         <Avatar name={name} size='xs' randomizeFill={false} />
         <p className={nameStyles}>{name}</p>
+        <RoomCapacity membersCount={members.length} maxMembersCount={maxRoomCapacity} />
         <h3 className={headingStyles}>{roomName}</h3>
         <div className={controlsStyles}>
           <RoomAudio
@@ -39,7 +40,14 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
             rtmClient={rtmClient}
             raisedHands={requestAudio}
           />
-          <RoomControls members={members} moderatorId={id} roomId={roomId} userId={userId} />
+          <RoomControls
+            maxRoomCapacity={maxRoomCapacity}
+            members={members}
+            moderatorId={id}
+            roomId={roomId}
+            userId={userId}
+            newMemberRole={newMemberRole}
+          />
         </div>
       </div>
       <img src={src} alt='Room banner' className='absolute left-0 top-0 h-full w-full object-cover opacity-30' />

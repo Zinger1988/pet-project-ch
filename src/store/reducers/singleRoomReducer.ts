@@ -42,7 +42,7 @@ const singleRoomReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         loading: false,
-        room: { ...state.room, members: action.payload, membersCount: action.payload.length },
+        room: { ...state.room, members: action.payload },
       };
     }
     case ROOM_SET_REQ_AUDIO: {

@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 import { useModal } from '../../context/ModalContext';
 import { deleteRoom, handleMembership } from '../../store/actions/singleRoomActions';
 import { AppDispatch } from '../../store/types';
-import { User } from '../../types/global';
+import { MemberRole, User } from '../../types/global';
 
 interface RoomControlsProps {
   roomId: string;
@@ -15,15 +15,25 @@ interface RoomControlsProps {
   moderatorId: string;
   members: User[];
   className?: string;
+  newMemberRole: MemberRole;
+  maxRoomCapacity: number | null;
 }
 
-const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId, members }) => {
+const RoomControls: React.FC<RoomControlsProps> = ({
+  roomId,
+  userId,
+  moderatorId,
+  members,
+  newMemberRole,
+  maxRoomCapacity,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { openModal } = useModal();
 
   let roomControls = null;
+  const isMaxCapactity = maxRoomCapacity ? members.length >= maxRoomCapacity : false;
   const isModerator = userId === moderatorId;
   const isMember = members.some((member) => {
     return member.id === userId;
@@ -44,7 +54,8 @@ const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId
   };
 
   const handleJoin = async () => {
-    await dispatch(handleMembership({ userId, roomId, mode: 'add' }));
+    if (isMaxCapactity) return;
+    await dispatch(handleMembership({ userId, roomId, mode: 'add', role: newMemberRole }));
   };
 
   const handleLeave = async () => {
@@ -65,11 +76,13 @@ const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId
     );
   } else {
     roomControls = (
-      <Button size='sm' onClick={handleJoin}>
+      <Button size='sm' onClick={handleJoin} disabled={isMaxCapactity}>
         {t('buttons.join room', { ns: 'room' })}
       </Button>
     );
   }
+
+  console.log(maxRoomCapacity ? members.length < maxRoomCapacity : false);
 
   return roomControls;
 };
