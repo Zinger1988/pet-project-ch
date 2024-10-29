@@ -5,10 +5,10 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth';
 import { auth, db } from '../firebase';
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 
 import { User } from '../types/global';
-import { DB_USERS } from './constants';
+import { DB_NOTIFICATIONS, DB_USERS } from './constants';
 
 export const apiSignIn = async (credentials: { email: string; password: string }) => {
   const { email, password } = credentials;
@@ -23,11 +23,20 @@ export const apiSignUp = async (credentials: { name: string; email: string; pass
   const { email, password } = credentials;
   const userData = await createUserWithEmailAndPassword(auth, email, password);
 
-  await setDoc(doc(db, DB_USERS, userData.user.uid), {
+  const userRef = doc(db, DB_USERS, userData.user.uid);
+  const notificationsRef = doc(db, DB_NOTIFICATIONS, userData.user.uid);
+
+  await setDoc(userRef, {
     name: credentials.name,
     email: userData.user.email,
     createdRoomRefs: [],
     joinedRoomRefs: [],
+    notificationsRef,
+  });
+
+  await setDoc(notificationsRef, {
+    userRef,
+    notifications: [],
   });
 
   return userData;

@@ -8,12 +8,22 @@ import {
   apiRequestAudio,
 } from '../../services/apiSingleRoom';
 
-import { ROOM_CLEAR, ROOM_LOADING, ROOM_LOADED, ROOM_CLEAR_ERROR, ROOM_FAILURE } from './actionTypes';
+import {
+  ROOM_CLEAR,
+  ROOM_LOADING,
+  ROOM_LOADED,
+  ROOM_CLEAR_ERROR,
+  ROOM_FAILURE,
+  ROOM_SET_MEMBERS,
+  ROOM_SET_BLACKLIST,
+  ROOM_SET_REQ_AUDIO,
+} from './actionTypes';
 
 import { AppThunk } from '../types';
-import { MemberRole, Room } from '../../types/global';
+import { Member, MemberRole, Room } from '../../types/global';
 
 export const fetchRoomStart = () => ({ type: ROOM_LOADING });
+
 export const fetchRoomFinish = (room: Room) => ({
   type: ROOM_LOADED,
   payload: room,
@@ -25,6 +35,21 @@ export const clearRoomErrors = () => ({
 
 export const clearRoom = () => ({
   type: ROOM_CLEAR,
+});
+
+export const setRoomMembers = (members: Member[]) => ({
+  type: ROOM_SET_MEMBERS,
+  payload: members,
+});
+
+export const setRoomBlacklist = (blacklistIds: string[]) => ({
+  type: ROOM_SET_BLACKLIST,
+  payload: blacklistIds,
+});
+
+export const setRoomRequestAudio = (reqAudioIds: string[]) => ({
+  type: ROOM_SET_REQ_AUDIO,
+  payload: reqAudioIds,
 });
 
 export const roomFailure = (error: unknown) => {

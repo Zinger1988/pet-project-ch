@@ -30,6 +30,7 @@ import './App.css';
 import { ModalProvider } from './context/ModalContext';
 import ConfirmModal from './features/modal/ConfirmModal';
 import AlertModal from './features/modal/AlertModal';
+import Notifications from './pages/Notifications';
 
 function App() {
   const appStyles = 'flex min-h-[100dvh] flex-col';
@@ -65,6 +66,7 @@ function App() {
               }
             >
               <Route path='profile' element={<Profile />} />
+              <Route path='notifications' element={<Notifications />} />
               <Route path='rooms'>
                 <Route index element={<Rooms />} />
                 <Route path='explore' element={<Rooms />} />

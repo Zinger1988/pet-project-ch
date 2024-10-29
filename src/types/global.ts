@@ -98,3 +98,19 @@ export interface CreateRoomValues {
   newMemberRole: MemberRole;
   maxRoomCapacity: number | null;
 }
+
+type NotificationTypes = 'roomJoin' | 'roomModerate' | 'roomBlock' | 'roomDelete' | 'roomKick' | 'alert';
+
+export interface Notification {
+  type: NotificationTypes;
+  roomId: string;
+  hasBeenRead: boolean;
+}
+
+export interface NotificationsDTO {
+  notifications: Notification[];
+}
+
+export interface Notifications extends NotificationsDTO {
+  id: string;
+}

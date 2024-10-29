@@ -28,9 +28,9 @@ const RoomControls: React.FC<RoomControlsProps> = ({
   maxRoomCapacity,
 }) => {
   const { t } = useTranslation();
+  const { openModal } = useModal();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { openModal } = useModal();
 
   let roomControls = null;
   const isMaxCapactity = maxRoomCapacity ? members.length >= maxRoomCapacity : false;
@@ -81,8 +81,6 @@ const RoomControls: React.FC<RoomControlsProps> = ({
       </Button>
     );
   }
-
-  console.log(maxRoomCapacity ? members.length < maxRoomCapacity : false);
 
   return roomControls;
 };

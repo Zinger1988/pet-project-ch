@@ -26,10 +26,10 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
   const [micEnabled, setMicEnabled] = useState(false);
   const [unmuteTemporarily, setUnmuteTemporarily] = useState(false);
   const { t } = useTranslation();
+  const { loading: tokenLoading, tokens } = useSelector((state: RootState) => state.tokensSlice);
   const dispatch = useDispatch<AppDispatch>();
   const microphoneTrackRef = useRef<null | IMicrophoneAudioTrack>(null);
-  const client = useRTCClient();
-  const { loading, tokens } = useSelector((state: RootState) => state.tokensSlice);
+  const RTCClient = useRTCClient();
   const tokenData = tokens.find((item) => item.roomId === roomId);
   const member = members.find((member) => member.id === userId);
   const isSpeaker = member?.role === 'speaker';
@@ -48,6 +48,7 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
         await microphoneTrackRef.current.setEnabled(true);
         setMicEnabled(true);
         setUnmuteTemporarily(true);
+        dispatch(requestAudio({ userId, roomId, mode: 'remove' }));
         toast.custom(<InfoTooltip type='success' message='You was unmuted by room moderator' />);
       }
     };
@@ -61,23 +62,21 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
   }, [rtmClient, roomId, userId, dispatch]);
 
   useEffect(() => {
-    const token = tokens.find((item) => item.roomId === roomId);
-
-    if (!token) {
+    if (!tokens.some((item) => item.roomId === roomId)) {
       dispatch(generateToken({ userId, roomId }));
     }
   }, [userId, roomId, tokens, dispatch]);
 
   useEffect(() => {
-    if (!tokenData || loading) return;
+    if (!tokenData || tokenLoading) return;
 
     const initAgora = async () => {
       try {
         const micTrack = await AgoraRTC.createMicrophoneAudioTrack();
         microphoneTrackRef.current = micTrack;
 
-        await client.join(process.env.REACT_APP_AGORA_APP_ID as string, roomId, tokenData.token, userId);
-        await client.publish([micTrack]);
+        await RTCClient.join(process.env.REACT_APP_AGORA_APP_ID as string, roomId, tokenData.token, userId);
+        await RTCClient.publish([micTrack]);
         await micTrack.setEnabled(false);
       } catch (error) {
         console.error("Помилка під'єднання до каналу:", error);
@@ -87,13 +86,13 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
     initAgora();
 
     return () => {
-      client.leave();
+      RTCClient.leave();
       if (microphoneTrackRef.current) {
         microphoneTrackRef.current.stop();
         microphoneTrackRef.current.close();
       }
     };
-  }, [client, roomId, userId, loading, tokenData]);
+  }, [RTCClient, roomId, userId, tokenLoading, tokenData]);
 
   const handleRiseHand = async () => {
     dispatch(requestAudio({ userId, roomId, mode: isHandRaised ? 'remove' : 'add' }));
@@ -104,10 +103,6 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
       await microphoneTrackRef.current.setEnabled(!micEnabled);
       setUnmuteTemporarily(false);
       setMicEnabled(!micEnabled);
-    }
-
-    if (!isSpeaker) {
-      setUnmuteTemporarily(false);
     }
   };
 
@@ -125,15 +120,15 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
       size='sm'
       variant={micEnabled ? 'success' : 'info'}
       className='gap-2.5 pl-4'
-      onClick={() => (loading ? undefined : toggleMicrophone())}
+      onClick={() => (tokenLoading ? undefined : toggleMicrophone())}
     >
-      {loading && (
+      {tokenLoading && (
         <>
           <Spinner size='sm' fill='white' />
           <span>{t('buttons.loading', { ns: 'room' })}...</span>
         </>
       )}
-      {!loading && (
+      {!tokenLoading && (
         <>
           <Icon id={micEnabled ? IconId.VoiceSolid : IconId.VoiceOffSolid} className='h-5 w-5 fill-white' />
           {micEnabled ? t('buttons.mute', { ns: 'room' }) : t('buttons.unmute', { ns: 'room' })}

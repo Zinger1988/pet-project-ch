@@ -13,7 +13,7 @@ import { FirebaseError } from 'firebase/app';
 import { db } from '../firebase';
 
 import { RoomDTO } from './types';
-import { CreateRoomValues, MemberDTO, MemberRole, Room, User } from '../types/global';
+import { CreateRoomValues, MemberDTO, MemberRole, Room } from '../types/global';
 import { convertRoomData } from './helpers';
 import { DB_ROOMS, DB_USERS } from './constants';
 
@@ -32,31 +32,16 @@ export const apiGetRoom = async (roomId: string) => {
   throw new FirebaseError('404', 'Room doesn`t exists');
 };
 
-export const apiOnRoomStateUpdate = ({
-  id,
-  callback,
-}: {
-  id: string;
-  callback: (members: User[], blackList: string[], requestAudio: string[]) => void;
-}) => {
+export const apiOnRoomChange = ({ id, callback }: { id: string; callback: (room: Room) => void }) => {
   const roomRef = doc(db, DB_ROOMS, id);
 
   return onSnapshot(roomRef, async (snapshot) => {
     if (!snapshot.exists()) return;
 
     const data = snapshot.data() as RoomDTO;
-    const membersRoles = data.members.map((member) => member.role);
-    const membersReq = data.members.map((member) => {
-      return getDoc(member.user);
-    });
-    const membersDocs = await Promise.all(membersReq);
-    const membersData = membersRoles.map((role, i) => ({
-      id: membersDocs[i].id,
-      role,
-      ...(membersDocs[i].data() as Omit<User, 'id'>),
-    }));
+    const room = await convertRoomData({ room: data, isDetailed: true });
 
-    callback(membersData, data.blackList, data.requestAudio);
+    callback(room);
   });
 };
 

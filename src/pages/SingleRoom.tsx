@@ -1,21 +1,17 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import toast from 'react-hot-toast';
 
-import { InfoTooltip, Spinner } from '../components';
+import { Spinner } from '../components';
 import { RoomAudience, RoomBanner } from '../features/room';
 
+import { useBlacklistChange, useMembersChange, useReqAudioChange, useSubscribeChannel } from '../hooks';
 import { AppDispatch } from '../store/types';
 import { RootState } from '../store';
 import { clearRoomErrors, clearRoom, getRoom, requestAudio } from '../store/actions/singleRoomActions';
 import { assertRoom, assertRTMClinet, assertUser } from '../types/assertions';
-import { apiOnRoomStateUpdate } from '../services/apiSingleRoom';
-import { Room } from '../types/global';
 import { useModal } from '../context/ModalContext';
-import { ROOM_SET_BLACKLIST, ROOM_SET_MEMBERS, ROOM_SET_REQ_AUDIO } from '../store/actions/actionTypes';
 import { useAgoraRTMContext } from '../context/RTMContext';
-import { apiGetUser } from '../services/apiUser';
 
 const SingleRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,7 +20,7 @@ const SingleRoom = () => {
   const { user } = useSelector((state: RootState) => state.userSlice);
   const { initialized, loading, room, error } = useSelector((state: RootState) => state.singleRoomSlice);
   const { openModal } = useModal();
-  const { rtmClient, isLoading } = useAgoraRTMContext();
+  const { rtmClient, isLoading: isRtmLoading } = useAgoraRTMContext();
 
   const spinnerStyles = 'absolute left-0 top-0 h-full w-full';
   const bannerStyles = 'mb-4 lg:mb-6';
@@ -32,17 +28,7 @@ const SingleRoom = () => {
 
   assertUser(user);
 
-  const handleBlock = useCallback(
-    (room: Room) => {
-      openModal({
-        id: 'alert',
-        headerContent: 'Warning',
-        bodyContent: `The moderator has restricted your access to the room ${room.name}`,
-      });
-    },
-    [openModal],
-  );
-
+  // remove raised hand when user leaves room
   useEffect(
     () => () => {
       // Check is event firing if DB removes an id that wasn`t in collection
@@ -65,104 +51,23 @@ const SingleRoom = () => {
     }
   }, [error, dispatch, navigate]);
 
-  useEffect(() => {
-    if (!room) return;
-
-    if (room.blackList.includes(user.id)) {
-      handleBlock(room);
-      navigate('/rooms', { replace: true });
-    }
-  }, [room, handleBlock, navigate, user]);
-
-  // Subscription on messages inside of current room via Agora RTM
-  useEffect(() => {
-    if (isLoading || !rtmClient || !room) return;
-
-    const channelSubscription = async (roomId: string, mode: 'subscribe' | 'unsubscribe') => {
-      try {
-        if (isLoading || !rtmClient) return;
-        mode === 'subscribe' ? await rtmClient?.subscribe(roomId) : await rtmClient?.unsubscribe(roomId);
-      } catch (status) {
-        console.log(status);
-      }
-    };
-
-    channelSubscription(room.id, 'subscribe');
-
-    return () => {
-      channelSubscription(room.id, 'unsubscribe');
-    };
-  }, [rtmClient, isLoading, room]);
-
-  useEffect(() => {
-    if (!room) return;
-
-    const { id, members, blackList, requestAudio } = room;
-
-    const onRoomStateUpdates = apiOnRoomStateUpdate({
-      id,
-      callback: (updatedMembers, updatedBlackList, updatedRequestAudio) => {
-        if (members.length !== updatedMembers.length) {
-          dispatch({
-            type: ROOM_SET_MEMBERS,
-            payload: updatedMembers,
-          });
-
-          const newMembers = updatedMembers.filter(
-            (updatedMember) => !members.some((member) => member.id === updatedMember.id),
-          );
-
-          const exMembers = members.filter(
-            (member) => !updatedMembers.some((updatedMember) => member.id === updatedMember.id),
-          );
-
-          newMembers.forEach((member) => {
-            toast.custom(<InfoTooltip type='success' message={`${member.name} join room`} />);
-          });
-
-          exMembers.forEach((member) => {
-            toast.custom(<InfoTooltip type='danger' message={`${member.name} left room`} />);
-          });
-        }
-
-        if (blackList.length !== updatedBlackList.length) {
-          dispatch({
-            type: ROOM_SET_BLACKLIST,
-            payload: updatedBlackList,
-          });
-        }
-
-        if (requestAudio.length !== updatedRequestAudio.length) {
-          dispatch({
-            type: ROOM_SET_REQ_AUDIO,
-            payload: updatedRequestAudio,
-          });
-
-          if (user.id === room.moderator.id) {
-            const newRequests = updatedRequestAudio.filter((req) => !requestAudio.includes(req));
-            newRequests.forEach((req) => {
-              apiGetUser(req)
-                .then((user) => {
-                  toast.custom(<InfoTooltip type='info' message={`${user.name} raise hand`} />);
-                })
-                .catch((e) => console.error(e));
-            });
-          }
-        }
-      },
-    });
-
-    return onRoomStateUpdates;
-  }, [room, dispatch]);
+  useSubscribeChannel({ isRtmLoading, rtmClient, room });
+  useMembersChange(room);
+  useBlacklistChange(room);
+  useReqAudioChange(room);
 
   if (!initialized) return null;
-  if (loading || isLoading) return <Spinner className={spinnerStyles} size='lg' />;
+  if (loading || isRtmLoading) return <Spinner className={spinnerStyles} size='lg' />;
 
   assertRoom(room);
   assertRTMClinet(rtmClient);
 
   if (room.blackList.includes(user.id)) {
-    handleBlock(room);
+    openModal({
+      id: 'alert',
+      headerContent: 'Warning',
+      bodyContent: `The moderator has restricted your access to the room ${room.name}`,
+    });
     return <Navigate to='/rooms' replace />;
   }
 
