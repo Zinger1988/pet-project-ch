@@ -5,6 +5,7 @@ import {
   apiGetRoom,
   apiHandleBlackList,
   apiHandleMembership,
+  apiHandleRole,
   apiRequestAudio,
 } from '../../services/apiSingleRoom';
 
@@ -17,10 +18,11 @@ import {
   ROOM_SET_MEMBERS,
   ROOM_SET_BLACKLIST,
   ROOM_SET_REQ_AUDIO,
+  ROOM_SET_MODERATORS,
 } from './actionTypes';
 
 import { AppThunk } from '../types';
-import { Member, MemberRole, Room } from '../../types/global';
+import { Member, MemberRole, Room, User } from '../../types/global';
 
 export const fetchRoomStart = () => ({ type: ROOM_LOADING });
 
@@ -45,6 +47,11 @@ export const setRoomMembers = (members: Member[]) => ({
 export const setRoomBlacklist = (blacklistIds: string[]) => ({
   type: ROOM_SET_BLACKLIST,
   payload: blacklistIds,
+});
+
+export const setRoomModerators = (moderators: User[]) => ({
+  type: ROOM_SET_MODERATORS,
+  payload: moderators,
 });
 
 export const setRoomRequestAudio = (reqAudioIds: string[]) => ({
@@ -119,6 +126,16 @@ export const deleteRoom =
     try {
       await apiDeleteRoom(roomId, userId);
       dispatch(clearRoom());
+    } catch (error) {
+      dispatch(roomFailure(error));
+    }
+  };
+
+export const handleRole =
+  ({ userId, roomId, role }: { userId: string; roomId: string; role: MemberRole }): AppThunk =>
+  async (dispatch) => {
+    await apiHandleRole({ userId, roomId, role });
+    try {
     } catch (error) {
       dispatch(roomFailure(error));
     }

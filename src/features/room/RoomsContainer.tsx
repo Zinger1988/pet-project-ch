@@ -23,10 +23,6 @@ const RoomsContainer: React.FC<RoomsContainerProps> = ({ title, loading, rooms }
 
   assertUser(user);
 
-  const sortedRooms = [...rooms].sort((a, _) => {
-    return a.moderator.id === user.id ? -1 : 1;
-  });
-
   const blank = (
     <>
       <img className={imgStyles} src={blankImg} alt='A sad woman sitting on the windowsill' />
@@ -46,8 +42,8 @@ const RoomsContainer: React.FC<RoomsContainerProps> = ({ title, loading, rooms }
     <>
       <h1 className={headingStyles}>{title}</h1>
       <div className={containerStyles}>
-        {sortedRooms.map((room) => (
-          <RoomCard key={room.id} room={room} isModerator={room.moderator.id === user.id} />
+        {rooms.map((room) => (
+          <RoomCard key={room.id} room={room} isModerator={room.moderators.some((m) => m.id === user.id)} />
         ))}
       </div>
     </>

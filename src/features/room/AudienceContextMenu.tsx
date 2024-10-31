@@ -1,22 +1,36 @@
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ContextMenu, Icon } from '../../components';
 
-import { handleBlacklist, requestAudio } from '../../store/actions/singleRoomActions';
+import { handleBlacklist, handleRole, requestAudio } from '../../store/actions/singleRoomActions';
 import { AppDispatch } from '../../store/types';
 import { IconId } from '../../types/enums';
 import { useAgoraRTMContext } from '../../context/RTMContext';
 import { useModal } from '../../context/ModalContext';
-import { Room } from '../../types/global';
+import { Room, NotificationTypes, AlertNotification, RoomNotification, MemberRole } from '../../types/global';
+import { addNotification } from '../../store/actions/notificationActions';
+import { handleModerators } from '../../store/actions/roomsActions';
 
 interface AudienceContextMenuProps {
   memberId: string;
   hasAudio: boolean;
   room: Room;
   raisedHand: boolean;
+  isMember: boolean;
+  isModerator: boolean;
+  role: MemberRole | 'guest';
 }
 
-const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, hasAudio, room, raisedHand }) => {
+const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({
+  memberId,
+  hasAudio,
+  room,
+  raisedHand,
+  isMember,
+  isModerator,
+  role,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const { rtmClient } = useAgoraRTMContext();
   const { openModal } = useModal();
@@ -28,6 +42,7 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, has
   const optionIconStyles = 'h-6 w-6';
   const buttonStyles = 'bg-gray-800 rounded-full flex items-center justify-center hover:[&>svg]:fill-white';
   const isBlocked = room.blackList.includes(memberId);
+  const canModerate = isMember && !isBlocked;
 
   const handleMute = async () => {
     if (rtmClient) {
@@ -58,10 +73,55 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, has
       callbacks: {
         onConfirm: () => {
           const mode = isBlocked ? 'remove' : 'add';
+          dispatch(
+            addNotification(memberId, {
+              id: uuidv4(),
+              type: NotificationTypes.Alert,
+              message: `The moderator has ${isBlocked ? 'restrored' : 'restricted'} your access to the room ${room.name}`,
+            }),
+          );
           dispatch(handleBlacklist({ userId: memberId, roomId: room.id, mode }));
         },
       },
     });
+  };
+
+  const handleModeratorRightsChange = () => {
+    isModerator && dispatch(handleModerators({ userId: memberId, roomId: room.id, mode: 'remove' }));
+
+    type NonIdentifiedNotification<T> = Omit<T, 'id'>;
+
+    const notificationOptions:
+      | NonIdentifiedNotification<AlertNotification>
+      | NonIdentifiedNotification<RoomNotification> = isModerator
+      ? {
+          type: NotificationTypes.Alert,
+          message: `Unmoderate ${room.name}`,
+        }
+      : {
+          type: NotificationTypes.Moderate,
+          roomName: room.name,
+          roomId: room.id,
+        };
+
+    dispatch(
+      addNotification(memberId, {
+        id: uuidv4(),
+        ...notificationOptions,
+      }),
+    );
+  };
+
+  const handleRoleChange = () => {
+    const nextRole = role === 'speaker' ? 'audience' : 'speaker';
+    dispatch(handleRole({ userId: memberId, roomId: room.id, role: nextRole }));
+    dispatch(
+      addNotification(memberId, {
+        id: uuidv4(),
+        type: NotificationTypes.Alert,
+        message: `The moderator has changed your role to ${nextRole} in room: ${room.name}`,
+      }),
+    );
   };
 
   return (
@@ -84,12 +144,30 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({ memberId, has
                 <span>Mute</span>
               </ContextMenu.Option>
             )}
+            {role !== 'guest' && (
+              <ContextMenu.Option className={optionStyles} onClick={handleRoleChange}>
+                <Icon
+                  id={role === 'speaker' ? IconId.SoundOff : IconId.Voice}
+                  className={`${optionIconStyles} fill-gray-500`}
+                />
+                <span>Switch to {role === 'speaker' ? 'audience' : 'speaker'} role</span>
+              </ContextMenu.Option>
+            )}
+            {canModerate && (
+              <ContextMenu.Option className={optionStyles} onClick={handleModeratorRightsChange}>
+                <Icon
+                  id={isModerator ? IconId.ShieldCancel : IconId.ShieldOk}
+                  className={`${optionIconStyles} fill-gray-500`}
+                />
+                <span>{isModerator ? 'Revoke' : 'Grant'} moderator rights</span>
+              </ContextMenu.Option>
+            )}
             <ContextMenu.Option
               onClick={handleBlock}
               className={`${optionStyles} ${isBlocked ? 'text-green-500' : 'text-red-500'}`}
             >
               <Icon
-                id={isBlocked ? IconId.ShieldOk : IconId.ShieldCancel}
+                id={isBlocked ? IconId.CheckCircle : IconId.CancelSquare}
                 className={`${optionIconStyles} ${isBlocked ? 'fill-green-500' : 'fill-red-500'}`}
               />
               <span>{isBlocked ? 'Unblock' : 'Block'} user</span>

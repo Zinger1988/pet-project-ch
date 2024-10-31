@@ -12,7 +12,7 @@ import { MemberRole, User } from '../../types/global';
 interface RoomControlsProps {
   roomId: string;
   userId: string;
-  moderatorId: string;
+  moderators: User[];
   members: User[];
   className?: string;
   newMemberRole: MemberRole;
@@ -22,7 +22,7 @@ interface RoomControlsProps {
 const RoomControls: React.FC<RoomControlsProps> = ({
   roomId,
   userId,
-  moderatorId,
+  moderators,
   members,
   newMemberRole,
   maxRoomCapacity,
@@ -34,7 +34,7 @@ const RoomControls: React.FC<RoomControlsProps> = ({
 
   let roomControls = null;
   const isMaxCapactity = maxRoomCapacity ? members.length >= maxRoomCapacity : false;
-  const isModerator = userId === moderatorId;
+  const isModerator = moderators.some((m) => m.id === userId);
   const isMember = members.some((member) => {
     return member.id === userId;
   });

@@ -12,6 +12,8 @@ import { clearRoomErrors, clearRoom, getRoom, requestAudio } from '../store/acti
 import { assertRoom, assertRTMClinet, assertUser } from '../types/assertions';
 import { useModal } from '../context/ModalContext';
 import { useAgoraRTMContext } from '../context/RTMContext';
+import useModeratorsChange from '../hooks/useModeratorsChange';
+import useRolesChange from '../hooks/useRolesChange';
 
 const SingleRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,6 +57,8 @@ const SingleRoom = () => {
   useMembersChange(room);
   useBlacklistChange(room);
   useReqAudioChange(room);
+  useModeratorsChange(room);
+  useRolesChange(room);
 
   if (!initialized) return null;
   if (loading || isRtmLoading) return <Spinner className={spinnerStyles} size='lg' />;
@@ -77,7 +81,7 @@ const SingleRoom = () => {
       <p className={descriptionStyles}>{room.description}</p>
       <RoomAudience
         userId={user.id}
-        moderatorId={room.moderator.id}
+        moderators={room.moderators}
         members={room.members}
         raisedHands={room.requestAudio}
       />

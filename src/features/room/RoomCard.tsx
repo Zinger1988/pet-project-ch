@@ -30,8 +30,8 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, className = '', isModerator =
       <AvatarThumbnails usersList={room.members} className='mb-4' />
 
       <div className={moderatorStyles}>
-        <Avatar name={room.moderator.name} size='xs' />
-        <p className='text-body-xs my-0'>{room.moderator.name}</p>
+        <Avatar name={room.createdBy.name} size='xs' />
+        <p className='text-body-xs my-0'>{room.createdBy.name}</p>
       </div>
     </Link>
   );

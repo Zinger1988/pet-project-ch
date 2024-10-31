@@ -1,7 +1,7 @@
 import { FirebaseError } from 'firebase/app';
 
 import { apiGetRooms } from '../../services/apiRooms';
-import { apiCreateRoom } from '../../services/apiSingleRoom';
+import { apiCreateRoom, apiHandleModerator } from '../../services/apiSingleRoom';
 import { CreateRoomValues, Room } from '../../types/global';
 import { AppThunk } from '../types';
 import { ROOMS_LOADED, ROOMS_LOADING, ROOMS_FAILURE, ROOMS_CLEAR_ERROR, ROOMS_CLEAR } from './actionTypes';
@@ -38,6 +38,16 @@ export const сlearRoomsError = () => {
 export const сlearRooms = () => {
   return { type: ROOMS_CLEAR };
 };
+
+export const handleModerators =
+  ({ userId, roomId, mode }: { userId: string; roomId: string; mode: 'add' | 'remove' }): AppThunk =>
+  async (dispatch) => {
+    try {
+      await apiHandleModerator({ userId, roomId, mode });
+    } catch (error) {
+      dispatch(roomsFailure(error));
+    }
+  };
 
 export const getRooms =
   ({ userId, userRooms = false }: { userId: string; userRooms?: boolean }): AppThunk =>

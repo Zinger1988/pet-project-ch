@@ -16,8 +16,16 @@ interface RoomBannerProps {
 // TODO: Handle Room Banner with custom image
 
 const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBanner, room, userId, rtmClient }) => {
-  const { id: roomId, members, moderator, name: roomName, requestAudio, newMemberRole, maxRoomCapacity } = room;
-  const { id, name } = moderator;
+  const {
+    id: roomId,
+    members,
+    moderators,
+    name: roomName,
+    requestAudio,
+    newMemberRole,
+    maxRoomCapacity,
+    createdBy,
+  } = room;
 
   const bannerSyles = `relative p-7 rounded-xl overflow-hidden bg-gray-800 ${className}`;
   const gridStyles = 'grid grid-cols-[auto,1fr,auto] gap-2 relative z-10 items-center';
@@ -28,8 +36,8 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
   return (
     <header className={bannerSyles}>
       <div className={gridStyles}>
-        <Avatar name={name} size='xs' randomizeFill={false} />
-        <p className={nameStyles}>{name}</p>
+        <Avatar name={createdBy.name} size='xs' randomizeFill={false} />
+        <p className={nameStyles}>{createdBy.name}</p>
         <RoomCapacity membersCount={members.length} maxMembersCount={maxRoomCapacity} />
         <h3 className={headingStyles}>{roomName}</h3>
         <div className={controlsStyles}>
@@ -39,11 +47,12 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
             members={members}
             rtmClient={rtmClient}
             raisedHands={requestAudio}
+            moderators={moderators}
           />
           <RoomControls
             maxRoomCapacity={maxRoomCapacity}
             members={members}
-            moderatorId={id}
+            moderators={moderators}
             roomId={roomId}
             userId={userId}
             newMemberRole={newMemberRole}

@@ -11,7 +11,7 @@ import { generateToken } from '../../store/actions/tokensActions';
 import { requestAudio } from '../../store/actions/singleRoomActions';
 import { AppDispatch } from '../../store/types';
 import { IconId } from '../../types/enums';
-import { Member } from '../../types/global';
+import { Member, User } from '../../types/global';
 import { RTMClient } from 'agora-rtm-sdk';
 
 interface RoomAudioProps {
@@ -20,9 +20,10 @@ interface RoomAudioProps {
   members: Member[];
   rtmClient: RTMClient;
   raisedHands: string[];
+  moderators: User[];
 }
 
-const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClient, raisedHands }) => {
+const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClient, raisedHands, moderators }) => {
   const [micEnabled, setMicEnabled] = useState(false);
   const [unmuteTemporarily, setUnmuteTemporarily] = useState(false);
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
   const RTCClient = useRTCClient();
   const tokenData = tokens.find((item) => item.roomId === roomId);
   const member = members.find((member) => member.id === userId);
-  const isSpeaker = member?.role === 'speaker';
+  const isSpeaker = member?.role === 'speaker' || moderators.some((m) => m.id === userId);
   const isHandRaised = raisedHands.includes(userId);
 
   useEffect(() => {

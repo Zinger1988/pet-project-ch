@@ -48,18 +48,10 @@ export interface RemoteUser extends User {
 
 export interface Room {
   id: string;
-  createdBy: {
-    id: string;
-    name: string;
-    email: string;
-  };
+  createdBy: User;
   description: string;
   isPrivate: boolean;
-  moderator: {
-    id: string;
-    name: string;
-    email: string;
-  };
+  moderators: User[];
   name: string;
   members: Member[];
   blackList: string[];
@@ -99,18 +91,30 @@ export interface CreateRoomValues {
   maxRoomCapacity: number | null;
 }
 
-type NotificationTypes = 'roomJoin' | 'roomModerate' | 'roomBlock' | 'roomDelete' | 'roomKick' | 'alert';
+export enum NotificationTypes {
+  Join = 'join',
+  Moderate = 'moderate',
+  Alert = 'alert',
+}
 
 export interface Notification {
-  type: NotificationTypes;
-  roomId: string;
-  hasBeenRead: boolean;
-}
-
-export interface NotificationsDTO {
-  notifications: Notification[];
-}
-
-export interface Notifications extends NotificationsDTO {
   id: string;
+  hasBeenRead?: boolean;
+}
+
+export interface AlertNotification extends Notification {
+  type: 'alert';
+  message: string;
+}
+
+export interface RoomNotification extends Notification {
+  type: 'moderate' | 'join';
+  roomName: string;
+  roomId: string;
+}
+
+export type AppNotification = AlertNotification | RoomNotification;
+
+export interface AppNotificationDTO {
+  notifications: AppNotification[];
 }

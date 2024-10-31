@@ -8,14 +8,17 @@ import { Footer, Header, Sidebar } from './';
 import { RootState } from '../store';
 import { assertUser } from '../types/assertions';
 import { AgoraRTMContextProvider } from '../context/RTMContext';
+import useNotificationChange from '../hooks/useNotificationChange';
 
 AgoraRTC.setLogLevel(3);
 const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 
 const AuthLayout: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.userSlice);
+  const { notifications } = useSelector((state: RootState) => state.notificationsSlice);
 
   assertUser(user);
+  useNotificationChange(notifications);
 
   const mainStyles = 'flex-grow pt-20 lg:pt-28';
   const containerStyles = `mb-16 max-w-screen-xl items-start gap-6 md:grid md:grid-cols-[14rem,1fr] lg:grid-cols-[20rem,1fr] lg:gap-12`;

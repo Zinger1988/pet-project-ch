@@ -4,11 +4,11 @@ import { IconId } from '../types/enums';
 import { Icon } from '.';
 
 type BaseProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   variant?: 'primary' | 'secondary' | 'info' | 'success' | 'danger';
   appearance?: 'solid' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xs';
   icon?: IconId;
   iconPosition?: 'left' | 'right';
   iconClassName?: string;
@@ -39,6 +39,7 @@ const Button = ({
   const buttonStylesMap = {
     base: 'rounded-full relative inline-flex items-center justify-center font-heading font-semibold transition-all text-black no-underline before:absolute before:left-0 before:top-0 before:w-full before:h-full before:rounded-full before:border-transparent before:transition-all',
     size: {
+      xs: 'py-1.5 px-4 min-w-[4rem] font-medium gap-2 text-body-xs before:border-[1px] hover:before:left-[-5px] hover:before:top-[-5px] hover:before:w-[calc(100%+10px)] hover:before:h-[calc(100%+10px)] ',
       sm: 'py-2.5 px-5 min-w-[6rem] gap-2 text-body-sm before:border-[1px] hover:before:left-[-5px] hover:before:top-[-5px] hover:before:w-[calc(100%+10px)] hover:before:h-[calc(100%+10px)] ',
       md: 'py-4 px-6 min-w-[8rem] gap-3 text-body before:border-2 hover:before:left-[-7px] hover:before:top-[-7px] hover:before:w-[calc(100%+14px)] hover:before:h-[calc(100%+14px)] ',
       lg: 'py-5 px-8 min-w-[10rem] gap-3 text-body before:border-2 hover:before:left-[-8px] hover:before:top-[-8px] hover:before:w-[calc(100%+16px)] hover:before:h-[calc(100%+16px)] ',
@@ -74,6 +75,7 @@ const Button = ({
 
   const iconStylesMap = {
     size: {
+      xs: 'w-4 h-4',
       sm: 'w-5 h-5',
       md: 'w-6 h-6',
       lg: 'w-7 h-7',

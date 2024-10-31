@@ -134,12 +134,30 @@ export const apiHandleBlackList = async ({
   }
 };
 
+export const apiHandleRole = async ({ userId, roomId, role }: { userId: string; roomId: string; role: MemberRole }) => {
+  const roomRef = doc(db, DB_ROOMS, roomId);
+
+  try {
+    const roomDoc = await getDoc(roomRef);
+    const { members } = roomDoc.data() as RoomDTO;
+    const updatedMembers = members.map((m) => {
+      return m.user.id === userId ? { ...m, role } : m;
+    });
+
+    await updateDoc(roomRef, {
+      members: updatedMembers,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: string }) => {
   const userRef = await doc(db, DB_USERS, values.createdBy);
   const roomRef = await addDoc(collection(db, DB_ROOMS), {
     ...values,
     createdBy: userRef,
-    moderator: userRef,
+    moderators: [userRef],
     blackList: [],
     members: [{ user: userRef, role: 'speaker' }],
     requestAudio: [],
@@ -164,5 +182,21 @@ export const apiRequestAudio = async ({
   const roomRef = await doc(db, DB_ROOMS, roomId);
   await updateDoc(roomRef, {
     requestAudio: mode === 'add' ? arrayUnion(userId) : arrayRemove(userId),
+  });
+};
+
+export const apiHandleModerator = async ({
+  userId,
+  roomId,
+  mode,
+}: {
+  userId: string;
+  roomId: string;
+  mode: 'add' | 'remove';
+}) => {
+  const userRef = await doc(db, DB_USERS, userId);
+  const roomRef = await doc(db, DB_ROOMS, roomId);
+  await updateDoc(roomRef, {
+    moderators: mode === 'add' ? arrayUnion(userRef) : arrayRemove(userRef),
   });
 };
