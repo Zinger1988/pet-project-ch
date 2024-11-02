@@ -4,6 +4,7 @@ import {
   apiDeleteRoom,
   apiGetRoom,
   apiHandleBlackList,
+  apiHandleCloseRoom,
   apiHandleMembership,
   apiHandleRole,
   apiRequestAudio,
@@ -19,6 +20,7 @@ import {
   ROOM_SET_BLACKLIST,
   ROOM_SET_REQ_AUDIO,
   ROOM_SET_MODERATORS,
+  ROOM_SET_CLOSED,
 } from './actionTypes';
 
 import { AppThunk } from '../types';
@@ -47,6 +49,11 @@ export const setRoomMembers = (members: Member[]) => ({
 export const setRoomBlacklist = (blacklistIds: string[]) => ({
   type: ROOM_SET_BLACKLIST,
   payload: blacklistIds,
+});
+
+export const setRoomClosed = (closed: boolean) => ({
+  type: ROOM_SET_CLOSED,
+  payload: closed,
 });
 
 export const setRoomModerators = (moderators: User[]) => ({
@@ -135,6 +142,16 @@ export const handleRole =
   ({ userId, roomId, role }: { userId: string; roomId: string; role: MemberRole }): AppThunk =>
   async (dispatch) => {
     await apiHandleRole({ userId, roomId, role });
+    try {
+    } catch (error) {
+      dispatch(roomFailure(error));
+    }
+  };
+
+export const handleCloseRoom =
+  ({ roomId, mode }: { roomId: string; mode: 'open' | 'close' }): AppThunk =>
+  async (dispatch) => {
+    await apiHandleCloseRoom({ roomId, mode });
     try {
     } catch (error) {
       dispatch(roomFailure(error));

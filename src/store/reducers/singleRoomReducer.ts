@@ -10,6 +10,7 @@ import {
   ROOM_SET_MEMBERS,
   ROOM_SET_REQ_AUDIO,
   ROOM_SET_MODERATORS,
+  ROOM_SET_CLOSED,
 } from '../actions/actionTypes';
 
 export type SingleRoomState = {
@@ -36,6 +37,12 @@ const singleRoomReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         room: { ...state.room, blackList: action.payload },
+      };
+    }
+    case ROOM_SET_CLOSED: {
+      return {
+        ...state,
+        room: { ...state.room, closed: action.payload },
       };
     }
     case ROOM_SET_MODERATORS: {

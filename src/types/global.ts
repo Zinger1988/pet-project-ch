@@ -58,6 +58,7 @@ export interface Room {
   requestAudio: string[];
   newMemberRole: MemberRole;
   maxRoomCapacity: number | null;
+  closed: boolean;
 }
 
 export type MemberRole = 'audience' | 'speaker';

@@ -200,3 +200,10 @@ export const apiHandleModerator = async ({
     moderators: mode === 'add' ? arrayUnion(userRef) : arrayRemove(userRef),
   });
 };
+
+export const apiHandleCloseRoom = async ({ roomId, mode }: { roomId: string; mode: 'open' | 'close' }) => {
+  const roomRef = await doc(db, DB_ROOMS, roomId);
+  await updateDoc(roomRef, {
+    closed: mode === 'close',
+  });
+};

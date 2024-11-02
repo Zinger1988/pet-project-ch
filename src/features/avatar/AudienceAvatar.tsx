@@ -5,7 +5,7 @@ import { IconId } from '../../types/enums';
 import { User, RemoteUser, MemberRole } from '../../types/global';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { assertCondition, assertRoom } from '../../types/assertions';
+import { assertRoom } from '../../types/assertions';
 
 interface AudienceAvatarProps {
   member: User | RemoteUser;
@@ -38,6 +38,7 @@ const AudienceAvatar: React.FC<AudienceAvatarProps> = ({
   const isMemberHasModeratorRights = moderators.some((m) => m.id === member.id);
   const isBlocked = room.blackList.includes(member.id);
   const isMember = room.members.some((m) => m.id === member.id);
+  const isMemberCreator = room.createdBy.id === member.id;
   const role = room.members.reduce<MemberRole | 'guest'>((acc, cur) => {
     return cur.id === member.id ? cur.role : acc;
   }, 'guest');
@@ -59,7 +60,7 @@ const AudienceAvatar: React.FC<AudienceAvatarProps> = ({
         </div>
       )}
       {isMemberHasModeratorRights && <ModeratorIcon className={ModeratorIconStyles} />}
-      {isModerator && (
+      {isModerator && !isMemberCreator && (
         <AudienceContextMenu
           memberId={member.id}
           isMember={isMember}

@@ -144,7 +144,7 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({
                 <span>Mute</span>
               </ContextMenu.Option>
             )}
-            {role !== 'guest' && (
+            {canModerate && !isModerator && (
               <ContextMenu.Option className={optionStyles} onClick={handleRoleChange}>
                 <Icon
                   id={role === 'speaker' ? IconId.SoundOff : IconId.Voice}

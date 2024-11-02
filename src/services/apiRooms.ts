@@ -8,9 +8,20 @@ import { DB_ROOMS, DB_USERS } from './constants';
 
 export const apiGetRooms = async ({ userId, userRooms = false }: { userId: string; userRooms?: boolean }) => {
   const rooms = await getUserRooms(userId, userRooms);
-  const roomsData = rooms.map((room: RoomDTO) => convertRoomData({ room }));
+  const roomsData = await Promise.all(rooms.map((room: RoomDTO) => convertRoomData({ room })));
 
-  return Promise.all(roomsData);
+  if (!userRooms) {
+    const nonUserRooms = roomsData.filter((room) => {
+      const isClosed = room.closed;
+      const isMember = room.members.some((m) => m.id === userId);
+
+      return !isClosed && !isMember;
+    });
+
+    return nonUserRooms;
+  }
+
+  return roomsData;
 };
 
 export const getUserRooms = async (userId: string, userRooms: boolean = false) => {

@@ -14,6 +14,7 @@ import { useModal } from '../context/ModalContext';
 import { useAgoraRTMContext } from '../context/RTMContext';
 import useModeratorsChange from '../hooks/useModeratorsChange';
 import useRolesChange from '../hooks/useRolesChange';
+import useCloseRoomChange from '../hooks/useCloseRoomChange';
 
 const SingleRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -59,6 +60,7 @@ const SingleRoom = () => {
   useReqAudioChange(room);
   useModeratorsChange(room);
   useRolesChange(room);
+  useCloseRoomChange(room);
 
   if (!initialized) return null;
   if (loading || isRtmLoading) return <Spinner className={spinnerStyles} size='lg' />;

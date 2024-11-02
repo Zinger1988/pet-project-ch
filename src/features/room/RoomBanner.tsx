@@ -25,6 +25,7 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
     newMemberRole,
     maxRoomCapacity,
     createdBy,
+    closed,
   } = room;
 
   const bannerSyles = `relative p-7 rounded-xl overflow-hidden bg-gray-800 ${className}`;
@@ -52,10 +53,12 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
           <RoomControls
             maxRoomCapacity={maxRoomCapacity}
             members={members}
-            moderators={moderators}
+            createdBy={createdBy}
             roomId={roomId}
             userId={userId}
             newMemberRole={newMemberRole}
+            moderators={moderators}
+            isRoomClosed={closed}
           />
         </div>
       </div>
