@@ -7,6 +7,7 @@ import {
   apiHandleCloseRoom,
   apiHandleMembership,
   apiHandleRole,
+  apiJoinRequest,
   apiRequestAudio,
 } from '../../services/apiSingleRoom';
 
@@ -21,6 +22,7 @@ import {
   ROOM_SET_REQ_AUDIO,
   ROOM_SET_MODERATORS,
   ROOM_SET_CLOSED,
+  ROOM_SET_JOIN_REQUESTS,
 } from './actionTypes';
 
 import { AppThunk } from '../types';
@@ -51,9 +53,14 @@ export const setRoomBlacklist = (blacklistIds: string[]) => ({
   payload: blacklistIds,
 });
 
-export const setRoomClosed = (closed: boolean) => ({
+export const setJoinRequests = (joinRequests: { userId: string; userName: string }[]) => ({
+  type: ROOM_SET_JOIN_REQUESTS,
+  payload: joinRequests,
+});
+
+export const setRoomClosed = (isClosed: boolean) => ({
   type: ROOM_SET_CLOSED,
-  payload: closed,
+  payload: isClosed,
 });
 
 export const setRoomModerators = (moderators: User[]) => ({
@@ -152,6 +159,28 @@ export const handleCloseRoom =
   ({ roomId, mode }: { roomId: string; mode: 'open' | 'close' }): AppThunk =>
   async (dispatch) => {
     await apiHandleCloseRoom({ roomId, mode });
+    try {
+    } catch (error) {
+      dispatch(roomFailure(error));
+    }
+  };
+
+export const handleJoinRequest =
+  ({
+    roomId,
+    userId,
+    userName,
+    mode,
+    roomName,
+  }: {
+    roomId: string;
+    userId: string;
+    userName: string;
+    roomName: string;
+    mode: 'add' | 'remove';
+  }): AppThunk =>
+  async (dispatch) => {
+    await apiJoinRequest({ roomId, userId, roomName, userName, mode });
     try {
     } catch (error) {
       dispatch(roomFailure(error));

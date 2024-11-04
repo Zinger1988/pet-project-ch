@@ -44,4 +44,5 @@ export enum IconId {
   Cancel = 'CANCEL',
   RaiseHand = 'RAISE_HAND',
   MultipleUsers = 'MULTIPLE_USERS',
+  AddUser = 'ADD_USER',
 }

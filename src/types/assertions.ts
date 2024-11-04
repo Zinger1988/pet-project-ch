@@ -1,5 +1,5 @@
 import { RTMClient } from 'agora-rtm-sdk';
-import { AppNotification, Room, User } from './global';
+import { UserNotification, Room, User } from './global';
 
 export function assertRoom(room: Room | null): asserts room is Room {
   if (room === null) {
@@ -14,8 +14,8 @@ export function assertUser(user: User | null): asserts user is User {
 }
 
 export function assertNotifications(
-  notifications: AppNotification[] | null,
-): asserts notifications is AppNotification[] {
+  notifications: UserNotification[] | null,
+): asserts notifications is UserNotification[] {
   if (!notifications) {
     throw new Error('value should have been a Notifications type.');
   }

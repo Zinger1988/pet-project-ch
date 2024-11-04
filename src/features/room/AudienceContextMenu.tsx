@@ -8,7 +8,7 @@ import { AppDispatch } from '../../store/types';
 import { IconId } from '../../types/enums';
 import { useAgoraRTMContext } from '../../context/RTMContext';
 import { useModal } from '../../context/ModalContext';
-import { Room, NotificationTypes, AlertNotification, RoomNotification, MemberRole } from '../../types/global';
+import { Room, NotificationTypes, AlertNotification, RoleNotification, MemberRole } from '../../types/global';
 import { addNotification } from '../../store/actions/notificationActions';
 import { handleModerators } from '../../store/actions/roomsActions';
 
@@ -37,8 +37,8 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({
 
   const containerStyles = 'z-50 absolute bottom-0 right-0 translate-x-1/3 translate-y-1/3';
   const toggleIconStyles = 'h-6 w-6 fill-gray-400';
-  const listStyles = 'min-w-[10rem] rounded-md bg-gray-800 py-1 shadow-md mt-2';
-  const optionStyles = 'text-body flex cursor-pointer items-center gap-2 px-3 py-1.5 hover:bg-gray-700/50';
+  const listStyles = 'min-w-[10rem] rounded-md bg-gray-800 py-1.5 shadow-md mt-2';
+  const optionStyles = 'text-body flex cursor-pointer items-center gap-2 pl-3 pr-4 py-1.5 hover:bg-gray-700/50';
   const optionIconStyles = 'h-6 w-6';
   const buttonStyles = 'bg-gray-800 rounded-full flex items-center justify-center hover:[&>svg]:fill-white';
   const isBlocked = room.blackList.includes(memberId);
@@ -93,7 +93,7 @@ const AudienceContextMenu: React.FC<AudienceContextMenuProps> = ({
 
     const notificationOptions:
       | NonIdentifiedNotification<AlertNotification>
-      | NonIdentifiedNotification<RoomNotification> = isModerator
+      | NonIdentifiedNotification<RoleNotification> = isModerator
       ? {
           type: NotificationTypes.Alert,
           message: `Unmoderate ${room.name}`,

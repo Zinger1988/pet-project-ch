@@ -58,7 +58,8 @@ export interface Room {
   requestAudio: string[];
   newMemberRole: MemberRole;
   maxRoomCapacity: number | null;
-  closed: boolean;
+  isClosed: boolean;
+  joinRequests: JoinRequestNotification[];
 }
 
 export type MemberRole = 'audience' | 'speaker';
@@ -93,9 +94,10 @@ export interface CreateRoomValues {
 }
 
 export enum NotificationTypes {
-  Join = 'join',
+  JoinRoom = 'joinRoom',
   Moderate = 'moderate',
   Alert = 'alert',
+  JoinRequest = 'joinRequest',
 }
 
 export interface Notification {
@@ -108,14 +110,22 @@ export interface AlertNotification extends Notification {
   message: string;
 }
 
-export interface RoomNotification extends Notification {
-  type: 'moderate' | 'join';
+export interface RoleNotification extends Notification {
+  type: 'moderate' | 'joinRoom';
   roomName: string;
   roomId: string;
 }
 
-export type AppNotification = AlertNotification | RoomNotification;
+export interface JoinRequestNotification extends Notification {
+  type: NotificationTypes.JoinRequest;
+  userId: string;
+  userName: string;
+  roomId: string;
+  roomName: string;
+}
+
+export type UserNotification = AlertNotification | RoleNotification;
 
 export interface AppNotificationDTO {
-  notifications: AppNotification[];
+  notifications: UserNotification[];
 }

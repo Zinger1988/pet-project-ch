@@ -12,7 +12,7 @@ export const apiGetRooms = async ({ userId, userRooms = false }: { userId: strin
 
   if (!userRooms) {
     const nonUserRooms = roomsData.filter((room) => {
-      const isClosed = room.closed;
+      const isClosed = room.isClosed;
       const isMember = room.members.some((m) => m.id === userId);
 
       return !isClosed && !isMember;

@@ -15,6 +15,9 @@ import { useAgoraRTMContext } from '../context/RTMContext';
 import useModeratorsChange from '../hooks/useModeratorsChange';
 import useRolesChange from '../hooks/useRolesChange';
 import useCloseRoomChange from '../hooks/useCloseRoomChange';
+import useJoinRequestsChange from '../hooks/useJoinRequestsChange';
+import JoinRequestsModal from '../features/modal/JoinRequestsModal';
+import RoomInviteModal from '../features/modal/RoomInviteModal';
 
 const SingleRoom = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -61,6 +64,7 @@ const SingleRoom = () => {
   useModeratorsChange(room);
   useRolesChange(room);
   useCloseRoomChange(room);
+  useJoinRequestsChange(room);
 
   if (!initialized) return null;
   if (loading || isRtmLoading) return <Spinner className={spinnerStyles} size='lg' />;
@@ -78,16 +82,20 @@ const SingleRoom = () => {
   }
 
   return (
-    <article>
-      <RoomBanner className={bannerStyles} room={room} userId={user.id} rtmClient={rtmClient} />
-      <p className={descriptionStyles}>{room.description}</p>
-      <RoomAudience
-        userId={user.id}
-        moderators={room.moderators}
-        members={room.members}
-        raisedHands={room.requestAudio}
-      />
-    </article>
+    <>
+      <article>
+        <RoomBanner className={bannerStyles} room={room} userId={user.id} userName={user.name} rtmClient={rtmClient} />
+        <p className={descriptionStyles}>{room.description}</p>
+        <RoomAudience
+          userId={user.id}
+          moderators={room.moderators}
+          members={room.members}
+          raisedHands={room.requestAudio}
+        />
+      </article>
+      <JoinRequestsModal />
+      <RoomInviteModal />
+    </>
   );
 };
 

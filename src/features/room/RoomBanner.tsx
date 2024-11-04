@@ -1,4 +1,4 @@
-import { RoomAudio, RoomCapacity, RoomControls } from '.';
+import { AddMembersContextMenu, RoomAudio, RoomCapacity, RoomControls } from '.';
 import { Avatar } from '../avatar';
 
 import { Room } from '../../types/global';
@@ -10,12 +10,20 @@ interface RoomBannerProps {
   src?: string;
   room: Room;
   userId: string;
+  userName: string;
   rtmClient: RTMClient;
 }
 
 // TODO: Handle Room Banner with custom image
 
-const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBanner, room, userId, rtmClient }) => {
+const RoomBanner: React.FC<RoomBannerProps> = ({
+  className = '',
+  src = defaultBanner,
+  room,
+  userName,
+  userId,
+  rtmClient,
+}) => {
   const {
     id: roomId,
     members,
@@ -25,14 +33,17 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
     newMemberRole,
     maxRoomCapacity,
     createdBy,
-    closed,
+    isClosed,
+    isPrivate,
+    joinRequests,
   } = room;
 
   const bannerSyles = `relative p-7 rounded-xl overflow-hidden bg-gray-800 ${className}`;
   const gridStyles = 'grid grid-cols-[auto,1fr,auto] gap-2 relative z-10 items-center';
   const nameStyles = 'my-0 font-semibold text-body-xs text-white';
   const headingStyles = 'col-span-3 mt-0 mb-1 text-white';
-  const controlsStyles = 'flex gap-4 flex-wrap col-span-3';
+  const controlsStyles = 'flex gap-4 flex-wrap col-span-3 items-center';
+  const isModerator = moderators.some((m) => m.id === userId);
 
   return (
     <header className={bannerSyles}>
@@ -49,8 +60,10 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
             rtmClient={rtmClient}
             raisedHands={requestAudio}
             moderators={moderators}
+            isPrivate={isPrivate}
           />
           <RoomControls
+            className='mr-auto'
             maxRoomCapacity={maxRoomCapacity}
             members={members}
             createdBy={createdBy}
@@ -58,8 +71,13 @@ const RoomBanner: React.FC<RoomBannerProps> = ({ className = '', src = defaultBa
             userId={userId}
             newMemberRole={newMemberRole}
             moderators={moderators}
-            isRoomClosed={closed}
+            isClosed={isClosed}
+            isPrivate={isPrivate}
+            joinRequests={joinRequests}
+            userName={userName}
+            roomName={roomName}
           />
+          {isModerator && <AddMembersContextMenu room={room} />}
         </div>
       </div>
       <img src={src} alt='Room banner' className='absolute left-0 top-0 h-full w-full object-cover opacity-30' />

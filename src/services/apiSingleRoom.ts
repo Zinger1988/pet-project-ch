@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
 import { db } from '../firebase';
+import { v4 as uuidv4 } from 'uuid';
 
 import { RoomDTO } from './types';
 import { CreateRoomValues, MemberDTO, MemberRole, Room } from '../types/global';
@@ -107,6 +108,10 @@ export const apiHandleMembership = async ({
       }),
       updateDoc(roomRef, {
         members: updatedMembers,
+        moderators:
+          mode === 'remove'
+            ? roomSnapshotData.moderators.filter((moderator) => moderator.id !== userId)
+            : roomSnapshotData.moderators,
       }),
     ]);
   } catch (e) {
@@ -161,6 +166,7 @@ export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: stri
     blackList: [],
     members: [{ user: userRef, role: 'speaker' }],
     requestAudio: [],
+    joinRequests: [],
   });
 
   await updateDoc(userRef, {
@@ -204,6 +210,32 @@ export const apiHandleModerator = async ({
 export const apiHandleCloseRoom = async ({ roomId, mode }: { roomId: string; mode: 'open' | 'close' }) => {
   const roomRef = await doc(db, DB_ROOMS, roomId);
   await updateDoc(roomRef, {
-    closed: mode === 'close',
+    isClosed: mode === 'close',
+  });
+};
+
+export const apiJoinRequest = async ({
+  roomId,
+  userId,
+  userName,
+  mode,
+  roomName,
+}: {
+  roomId: string;
+  userId: string;
+  userName: string;
+  roomName: string;
+  mode: 'add' | 'remove';
+}) => {
+  const roomRef = await doc(db, DB_ROOMS, roomId);
+  const roomDoc = await getDoc(roomRef);
+  const roomData = roomDoc.data() as RoomDTO;
+  const joinRequests =
+    mode === 'add'
+      ? [...roomData.joinRequests, { id: uuidv4(), roomId, userName, userId, roomName, type: 'joinRequest' }]
+      : roomData.joinRequests.filter((jr) => jr.userId !== userId);
+
+  await updateDoc(roomRef, {
+    joinRequests,
   });
 };

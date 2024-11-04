@@ -9,3 +9,4 @@ export { default as RoomsContainer } from './RoomsContainer';
 export { default as AudienceContextMenu } from './AudienceContextMenu';
 export { default as RoomCapacityToggle } from './RoomCapacityToggle';
 export { default as RoomCapacity } from './RoomCapacity';
+export { default as AddMembersContextMenu } from './AddMembersContextMenu';

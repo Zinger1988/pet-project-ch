@@ -21,9 +21,18 @@ interface RoomAudioProps {
   rtmClient: RTMClient;
   raisedHands: string[];
   moderators: User[];
+  isPrivate: boolean;
 }
 
-const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClient, raisedHands, moderators }) => {
+const RoomAudio: React.FC<RoomAudioProps> = ({
+  roomId,
+  userId,
+  members,
+  rtmClient,
+  raisedHands,
+  moderators,
+  isPrivate,
+}) => {
   const [micEnabled, setMicEnabled] = useState(false);
   const [unmuteTemporarily, setUnmuteTemporarily] = useState(false);
   const { t } = useTranslation();
@@ -33,7 +42,7 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
   const RTCClient = useRTCClient();
   const tokenData = tokens.find((item) => item.roomId === roomId);
   const member = members.find((member) => member.id === userId);
-  const isSpeaker = member?.role === 'speaker' || moderators.some((m) => m.id === userId);
+  const isSpeakerOrModerator = member?.role === 'speaker' || moderators.some((m) => m.id === userId);
   const isHandRaised = raisedHands.includes(userId);
 
   useEffect(() => {
@@ -42,7 +51,7 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
         await microphoneTrackRef.current.setEnabled(false);
         setMicEnabled(false);
         setUnmuteTemporarily(false);
-        toast.custom(<InfoTooltip type='danger' message='You was muted by room moderator' />);
+        toast.custom(<InfoTooltip type='danger' message='You was muted by room moderator' />, { duration: 5000 });
       }
 
       if (event.message === 'Unmute' && microphoneTrackRef.current) {
@@ -50,7 +59,7 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
         setMicEnabled(true);
         setUnmuteTemporarily(true);
         dispatch(requestAudio({ userId, roomId, mode: 'remove' }));
-        toast.custom(<InfoTooltip type='success' message='You was unmuted by room moderator' />);
+        toast.custom(<InfoTooltip type='success' message='You was unmuted by room moderator' />, { duration: 5000 });
       }
     };
 
@@ -69,7 +78,7 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
   }, [userId, roomId, tokens, dispatch]);
 
   useEffect(() => {
-    if (!tokenData || tokenLoading) return;
+    if (!tokenData || tokenLoading || (isPrivate && !member)) return;
 
     const initAgora = async () => {
       try {
@@ -93,7 +102,7 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
         microphoneTrackRef.current.close();
       }
     };
-  }, [RTCClient, roomId, userId, tokenLoading, tokenData]);
+  }, [RTCClient, roomId, userId, tokenLoading, tokenData, isPrivate, member]);
 
   const handleRiseHand = async () => {
     dispatch(requestAudio({ userId, roomId, mode: isHandRaised ? 'remove' : 'add' }));
@@ -107,7 +116,9 @@ const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClien
     }
   };
 
-  if (!isSpeaker && !unmuteTemporarily) {
+  if (isPrivate && !member) return null;
+
+  if (!isSpeakerOrModerator && !unmuteTemporarily) {
     return (
       <Button onClick={handleRiseHand} size='sm' variant='info' className='gap-2.5 pl-4'>
         <Icon id={IconId.RaiseHand} className='h-5 w-5 fill-primary-400' />
