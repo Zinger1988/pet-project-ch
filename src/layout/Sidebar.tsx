@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import { IconId } from '../types/enums';
 import { capitalizeFirstLetter } from '../helpers/stringUtils';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 interface SidebarProps {
   className?: string;
@@ -11,6 +13,12 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const { t } = useTranslation();
+  const { notifications } = useSelector((state: RootState) => state.notificationsSlice);
+  const hasNotifications = notifications !== null && notifications.length !== 0;
+  const unreadNotificationsCount = hasNotifications
+    ? notifications.reduce<number>((acc, cur) => (cur.hasBeenRead ? acc : acc + 1), 0)
+    : 0;
+
   const navItems = [
     { label: t('mobile menu.explore'), url: 'rooms/explore', icon: IconId.Compass },
     { label: t('mobile menu.my rooms'), url: 'rooms', icon: IconId.Voice },
@@ -20,6 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
       label: t('mobile menu.notifications'),
       url: 'notifications',
       icon: IconId.Notification,
+      counter: unreadNotificationsCount || null,
     },
     { label: t('mobile menu.create room'), url: 'rooms/create', icon: IconId.PlusCircle },
   ];
@@ -32,6 +41,8 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
   const navLinkActiveStyles = 'bg-primary-400 [&>svg]:fill-black text-black hover:text-black dark:hover:text-black';
   const navLinkNonActiveStyles = 'hover:bg-gray-800 text-gray-300 dark:hover:bg-gray-700 hover:text-white';
   const iconStyles = 'fill-gray-400 w-5 h-5 lg:w-6 lg:h-6 shrink-0';
+  const notificationsCountStyles =
+    'text-body-xs ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white';
 
   return (
     <div className={sidebarStyles}>
@@ -48,6 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
               >
                 <Icon id={item.icon} className={iconStyles} />
                 <span>{capitalizeFirstLetter(item.label)}</span>
+                {item.counter && <span className={notificationsCountStyles}>{item.counter}</span>}
               </NavLink>
             </li>
           ))}

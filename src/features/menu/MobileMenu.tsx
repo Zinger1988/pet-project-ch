@@ -9,6 +9,8 @@ import { AppDispatch } from '../../store/types';
 import { IconId } from '../../types/enums';
 import { User } from '../../types/global';
 import { capitalizeFirstLetter } from '../../helpers/stringUtils';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 interface MobileMenuProps {
   className?: string;
@@ -19,6 +21,11 @@ interface MobileMenuProps {
 const MobileMenu: React.FC<MobileMenuProps> = ({ className = '', onClick, user }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
+  const { notifications } = useSelector((state: RootState) => state.notificationsSlice);
+  const hasNotifications = notifications !== null && notifications.length !== 0;
+  const unreadNotificationsCount = hasNotifications
+    ? notifications.reduce<number>((acc, cur) => (cur.hasBeenRead ? acc : acc + 1), 0)
+    : 0;
 
   const handleSignOut = () => {
     dispatch(signOut());
@@ -33,6 +40,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ className = '', onClick, user }
       label: t('mobile menu.notifications'),
       url: 'notifications',
       icon: IconId.Notification,
+      counter: unreadNotificationsCount || null,
     },
     { label: t('mobile menu.create room'), url: 'rooms/create', icon: IconId.PlusCircle },
   ];
@@ -43,6 +51,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ className = '', onClick, user }
   const linkActiveStyles = 'bg-primary-400 [&>svg]:fill-black text-black hover:text-black dark:hover:text-black';
   const linkNonActiveStyles = 'hover:bg-gray-800 text-gray-300 dark:hover:bg-gray-700 hover:text-white';
   const iconStyles = 'fill-gray-400 w-5 h-5 shrink-0';
+  const notificationsCountStyles =
+    'text-body-xs ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white';
 
   return (
     <nav className={navStyles} aria-label='Main navigation'>
@@ -64,6 +74,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ className = '', onClick, user }
                   >
                     <Icon id={item.icon} className={iconStyles} />
                     <span>{capitalizeFirstLetter(item.label)}</span>
+                    {item.counter && <span className={notificationsCountStyles}>{item.counter}</span>}
                   </NavLink>
                 </li>
               ))}

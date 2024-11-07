@@ -3,10 +3,10 @@ import { ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { InfoTooltip } from '../../components';
-import { Checkbox, Textarea, TextInput } from '.';
+import { Checkbox, Textarea, TextInput, Select } from '.';
 
 type inputTypes = 'text' | 'password' | 'email' | 'number' | 'checkbox';
-type controlTypes = inputTypes | 'textarea';
+type controlTypes = inputTypes | 'textarea' | 'select';
 
 interface FormControlProps {
   name: string;
@@ -44,6 +44,10 @@ const FormControl: React.FC<FormControlProps & FieldProps> = (props) => {
       ControlComponent = Textarea;
       break;
     }
+    case 'select': {
+      ControlComponent = Select;
+      break;
+    }
     default: {
       ControlComponent = TextInput;
     }
@@ -51,7 +55,7 @@ const FormControl: React.FC<FormControlProps & FieldProps> = (props) => {
 
   return (
     <div className={className}>
-      <ControlComponent {...field} {...restProps} className='mb-3' />
+      <ControlComponent {...field} {...restProps} form={form} className='mb-3' />
       {hasErrors && <InfoTooltip type='danger' message={errors[field.name] as string} />}
     </div>
   );

@@ -10,3 +10,4 @@ export { default as Logo } from './Logo';
 export { default as ModeratorIcon } from './ModeratorIcon';
 export { default as Spinner } from './Spinner';
 export { default as ThemeToggle } from './ThemeToggle';
+export { default as NotificationMessage } from './NotificationMessage';

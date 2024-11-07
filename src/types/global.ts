@@ -48,22 +48,18 @@ export interface RemoteUser extends User {
 
 export interface Room {
   id: string;
-  createdBy: {
-    id: string;
-    name: string;
-    email: string;
-  };
+  createdBy: User;
   description: string;
   isPrivate: boolean;
-  moderator: {
-    id: string;
-    name: string;
-    email: string;
-  };
+  moderators: User[];
   name: string;
   members: Member[];
-  membersCount: number;
   blackList: string[];
+  requestAudio: string[];
+  newMemberRole: MemberRole;
+  maxRoomCapacity: number | null;
+  isClosed: boolean;
+  joinRequests: JoinRequestNotification[];
 }
 
 export type MemberRole = 'audience' | 'speaker';
@@ -93,4 +89,43 @@ export interface CreateRoomValues {
   name: string;
   description: string;
   isPrivate: boolean;
+  newMemberRole: MemberRole;
+  maxRoomCapacity: number | null;
+}
+
+export enum NotificationTypes {
+  JoinRoom = 'joinRoom',
+  Moderate = 'moderate',
+  Alert = 'alert',
+  JoinRequest = 'joinRequest',
+}
+
+export interface Notification {
+  id: string;
+  hasBeenRead?: boolean;
+}
+
+export interface AlertNotification extends Notification {
+  type: 'alert';
+  message: string;
+}
+
+export interface RoleNotification extends Notification {
+  type: 'moderate' | 'joinRoom';
+  roomName: string;
+  roomId: string;
+}
+
+export interface JoinRequestNotification extends Notification {
+  type: NotificationTypes.JoinRequest;
+  userId: string;
+  userName: string;
+  roomId: string;
+  roomName: string;
+}
+
+export type UserNotification = AlertNotification | RoleNotification;
+
+export interface AppNotificationDTO {
+  notifications: UserNotification[];
 }

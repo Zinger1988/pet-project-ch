@@ -5,29 +5,60 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../components/Button';
 
 import { useModal } from '../../context/ModalContext';
-import { deleteRoom, handleMembership } from '../../store/actions/singleRoomActions';
+import {
+  deleteRoom,
+  handleCloseRoom,
+  handleJoinRequest,
+  handleMembership,
+} from '../../store/actions/singleRoomActions';
 import { AppDispatch } from '../../store/types';
-import { User } from '../../types/global';
+import { Member, MemberRole, User } from '../../types/global';
 
 interface RoomControlsProps {
   roomId: string;
   userId: string;
-  moderatorId: string;
-  members: User[];
+  createdBy: User;
+  members: Member[];
   className?: string;
+  newMemberRole: MemberRole;
+  maxRoomCapacity: number | null;
+  moderators: User[];
+  isClosed: boolean;
+  isPrivate: boolean;
+  userName: string;
+  joinRequests: { userId: string; userName: string }[];
+  roomName: string;
 }
 
-const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId, members }) => {
+const RoomControls: React.FC<RoomControlsProps> = ({
+  roomId,
+  userId,
+  createdBy,
+  members,
+  newMemberRole,
+  maxRoomCapacity,
+  moderators,
+  isClosed,
+  isPrivate,
+  joinRequests,
+  className,
+  userName,
+  roomName,
+}) => {
   const { t } = useTranslation();
+  const { openModal } = useModal();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { openModal } = useModal();
 
   let roomControls = null;
-  const isModerator = userId === moderatorId;
-  const isMember = members.some((member) => {
+  const isMaxCapactity = maxRoomCapacity ? members.length >= maxRoomCapacity : false;
+  const isCreator = createdBy.id === userId;
+  const isModerator = moderators.some((m) => m.id === userId);
+  const member = members.find((member) => {
     return member.id === userId;
   });
+  const isSpeaker = member?.role === 'speaker';
+  const hasJoinRequest = joinRequests.some((r) => r.userId === userId);
 
   const handleDelete = async () => {
     openModal({
@@ -37,41 +68,94 @@ const RoomControls: React.FC<RoomControlsProps> = ({ roomId, userId, moderatorId
       callbacks: {
         onConfirm: async () => {
           await dispatch(deleteRoom(roomId, userId));
-          navigate('/rooms');
+          navigate('/rooms/explore');
         },
       },
     });
   };
 
   const handleJoin = async () => {
-    await dispatch(handleMembership({ userId, roomId, mode: 'add' }));
+    if (isMaxCapactity || isClosed) return;
+    await dispatch(handleMembership({ userId, roomId, mode: 'add', role: newMemberRole }));
   };
 
   const handleLeave = async () => {
-    await dispatch(handleMembership({ userId, roomId, mode: 'remove' }));
+    let modalMessage = '';
+
+    if (isModerator) {
+      modalMessage = 'Your moderation permissions will be rewoked.';
+    } else if (isSpeaker && newMemberRole !== 'speaker') {
+      modalMessage = 'Your speaker permissions will be rewoked.';
+    }
+
+    openModal({
+      id: 'confirm',
+      headerContent: 'Confirmation required',
+      bodyContent: `Are you sure you want to leave this room? ${modalMessage}`,
+      callbacks: {
+        onConfirm: async () => {
+          await dispatch(handleMembership({ userId, roomId, mode: 'remove' }));
+        },
+      },
+    });
   };
 
-  if (isModerator) {
+  const handleClose = async () => {
+    dispatch(handleCloseRoom({ roomId, mode: isClosed ? 'open' : 'close' }));
+  };
+
+  const handleJoinGrant = async () => {
+    debugger;
+    dispatch(handleJoinRequest({ roomId, roomName, userId, userName, mode: hasJoinRequest ? 'remove' : 'add' }));
+  };
+
+  if (isCreator) {
     roomControls = (
       <Button variant='danger' size='sm' onClick={handleDelete}>
         {t('buttons.delete room', { ns: 'room' })}
       </Button>
     );
-  } else if (isMember) {
+  } else if (member) {
     roomControls = (
       <Button className='text-white' appearance='outline' size='sm' onClick={handleLeave}>
         {t('buttons.leave room', { ns: 'room' })}
       </Button>
     );
+  } else if (hasJoinRequest) {
+    roomControls = (
+      <>
+        <Button size='sm' disabled={isMaxCapactity || isClosed}>
+          Waiting for join approval
+        </Button>
+        <Button appearance='outline' size='sm' variant='info' onClick={handleJoinGrant}>
+          Cancel
+        </Button>
+      </>
+    );
+  } else if (isPrivate) {
+    roomControls = (
+      <Button size='sm' onClick={handleJoinGrant} disabled={isMaxCapactity || isClosed}>
+        Send join request
+      </Button>
+    );
   } else {
     roomControls = (
-      <Button size='sm' onClick={handleJoin}>
+      <Button size='sm' onClick={handleJoin} disabled={isMaxCapactity || isClosed}>
         {t('buttons.join room', { ns: 'room' })}
       </Button>
     );
   }
 
-  return roomControls;
+  return (
+    <div className={`flex items-center gap-4 ${className}`}>
+      {roomControls}
+      {isModerator && (
+        <Button onClick={handleClose} size='sm'>
+          {isClosed ? 'Open' : 'Close'} room
+        </Button>
+      )}
+    </div>
+  );
 };
 
 export default RoomControls;

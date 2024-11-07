@@ -9,6 +9,7 @@ import { IconId } from '../../types/enums';
 interface ModalProps {
   children: ReactNode;
   id: string;
+  className?: string;
 }
 
 interface ModalWithChildren {
@@ -19,7 +20,7 @@ const Modal: React.FC<ModalProps> & {
   Head: React.FC<ModalWithChildren>;
   Body: React.FC<ModalWithChildren>;
   Footer: React.FC<ModalWithChildren>;
-} = ({ id, children }) => {
+} = ({ id, children, className = '' }) => {
   const { openedId, closeModal, callbacks } = useModal();
 
   if (openedId !== id) return null;
@@ -33,7 +34,7 @@ const Modal: React.FC<ModalProps> & {
     }
   };
   const overlayStyles = 'fixed left-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-black/80';
-  const containerStyles = 'w-[90%] min-w-[300px] max-w-[500px] rounded-xl bg-gray-700';
+  const containerStyles = `w-[90%] min-w-[300px] max-w-[500px] rounded-xl bg-gray-700 ${className}`;
 
   onOpen && onOpen();
 

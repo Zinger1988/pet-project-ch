@@ -2,7 +2,7 @@ import { AudienceContextMenu } from '../room';
 import { Icon, ModeratorIcon } from '../../components';
 import { Avatar } from '.';
 import { IconId } from '../../types/enums';
-import { User, RemoteUser } from '../../types/global';
+import { User, RemoteUser, MemberRole } from '../../types/global';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { assertRoom } from '../../types/assertions';
@@ -11,10 +11,17 @@ interface AudienceAvatarProps {
   member: User | RemoteUser;
   className?: string;
   userId: string;
-  moderatorId: string;
+  moderators: User[];
+  raisedHand?: boolean;
 }
 
-const AudienceAvatar: React.FC<AudienceAvatarProps> = ({ member, className = '', userId, moderatorId }) => {
+const AudienceAvatar: React.FC<AudienceAvatarProps> = ({
+  member,
+  className = '',
+  userId,
+  moderators,
+  raisedHand = false,
+}) => {
   const { room } = useSelector((state: RootState) => state.singleRoomSlice);
 
   assertRoom(room);
@@ -24,10 +31,17 @@ const AudienceAvatar: React.FC<AudienceAvatarProps> = ({ member, className = '',
   const ModeratorIconStyles = 'absolute left-0 top-0 -translate-x-1/4 -translate-y-1/4 z-50';
   const blockedIndicatorStyles = `absolute left-0 top-0 z-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-black/70 backdrop-grayscale`;
   const blockedIconStyles = 'h-8 w-8 fill-gray-300';
+  const raiseHandIndicatorStyles = `absolute left-0 top-0 z-10 flex h-8 w-8 -translate-x-1/4 -translate-y-1/4 items-center justify-center rounded-full bg-gray-800`;
+  const raiseHandIconStyles = 'h-4 w-4 fill-primary-400';
 
-  const isModerator = userId === moderatorId;
-  const isMemberModerator = member.id === moderatorId;
+  const isModerator = moderators.some((m) => m.id === userId);
+  const isMemberHasModeratorRights = moderators.some((m) => m.id === member.id);
   const isBlocked = room.blackList.includes(member.id);
+  const isMember = room.members.some((m) => m.id === member.id);
+  const isMemberCreator = room.createdBy.id === member.id;
+  const role = room.members.reduce<MemberRole | 'guest'>((acc, cur) => {
+    return cur.id === member.id ? cur.role : acc;
+  }, 'guest');
 
   const hasAudio = (member: User | RemoteUser) => {
     return 'hasAudio' in member ? member.hasAudio : false;
@@ -40,13 +54,23 @@ const AudienceAvatar: React.FC<AudienceAvatarProps> = ({ member, className = '',
           <Icon id={IconId.Lock} className={blockedIconStyles} />
         </div>
       )}
-      {/* {raisedHand && (
-        <div className='absolute left-0 top-0 z-10 flex h-8 w-8 -translate-x-1/4 -translate-y-1/4 items-center justify-center rounded-full bg-gray-800'>
-          <Icon id={IconId.RaiseHand} className='h-4 w-4 fill-primary-400' />
+      {raisedHand && (
+        <div className={raiseHandIndicatorStyles}>
+          <Icon id={IconId.RaiseHand} className={raiseHandIconStyles} />
         </div>
-      )} */}
-      {isMemberModerator && <ModeratorIcon className={ModeratorIconStyles} />}
-      {isModerator && <AudienceContextMenu memberId={member.id} hasAudio={hasAudio(member)} room={room} />}
+      )}
+      {isMemberHasModeratorRights && <ModeratorIcon className={ModeratorIconStyles} />}
+      {isModerator && !isMemberCreator && (
+        <AudienceContextMenu
+          memberId={member.id}
+          isMember={isMember}
+          isModerator={isMemberHasModeratorRights}
+          hasAudio={hasAudio(member)}
+          room={room}
+          raisedHand={raisedHand}
+          role={role}
+        />
+      )}
       <Avatar name={member.name} size='lg' />
       {hasAudio(member) && (
         <div className={voiceIndicatorStyles}>
