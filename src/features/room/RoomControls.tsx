@@ -22,7 +22,6 @@ interface RoomControlsProps {
   className?: string;
   newMemberRole: MemberRole;
   maxRoomCapacity: number | null;
-  moderators: User[];
   isClosed: boolean;
   isPrivate: boolean;
   userName: string;
@@ -37,7 +36,6 @@ const RoomControls: React.FC<RoomControlsProps> = ({
   members,
   newMemberRole,
   maxRoomCapacity,
-  moderators,
   isClosed,
   isPrivate,
   joinRequests,
@@ -53,7 +51,7 @@ const RoomControls: React.FC<RoomControlsProps> = ({
   let roomControls = null;
   const isMaxCapactity = maxRoomCapacity ? members.length >= maxRoomCapacity : false;
   const isCreator = createdBy.id === userId;
-  const isModerator = moderators.some((m) => m.id === userId);
+  const isModerator = members.some((m) => m.id === userId && m.role === 'moderator');
   const member = members.find((member) => {
     return member.id === userId;
   });

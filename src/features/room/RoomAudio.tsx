@@ -20,19 +20,10 @@ interface RoomAudioProps {
   members: Member[];
   rtmClient: RTMClient;
   raisedHands: string[];
-  moderators: User[];
   isPrivate: boolean;
 }
 
-const RoomAudio: React.FC<RoomAudioProps> = ({
-  roomId,
-  userId,
-  members,
-  rtmClient,
-  raisedHands,
-  moderators,
-  isPrivate,
-}) => {
+const RoomAudio: React.FC<RoomAudioProps> = ({ roomId, userId, members, rtmClient, raisedHands, isPrivate }) => {
   const [micEnabled, setMicEnabled] = useState(false);
   const [unmuteTemporarily, setUnmuteTemporarily] = useState(false);
   const { t } = useTranslation();
@@ -42,7 +33,7 @@ const RoomAudio: React.FC<RoomAudioProps> = ({
   const RTCClient = useRTCClient();
   const tokenData = tokens.find((item) => item.roomId === roomId);
   const member = members.find((member) => member.id === userId);
-  const isSpeakerOrModerator = member?.role === 'speaker' || moderators.some((m) => m.id === userId);
+  const isSpeakerOrModerator = member?.role === 'speaker' || member?.role === 'moderator';
   const isHandRaised = raisedHands.includes(userId);
 
   useEffect(() => {
