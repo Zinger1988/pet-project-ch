@@ -108,10 +108,6 @@ export const apiHandleMembership = async ({
       }),
       updateDoc(roomRef, {
         members: updatedMembers,
-        moderators:
-          mode === 'remove'
-            ? roomSnapshotData.moderators.filter((moderator) => moderator.id !== userId)
-            : roomSnapshotData.moderators,
       }),
     ]);
   } catch (e) {
@@ -162,9 +158,8 @@ export const apiCreateRoom = async (values: CreateRoomValues & { createdBy: stri
   const roomRef = await addDoc(collection(db, DB_ROOMS), {
     ...values,
     createdBy: userRef,
-    moderators: [userRef],
     blackList: [],
-    members: [{ user: userRef, role: 'speaker' }],
+    members: [{ user: userRef, role: 'moderator' }],
     requestAudio: [],
     joinRequests: [],
   });
@@ -202,8 +197,16 @@ export const apiHandleModerator = async ({
 }) => {
   const userRef = await doc(db, DB_USERS, userId);
   const roomRef = await doc(db, DB_ROOMS, roomId);
+  const roomDoc = await getDoc(roomRef);
+  const { members, newMemberRole } = roomDoc.data() as RoomDTO;
+
   await updateDoc(roomRef, {
-    moderators: mode === 'add' ? arrayUnion(userRef) : arrayRemove(userRef),
+    members: members.map((m) => {
+      if (m.user.id === userRef.id) {
+        m.role = mode === 'add' ? 'moderator' : newMemberRole;
+      }
+      return m;
+    }),
   });
 };
 

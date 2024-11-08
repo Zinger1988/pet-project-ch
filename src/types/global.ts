@@ -51,7 +51,6 @@ export interface Room {
   createdBy: User;
   description: string;
   isPrivate: boolean;
-  moderators: User[];
   name: string;
   members: Member[];
   blackList: string[];
@@ -62,7 +61,7 @@ export interface Room {
   joinRequests: JoinRequestNotification[];
 }
 
-export type MemberRole = 'audience' | 'speaker';
+export type MemberRole = 'audience' | 'speaker' | 'moderator';
 
 export type MemberDTO = {
   user: DocumentReference;

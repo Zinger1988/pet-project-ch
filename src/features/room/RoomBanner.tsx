@@ -27,7 +27,6 @@ const RoomBanner: React.FC<RoomBannerProps> = ({
   const {
     id: roomId,
     members,
-    moderators,
     name: roomName,
     requestAudio,
     newMemberRole,
@@ -43,7 +42,7 @@ const RoomBanner: React.FC<RoomBannerProps> = ({
   const nameStyles = 'my-0 font-semibold text-body-xs text-white';
   const headingStyles = 'col-span-3 mt-0 mb-1 text-white';
   const controlsStyles = 'flex gap-4 flex-wrap col-span-3 items-center';
-  const isModerator = moderators.some((m) => m.id === userId);
+  const isModerator = members.some((m) => m.id === userId && m.role === 'moderator');
 
   return (
     <header className={bannerSyles}>
@@ -59,7 +58,6 @@ const RoomBanner: React.FC<RoomBannerProps> = ({
             members={members}
             rtmClient={rtmClient}
             raisedHands={requestAudio}
-            moderators={moderators}
             isPrivate={isPrivate}
           />
           <RoomControls
@@ -70,7 +68,6 @@ const RoomBanner: React.FC<RoomBannerProps> = ({
             roomId={roomId}
             userId={userId}
             newMemberRole={newMemberRole}
-            moderators={moderators}
             isClosed={isClosed}
             isPrivate={isPrivate}
             joinRequests={joinRequests}

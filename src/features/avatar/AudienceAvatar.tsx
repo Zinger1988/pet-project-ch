@@ -2,7 +2,7 @@ import { AudienceContextMenu } from '../room';
 import { Icon, ModeratorIcon } from '../../components';
 import { Avatar } from '.';
 import { IconId } from '../../types/enums';
-import { User, RemoteUser, MemberRole } from '../../types/global';
+import { User, RemoteUser, MemberRole, Member } from '../../types/global';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { assertRoom } from '../../types/assertions';
@@ -11,7 +11,7 @@ interface AudienceAvatarProps {
   member: User | RemoteUser;
   className?: string;
   userId: string;
-  moderators: User[];
+  members: Member[];
   raisedHand?: boolean;
 }
 
@@ -19,7 +19,7 @@ const AudienceAvatar: React.FC<AudienceAvatarProps> = ({
   member,
   className = '',
   userId,
-  moderators,
+  members,
   raisedHand = false,
 }) => {
   const { room } = useSelector((state: RootState) => state.singleRoomSlice);
@@ -34,8 +34,8 @@ const AudienceAvatar: React.FC<AudienceAvatarProps> = ({
   const raiseHandIndicatorStyles = `absolute left-0 top-0 z-10 flex h-8 w-8 -translate-x-1/4 -translate-y-1/4 items-center justify-center rounded-full bg-gray-800`;
   const raiseHandIconStyles = 'h-4 w-4 fill-primary-400';
 
-  const isModerator = moderators.some((m) => m.id === userId);
-  const isMemberHasModeratorRights = moderators.some((m) => m.id === member.id);
+  const isModerator = members.some((m) => m.id === userId && m.role === 'moderator');
+  const isMemberHasModeratorRights = members.some((m) => m.id === member.id && m.role === 'moderator');
   const isBlocked = room.blackList.includes(member.id);
   const isMember = room.members.some((m) => m.id === member.id);
   const isMemberCreator = room.createdBy.id === member.id;

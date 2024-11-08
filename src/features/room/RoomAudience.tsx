@@ -11,11 +11,10 @@ import { User, RemoteUser, Member } from '../../types/global';
 interface RoomAudienceProps {
   members: Member[];
   userId: string;
-  moderators: User[];
   raisedHands: string[];
 }
 
-const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, moderators, raisedHands }) => {
+const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, raisedHands }) => {
   const { t } = useTranslation();
   const remoteUsers = useRemoteUsers();
   const [audience, setAudience] = useState<RemoteUser[]>([]);
@@ -76,7 +75,7 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, moderators
                 key={member.id}
                 member={member}
                 userId={userId}
-                moderators={moderators}
+                members={members}
                 raisedHand={raisedHands.includes(member.id)}
               />
             )}
@@ -91,7 +90,7 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, moderators
                 key={guest.id}
                 member={guest}
                 userId={userId}
-                moderators={moderators}
+                members={members}
                 raisedHand={raisedHands.includes(guest.id)}
               />
             )}
@@ -101,9 +100,7 @@ const RoomAudience: React.FC<RoomAudienceProps> = ({ members, userId, moderators
           <RoomAudienceList
             title={t('audience.offline members', { ns: 'room' })}
             audience={offline}
-            render={(member) => (
-              <AudienceAvatar key={member.id} member={member} userId={userId} moderators={moderators} />
-            )}
+            render={(member) => <AudienceAvatar key={member.id} member={member} userId={userId} members={members} />}
           />
         )}
       </div>

@@ -43,7 +43,11 @@ const RoomsContainer: React.FC<RoomsContainerProps> = ({ title, loading, rooms }
       <h1 className={headingStyles}>{title}</h1>
       <div className={containerStyles}>
         {rooms.map((room) => (
-          <RoomCard key={room.id} room={room} isModerator={room.moderators.some((m) => m.id === user.id)} />
+          <RoomCard
+            key={room.id}
+            room={room}
+            isModerator={room.members.some((m) => m.id === user.id && m.role === 'moderator')}
+          />
         ))}
       </div>
     </>

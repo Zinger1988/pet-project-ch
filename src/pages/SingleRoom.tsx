@@ -5,17 +5,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Spinner } from '../components';
 import { RoomAudience, RoomBanner } from '../features/room';
 
-import { useBlacklistChange, useMembersChange, useReqAudioChange, useSubscribeChannel } from '../hooks';
+import {
+  useBlacklistChange,
+  useMembersChange,
+  useReqAudioChange,
+  useSubscribeChannel,
+  useModeratorsChange,
+  useRolesChange,
+  useCloseRoomChange,
+  useJoinRequestsChange,
+} from '../hooks';
 import { AppDispatch } from '../store/types';
 import { RootState } from '../store';
 import { clearRoomErrors, clearRoom, getRoom, requestAudio } from '../store/actions/singleRoomActions';
 import { assertRoom, assertRTMClinet, assertUser } from '../types/assertions';
 import { useModal } from '../context/ModalContext';
 import { useAgoraRTMContext } from '../context/RTMContext';
-import useModeratorsChange from '../hooks/useModeratorsChange';
-import useRolesChange from '../hooks/useRolesChange';
-import useCloseRoomChange from '../hooks/useCloseRoomChange';
-import useJoinRequestsChange from '../hooks/useJoinRequestsChange';
 import JoinRequestsModal from '../features/modal/JoinRequestsModal';
 import RoomInviteModal from '../features/modal/RoomInviteModal';
 
@@ -86,12 +91,7 @@ const SingleRoom = () => {
       <article>
         <RoomBanner className={bannerStyles} room={room} userId={user.id} userName={user.name} rtmClient={rtmClient} />
         <p className={descriptionStyles}>{room.description}</p>
-        <RoomAudience
-          userId={user.id}
-          moderators={room.moderators}
-          members={room.members}
-          raisedHands={room.requestAudio}
-        />
+        <RoomAudience userId={user.id} members={room.members} raisedHands={room.requestAudio} />
       </article>
       <JoinRequestsModal />
       <RoomInviteModal />
